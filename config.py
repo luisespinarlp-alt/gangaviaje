@@ -6,6 +6,9 @@ load_dotenv()
 # Booking
 BOOKING_AFFILIATE_ID = os.getenv("BOOKING_AFFILIATE_ID", "")
 
+# Civitatis
+CIVITATIS_AFFILIATE_ID = os.getenv("CIVITATIS_AFFILIATE_ID", "")
+
 # Telegram
 TELEGRAM_BOT_TOKEN  = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID", "@gangaviaje")
