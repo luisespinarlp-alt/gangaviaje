@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre nosotros — GangaViaje</title>
+  <meta name="description" content="Conoce el equipo detrás de GangaViaje, cómo encontramos las mejores ofertas de viajes y cómo contactar con nosotros.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2308142d'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' text-anchor='middle' fill='%23c9a84c'%3EG%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Raleway', -apple-system, sans-serif; background: #f4f6f9; color: #1a1a2e; line-height: 1.6; }
+
+    /* NAV */
+    nav { background: rgba(8,20,45,0.95); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo-wrap { display: flex; flex-direction: column; }
+    .logo-name { font-size: 1.35rem; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1.1; }
+    .logo-name span { color: #c9a84c; }
+    .logo-line { display: block; height: 2px; width: 40px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; margin-top: 4px; }
+    .nav-back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+    .nav-back:hover { color: white; }
+    .nav-back svg { width: 15px; height: 15px; }
+
+    /* HERO */
+    .page-hero { background: linear-gradient(135deg, #08142d 0%, #0d2145 100%); padding: 56px 24px 48px; text-align: center; border-bottom: 1px solid rgba(201,168,76,0.2); }
+    .page-hero-inner { max-width: 680px; margin: 0 auto; }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); color: #f0d080; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .page-hero h1 { font-size: 2.2rem; font-weight: 800; color: white; margin-bottom: 14px; line-height: 1.2; }
+    .page-hero h1 span { color: #c9a84c; }
+    .page-hero p { font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto; }
+
+    /* MAIN */
+    main { max-width: 820px; margin: 0 auto; padding: 48px 24px 64px; display: flex; flex-direction: column; gap: 32px; }
+
+    /* CARDS */
+    .card { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .card-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #08142d, #1a4a7a); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .card-icon svg { width: 24px; height: 24px; color: #c9a84c; }
+    .card h2 { font-size: 1.2rem; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; }
+    .card p { font-size: 0.93rem; color: #555; line-height: 1.8; margin-bottom: 12px; }
+    .card p:last-child { margin-bottom: 0; }
+
+    /* CÓMO FUNCIONA */
+    .steps { display: flex; flex-direction: column; gap: 16px; margin-top: 4px; }
+    .step { display: flex; gap: 16px; align-items: flex-start; }
+    .step-num { width: 32px; height: 32px; background: #08142d; color: #c9a84c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
+    .step-body h3 { font-size: 0.95rem; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+    .step-body p { font-size: 0.875rem; color: #666; line-height: 1.6; margin: 0; }
+
+    /* AVISO AFILIADOS */
+    .disclosure { background: #fff8e1; border: 1px solid #ffe082; border-radius: 16px; padding: 28px 32px; }
+    .disclosure-title { display: flex; align-items: center; gap: 10px; font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
+    .disclosure-title svg { width: 20px; height: 20px; color: #f59e0b; flex-shrink: 0; }
+    .disclosure p { font-size: 0.875rem; color: #666; line-height: 1.8; margin-bottom: 10px; }
+    .disclosure p:last-child { margin-bottom: 0; }
+
+    /* CONTACTO */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .contact-item { display: flex; align-items: center; gap: 14px; background: #f8fafc; border-radius: 10px; padding: 16px; }
+    .contact-item svg { width: 20px; height: 20px; color: #003580; flex-shrink: 0; }
+    .contact-item-body { display: flex; flex-direction: column; }
+    .contact-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: #999; font-weight: 600; margin-bottom: 3px; }
+    .contact-value { font-size: 0.9rem; font-weight: 600; color: #1a1a2e; }
+    .contact-value a { color: #003580; text-decoration: none; }
+    .contact-value a:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer { background: #08142d; color: #6b7e9f; padding: 40px 24px; border-top: 1px solid rgba(201,168,76,0.15); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    .footer-logo { font-size: 1.25rem; font-weight: 800; color: white; }
+    .footer-logo span { color: #c9a84c; }
+    footer p { font-size: 0.8rem; line-height: 1.7; }
+    footer a { color: #c9a84c; text-decoration: none; }
+    .footer-divider { width: 40px; height: 2px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; }
+    .footer-links { display: flex; gap: 20px; }
+
+    @media (max-width: 600px) {
+      .page-hero h1 { font-size: 1.7rem; }
+      .card { padding: 22px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      main { padding: 32px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-wrap">
+        <span class="logo-name">Ganga<span>Viaje</span></span>
+        <i class="logo-line"></i>
+      </div>
+    </a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Volver a ofertas
+    </a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Quiénes somos</div>
+    <h1>Viaja más, <span>gasta menos</span></h1>
+    <p>GangaViaje es un comparador de ofertas de viajes que selecciona cada hora las mejores promociones en hoteles, apartamentos, actividades y más.</p>
+  </div>
+</div>
+
+<main>
+
+  <!-- QUIÉNES SOMOS -->
+  <div class="card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <h2>Nuestro proyecto</h2>
+    <p>Somos un equipo de viajeros apasionados que creamos GangaViaje con un objetivo claro: que nadie pague de más por sus vacaciones. Sabemos lo frustrante que es encontrar el precio perfecto entre miles de opciones.</p>
+    <p>Por eso automatizamos la búsqueda. Nuestro sistema revisa cada hora las mejores plataformas de viajes y publica solo las ofertas con descuentos reales, para que tú te dediques a planificar tu viaje y no a buscar chollos.</p>
+  </div>
+
+  <!-- CÓMO FUNCIONA -->
+  <div class="card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    </div>
+    <h2>Cómo funciona</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Buscamos cada hora</h3>
+          <p>Nuestro bot analiza automáticamente Booking.com, Civitatis, GetYourGuide y otras plataformas en busca de ofertas con descuentos reales.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Filtramos las mejores</h3>
+          <p>Solo publicamos ofertas con un descuento mínimo significativo. Sin relleno, sin precios inflados artificialmente.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Tú reservas directamente</h3>
+          <p>Al hacer clic te redirigimos a la plataforma oficial. Reservas directamente con ellos, con sus garantías y servicio de atención al cliente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AVISO DE AFILIACIÓN -->
+  <div class="disclosure">
+    <div class="disclosure-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Aviso sobre enlaces de afiliado
+    </div>
+    <p>GangaViaje participa en programas de afiliación con plataformas como Booking.com, Civitatis y GetYourGuide. Esto significa que cuando haces clic en un enlace de nuestra web y realizas una reserva, podemos recibir una pequeña comisión sin coste adicional para ti.</p>
+    <p>Este modelo nos permite mantener el servicio gratuito para nuestros usuarios. Las comisiones nunca influyen en la selección de ofertas: publicamos las mejores promociones independientemente de la plataforma que las ofrezca.</p>
+    <p>Todos los precios mostrados en GangaViaje son orientativos y están sujetos a disponibilidad. Te recomendamos confirmar el precio final en la plataforma de reservas antes de completar tu compra.</p>
+  </div>
+
+  <!-- CONTACTO -->
+  <div class="card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </div>
+    <h2>Contacto</h2>
+    <p>¿Tienes alguna pregunta, sugerencia o has encontrado una oferta que no funciona? Escríbenos y te responderemos lo antes posible.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <div class="contact-item-body">
+          <span class="contact-label">Email</span>
+          <span class="contact-value"><a href="mailto:hola@gangaviaje.es">hola@gangaviaje.es</a></span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <div class="contact-item-body">
+          <span class="contact-label">Telegram</span>
+          <span class="contact-value"><a href="https://t.me/gangaviaje" target="_blank" rel="noopener">@gangaviaje</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Ganga<span>Viaje</span></div>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="/">Ofertas</a>
+      <a href="/sobre-nosotros">Sobre nosotros</a>
+    </div>
+    <p>Las ofertas están sujetas a disponibilidad. Los precios pueden variar.</p>
+  </div>
+</footer>
+
+</body>
+</html>
