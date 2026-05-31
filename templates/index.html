@@ -16,6 +16,7 @@
   <meta name="twitter:title"      content="GangaViaje — Las mejores ofertas de viajes">
   <meta name="twitter:description" content="{{ stats.total }} ofertas activas. Hoteles, apartamentos, actividades y más.">
   <meta name="twitter:image"      content="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2308142d'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' text-anchor='middle' fill='%23c9a84c'%3EG%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -103,6 +104,15 @@
     .destino-name { font-size: 0.88rem; font-weight: 700; color: white; display: block; }
     .destino-count { font-size: 0.68rem; color: rgba(255,255,255,0.75); margin-top: 2px; display: block; }
 
+    /* ── BUSCADOR ── */
+    .search-bar { background: white; border-bottom: 1px solid #e8ecf0; padding: 14px 0; }
+    .search-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .search-wrap { position: relative; max-width: 480px; }
+    .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #999; pointer-events: none; }
+    .search-input { width: 100%; padding: 10px 14px 10px 40px; border: 1.5px solid #e0e4ea; border-radius: 10px; font-family: inherit; font-size: 0.88rem; color: #1a1a2e; outline: none; transition: border-color 0.15s; background: #f9fafb; }
+    .search-input:focus { border-color: #003580; background: white; }
+    .search-input::placeholder { color: #aaa; }
+
     /* ── MAIN ── */
     main { max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px; }
     .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
@@ -175,6 +185,8 @@
 
     /* ── MOBILE ── */
     @media (max-width: 768px) {
+      .search-inner { padding: 0 16px; }
+      .search-wrap { max-width: 100%; }
       .nav-links { display: none; }
       .hero { height: 440px; }
       .hero h1 { font-size: 2rem; }
@@ -363,6 +375,16 @@
   </div>
 </div>
 
+<!-- BUSCADOR -->
+<div class="search-bar">
+  <div class="search-inner">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" id="search-input" type="text" placeholder="Buscar por ciudad o destino..." autocomplete="off">
+    </div>
+  </div>
+</div>
+
 <!-- MAIN -->
 <main>
   <div class="section-header">
@@ -538,6 +560,22 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(timer));
   document.querySelector('.hero').addEventListener('mouseleave', startTimer);
   startTimer();
+
+  // Buscador por ciudad / título
+  const searchInput = document.getElementById('search-input');
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    const cards = document.querySelectorAll('.deal-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const title    = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+      const location = (card.querySelector('.card-location')?.textContent || '').toLowerCase();
+      const match = !q || title.includes(q) || location.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    document.querySelector('.section-count').textContent = visible + ' ofertas encontradas';
+  });
 });
 </script>
 </body>

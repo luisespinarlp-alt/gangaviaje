@@ -13,7 +13,7 @@ import certifi
 
 import config
 import database
-from scrapers import booking, civitatis
+from scrapers import booking, civitatis, getyourguide
 
 logging.basicConfig(
     level=logging.INFO,
@@ -108,7 +108,7 @@ def run_once():
 
     # 2. Scrape fuentes
     new_total = 0
-    for scraper, name in [(booking, "Booking"), (civitatis, "Civitatis")]:
+    for scraper, name in [(booking, "Booking"), (civitatis, "Civitatis"), (getyourguide, "GetYourGuide")]:
         try:
             deals = scraper.fetch_deals(
                 min_discount=config.MIN_DISCOUNT_PCT,
