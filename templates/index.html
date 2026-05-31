@@ -14,18 +14,18 @@
 
     /* ── NAV ── */
     nav { background: rgba(8,20,45,0.92); backdrop-filter: blur(12px); box-shadow: 0 1px 0 rgba(255,255,255,0.08); position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
-    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
     .logo { display: flex; align-items: center; text-decoration: none; }
     .logo-wrap { display: flex; flex-direction: column; }
-    .logo-name { font-size: 1.45rem; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1.1; }
+    .logo-name { font-size: 1.35rem; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1.1; }
     .logo-name span { color: #c9a84c; }
     .logo-line { display: block; height: 2px; width: 40px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; margin-top: 4px; }
     .nav-links { display: flex; gap: 2px; }
-    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 6px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.82rem; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
     .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.1); color: white; }
 
     /* ── HERO SLIDER ── */
-    .hero { position: relative; height: 580px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .hero { position: relative; height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .slider { position: absolute; inset: 0; }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.8s ease-in-out; }
     .slide.active { opacity: 1; }
@@ -48,156 +48,152 @@
     .slide.active.slide-3 .slide-img { animation-name: kenburns-3; }
     .slide.active.slide-4 .slide-img { animation-name: kenburns-4; }
     .slide.active.slide-5 .slide-img { animation-name: kenburns-5; }
-    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(8,20,45,0.5) 0%, rgba(8,20,45,0.3) 40%, rgba(8,20,45,0.75) 100%); z-index: 1; }
-    .hero-content { position: relative; z-index: 2; max-width: 720px; padding: 0 24px; text-align: center; margin-top: 64px; }
-    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4); color: #f0d080; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; }
-    .hero-eyebrow span { width: 6px; height: 6px; background: #c9a84c; border-radius: 50%; display: inline-block; }
-    .hero h1 { font-size: 3rem; font-weight: 800; color: white; margin-bottom: 16px; line-height: 1.15; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(8,20,45,0.5) 0%, rgba(8,20,45,0.25) 40%, rgba(8,20,45,0.78) 100%); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; max-width: 700px; padding: 0 20px; text-align: center; margin-top: 60px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.4); color: #f0d080; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 6px 14px; border-radius: 20px; margin-bottom: 16px; }
+    .hero-eyebrow span { width: 6px; height: 6px; background: #c9a84c; border-radius: 50%; display: inline-block; animation: pulse-dot 2s ease-in-out infinite; }
+    .hero h1 { font-size: 2.8rem; font-weight: 800; color: white; margin-bottom: 12px; line-height: 1.15; text-shadow: 0 2px 20px rgba(0,0,0,0.4); animation: fadeUp 0.8s 0.15s ease both; opacity: 0; }
     .hero h1 em { font-style: normal; color: #f0d080; }
-    .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 40px; text-shadow: 0 1px 8px rgba(0,0,0,0.3); }
-    .hero-stats { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .stat-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 16px 24px; text-align: center; min-width: 110px; }
-    .stat-box .num { font-size: 1.6rem; font-weight: 800; color: white; }
-    .stat-box .label { font-size: 0.72rem; color: rgba(255,255,255,0.65); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.8px; }
-    .slider-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 2; }
+    .hero p { font-size: 1rem; color: rgba(255,255,255,0.85); margin-bottom: 32px; text-shadow: 0 1px 8px rgba(0,0,0,0.3); animation: fadeUp 0.8s 0.3s ease both; opacity: 0; }
+    .hero-stats { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.8s 0.45s ease both; opacity: 0; }
+    .stat-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 20px; text-align: center; min-width: 100px; transition: transform 0.3s ease, background 0.3s ease; }
+    .stat-box:hover { transform: translateY(-4px); background: rgba(255,255,255,0.18); }
+    .stat-box .num { font-size: 1.5rem; font-weight: 800; color: white; }
+    .stat-box .label { font-size: 0.68rem; color: rgba(255,255,255,0.65); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.8px; }
+    .slider-dots { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 2; }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); border: none; cursor: pointer; transition: all 0.3s ease; padding: 0; }
     .dot.active { background: #c9a84c; transform: scale(1.3); }
-    .slide-caption { position: absolute; bottom: 50px; right: 40px; color: rgba(255,255,255,0.6); font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; z-index: 2; }
 
     /* ── TIPO FILTER ── */
-    .tipo-bar { background: white; border-bottom: 1px solid #e8ecf0; }
-    .tipo-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .tipo-bar { background: white; border-bottom: 1px solid #e8ecf0; position: sticky; top: 60px; z-index: 90; }
+    .tipo-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
     .tipo-inner::-webkit-scrollbar { display: none; }
-    .tipo-btn { display: flex; align-items: center; gap: 8px; padding: 14px 18px; border: none; background: none; cursor: pointer; font-size: 0.875rem; font-weight: 500; color: #555; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.15s; }
+    .tipo-btn { display: flex; align-items: center; gap: 7px; padding: 13px 16px; border: none; background: none; cursor: pointer; font-size: 0.84rem; font-weight: 500; color: #555; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.15s; font-family: inherit; }
     .tipo-btn:hover { color: #003580; }
     .tipo-btn.active { color: #003580; border-bottom-color: #003580; font-weight: 600; }
-    .tipo-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .tipo-btn svg { width: 17px; height: 17px; flex-shrink: 0; transition: transform 0.2s ease; }
+    .tipo-btn:hover svg { transform: scale(1.15); }
+
+    /* ── DESTINOS DESTACADOS ── */
+    .destinos-section { background: white; border-bottom: 1px solid #e8ecf0; padding: 28px 0; }
+    .destinos-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .destinos-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+    .destinos-title { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; }
+    .destinos-row { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+    .destinos-row::-webkit-scrollbar { display: none; }
+    .destino-card { flex: 0 0 160px; border-radius: 12px; overflow: hidden; position: relative; height: 100px; text-decoration: none; display: block; box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .destino-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    .destino-card.active-dest .destino-overlay { background: linear-gradient(to top, rgba(201,168,76,0.8) 0%, rgba(8,20,45,0.3) 100%); }
+    .destino-card.active-dest { box-shadow: 0 0 0 3px #c9a84c; }
+    .destino-img { width: 100%; height: 100%; object-fit: cover; }
+    .destino-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,20,45,0.75) 0%, rgba(8,20,45,0.15) 100%); transition: background 0.2s; }
+    .destino-card:hover .destino-overlay { background: linear-gradient(to top, rgba(8,20,45,0.85) 0%, rgba(8,20,45,0.25) 100%); }
+    .destino-label { position: absolute; bottom: 10px; left: 12px; right: 12px; }
+    .destino-name { font-size: 0.88rem; font-weight: 700; color: white; display: block; }
+    .destino-count { font-size: 0.68rem; color: rgba(255,255,255,0.75); margin-top: 2px; display: block; }
 
     /* ── MAIN ── */
-    main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 48px; }
-    body { padding-top: 0; }
-    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-    .section-title { font-size: 1.3rem; font-weight: 700; color: #1a1a2e; }
-    .section-count { font-size: 0.875rem; color: #777; }
+    main { max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+    .section-title { font-size: 1.25rem; font-weight: 700; color: #1a1a2e; }
+    .section-count { font-size: 0.85rem; color: #777; }
 
     /* ── GRID ── */
-    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 
     /* ── CARD ── */
-    .deal-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-    .deal-card:hover { transform: translateY(-3px); box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 12px 32px rgba(0,0,0,0.08); }
+    .deal-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease; text-decoration: none; color: inherit; display: flex; flex-direction: column; animation: fadeUp 0.5s ease both; opacity: 0; }
+    .deal-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 12px 32px rgba(0,0,0,0.08); }
 
-    .card-img { height: 200px; position: relative; overflow: hidden; background: #dce8f5; }
+    .card-img { height: 190px; position: relative; overflow: hidden; background: #dce8f5; }
     .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .deal-card:hover .card-img img { transform: scale(1.03); }
+    .deal-card:hover .card-img img { transform: scale(1.04); }
     .card-img-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #dce8f5, #b8d4f0); }
-    .card-img-fallback svg { width: 56px; height: 56px; color: #7bafd4; opacity: 0.7; }
+    .card-img-fallback svg { width: 52px; height: 52px; color: #7bafd4; opacity: 0.7; }
 
-    .badge-discount { position: absolute; top: 12px; left: 12px; background: #cc0000; color: white; font-size: 0.8rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.3px; }
-    .badge-tipo { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); color: white; font-size: 0.72rem; font-weight: 500; padding: 4px 10px; border-radius: 6px; display: flex; align-items: center; gap: 4px; }
-    .badge-tipo svg { width: 12px; height: 12px; }
+    .badge-discount { position: absolute; top: 12px; left: 12px; color: white; font-size: 0.78rem; font-weight: 700; padding: 4px 9px; border-radius: 6px; letter-spacing: 0.3px; background: linear-gradient(90deg, #cc0000, #e03030, #cc0000); background-size: 200% 100%; animation: shimmer 2.5s infinite linear; }
+    .badge-tipo { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); color: white; font-size: 0.7rem; font-weight: 500; padding: 4px 9px; border-radius: 6px; display: flex; align-items: center; gap: 4px; }
+    .badge-tipo svg { width: 11px; height: 11px; }
 
-    .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
-    .card-location { display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: #666; margin-bottom: 6px; }
+    .card-body { padding: 15px; flex: 1; display: flex; flex-direction: column; }
+    .card-location { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: #666; margin-bottom: 5px; }
     .card-location svg { width: 12px; height: 12px; flex-shrink: 0; color: #999; }
-    .card-title { font-size: 1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 10px; line-height: 1.4; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-title { font-size: 0.95rem; font-weight: 600; color: #1a1a2e; margin-bottom: 10px; line-height: 1.4; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-    .card-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-    .rating-badge { background: #003580; color: white; font-size: 0.8rem; font-weight: 700; padding: 3px 8px; border-radius: 6px 6px 6px 0; }
-    .rating-label { font-size: 0.8rem; color: #555; font-weight: 500; }
-    .rating-count { font-size: 0.75rem; color: #999; margin-left: auto; }
+    .card-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .rating-badge { background: #003580; color: white; font-size: 0.78rem; font-weight: 700; padding: 3px 7px; border-radius: 6px 6px 6px 0; }
+    .rating-label { font-size: 0.78rem; color: #555; font-weight: 500; }
+    .rating-count { font-size: 0.72rem; color: #999; margin-left: auto; }
 
-    .card-price { border-top: 1px solid #f0f2f5; padding-top: 12px; margin-top: auto; }
-    .price-original { font-size: 0.82rem; color: #999; text-decoration: line-through; margin-bottom: 2px; }
+    .card-price { border-top: 1px solid #f0f2f5; padding-top: 11px; margin-top: auto; }
+    .price-original { font-size: 0.8rem; color: #999; text-decoration: line-through; margin-bottom: 2px; }
     .price-row { display: flex; align-items: flex-end; gap: 8px; }
-    .price-current { font-size: 1.5rem; font-weight: 800; color: #003580; line-height: 1; }
-    .price-unit { font-size: 0.78rem; color: #888; margin-bottom: 2px; }
-    .price-saving { margin-left: auto; font-size: 0.78rem; color: #2e7d32; font-weight: 600; background: #e8f5e9; padding: 2px 8px; border-radius: 4px; }
+    .price-current { font-size: 1.45rem; font-weight: 800; color: #003580; line-height: 1; }
+    .price-unit { font-size: 0.75rem; color: #888; margin-bottom: 2px; }
+    .price-saving { margin-left: auto; font-size: 0.75rem; color: #2e7d32; font-weight: 600; background: #e8f5e9; padding: 2px 7px; border-radius: 4px; }
 
-    .card-urgency { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+    .card-urgency { display: flex; align-items: center; gap: 6px; margin-top: 9px; }
     .card-pulse { width: 7px; height: 7px; background: #e53935; border-radius: 50%; animation: pulse-live 1.5s ease-in-out infinite; flex-shrink: 0; }
-    @keyframes pulse-live { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
-    .card-viewers { font-size: 0.75rem; color: #e65100; font-weight: 600; }
-    .card-cta { display: block; background: #0071c2; color: white; text-align: center; padding: 10px; font-size: 0.875rem; font-weight: 600; text-decoration: none; margin-top: 8px; border-radius: 8px; transition: background 0.15s; }
+    .card-viewers { font-size: 0.73rem; color: #e65100; font-weight: 600; }
+
+    .card-cta { display: block; background: #0071c2; color: white; text-align: center; padding: 10px; font-size: 0.85rem; font-weight: 600; text-decoration: none; margin-top: 8px; border-radius: 8px; transition: background 0.15s; position: relative; overflow: hidden; }
     .card-cta:hover { background: #005ea6; }
+    .card-cta::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transition: left 0.4s ease; }
+    .card-cta:hover::after { left: 100%; }
 
     /* ── EMPTY ── */
     .empty { text-align: center; padding: 80px 20px; color: #aaa; }
     .empty svg { width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.4; }
-    .empty p { font-size: 1.1rem; }
+    .empty p { font-size: 1rem; }
 
     /* ── FOOTER ── */
-    footer { background: #08142d; color: #6b7e9f; padding: 48px 24px; border-top: 1px solid rgba(201,168,76,0.15); }
-    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
-    .footer-logo { font-size: 1.3rem; font-weight: 800; color: white; letter-spacing: -0.3px; }
+    footer { background: #08142d; color: #6b7e9f; padding: 40px 24px; border-top: 1px solid rgba(201,168,76,0.15); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    .footer-logo { font-size: 1.25rem; font-weight: 800; color: white; letter-spacing: -0.3px; }
     .footer-logo span { color: #c9a84c; }
-    footer p { font-size: 0.82rem; line-height: 1.7; max-width: 560px; }
+    footer p { font-size: 0.8rem; line-height: 1.7; max-width: 520px; }
     footer a { color: #c9a84c; text-decoration: none; }
     .footer-divider { width: 40px; height: 2px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; }
 
     /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.5; transform: scale(1.5); }
-    }
-    @keyframes shimmer {
-      0%   { background-position: -400px 0; }
-      100% { background-position: 400px 0; }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-6px); }
-    }
-    @keyframes countUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-eyebrow span { animation: pulse-dot 2s ease-in-out infinite; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
+    @keyframes pulse-live { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.5)} }
+    @keyframes shimmer { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
     .hero-content { animation: fadeUp 0.8s ease both; }
-    .hero h1 { animation: fadeUp 0.8s 0.15s ease both; opacity: 0; }
-    .hero p   { animation: fadeUp 0.8s 0.3s ease both; opacity: 0; }
-    .hero-stats { animation: fadeUp 0.8s 0.45s ease both; opacity: 0; }
-    .stat-box { transition: transform 0.3s ease, background 0.3s ease; }
-    .stat-box:hover { transform: translateY(-4px); background: rgba(255,255,255,0.18); }
 
-    .deal-card { animation: fadeUp 0.5s ease both; opacity: 0; }
-    .deal-card.visible { opacity: 1; }
-
-    .badge-discount {
-      background: linear-gradient(90deg, #cc0000, #e03030, #cc0000);
-      background-size: 200% 100%;
-      animation: shimmer 2.5s infinite linear;
-    }
-
-    .card-cta { position: relative; overflow: hidden; }
-    .card-cta::after {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-      transition: left 0.4s ease;
-    }
-    .card-cta:hover::after { left: 100%; }
-
-    .logo-name { animation: fadeUp 0.6s ease both; }
-
-    .tipo-btn { transition: all 0.2s ease; }
-    .tipo-btn svg { transition: transform 0.2s ease; }
-    .tipo-btn:hover svg { transform: scale(1.15); }
-
-    .deal-card { transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease; }
-    .deal-card:hover { transform: translateY(-6px) scale(1.01); }
-
-    @media (max-width: 640px) {
-      .hero h1 { font-size: 1.8rem; }
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
       .nav-links { display: none; }
-      .deals-grid { grid-template-columns: 1fr; }
+      .hero { height: 440px; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 0.9rem; margin-bottom: 24px; }
+      .stat-box { padding: 10px 14px; min-width: 82px; }
+      .stat-box .num { font-size: 1.25rem; }
+      .stat-box .label { font-size: 0.62rem; }
+      .hero-stats { gap: 8px; }
+      .tipo-btn { padding: 11px 12px; font-size: 0.8rem; gap: 5px; }
+      .tipo-btn svg { width: 15px; height: 15px; }
+      .destinos-section { padding: 20px 0; }
+      .destino-card { flex: 0 0 130px; height: 84px; }
+      .destino-name { font-size: 0.82rem; }
+      .deals-grid { grid-template-columns: 1fr; gap: 14px; }
+      main { padding: 20px 16px 40px; }
+      .destinos-inner { padding: 0 16px; }
+      .tipo-inner { padding: 0 16px; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-inner { padding: 0 16px; }
+      .hero { height: 380px; }
+      .hero h1 { font-size: 1.7rem; }
+      .hero p { display: none; }
+      .hero-eyebrow { font-size: 0.65rem; padding: 5px 10px; }
+      .hero-stats { gap: 6px; }
+      .stat-box { padding: 9px 12px; min-width: 72px; }
+      .stat-box .num { font-size: 1.1rem; }
+      .card-img { height: 170px; }
     }
   </style>
 </head>
@@ -213,7 +209,7 @@
       </div>
     </a>
     <div class="nav-links">
-      <a href="/" class="{{ 'active' if active_cat == 'todos' else '' }}">Todas las ofertas</a>
+      <a href="/" class="{{ 'active' if active_cat == 'todos' else '' }}">Todas</a>
       {% for key, name in destinos.items() %}
       <a href="/destino/{{ key }}" class="{{ 'active' if active_cat == key else '' }}">{{ name }}</a>
       {% endfor %}
@@ -234,18 +230,19 @@
   <div class="hero-content">
     <div class="hero-eyebrow"><span></span>Ofertas actualizadas cada hora</div>
     <h1>Tu próximo viaje, al <em>mejor precio</em></h1>
+    <p>Hoteles, apartamentos, actividades y más — seleccionados cada día.</p>
     <div class="hero-stats">
       <div class="stat-box">
-        <div class="num">{{ stats.today }}</div>
+        <div class="num" id="stat-hoy">{{ stats.today }}</div>
         <div class="label">Nuevas hoy</div>
       </div>
       <div class="stat-box">
-        <div class="num">{{ stats.total }}</div>
-        <div class="label">Ofertas activas</div>
+        <div class="num" id="stat-total">{{ stats.total }}</div>
+        <div class="label">Activas</div>
       </div>
       <div class="stat-box">
         <div class="num">-40%</div>
-        <div class="label">Descuento medio</div>
+        <div class="label">Dto. medio</div>
       </div>
     </div>
   </div>
@@ -261,30 +258,97 @@
 <!-- TIPO FILTER -->
 <div class="tipo-bar">
   <div class="tipo-inner">
-    <button class="tipo-btn active" onclick="filterTipo('todos')">
+    <button class="tipo-btn active" onclick="filterTipo('todos', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       Todos
     </button>
-    <button class="tipo-btn" onclick="filterTipo('hotel')">
+    <button class="tipo-btn" onclick="filterTipo('hotel', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/><rect x="9" y="10" width="2" height="3"/><rect x="13" y="10" width="2" height="3"/></svg>
       Hoteles
     </button>
-    <button class="tipo-btn" onclick="filterTipo('apartamento')">
+    <button class="tipo-btn" onclick="filterTipo('apartamento', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 21V10h8v11"/><path d="M2 9h20"/></svg>
       Apartamentos
     </button>
-    <button class="tipo-btn" onclick="filterTipo('villa')">
+    <button class="tipo-btn" onclick="filterTipo('villa', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V12l9-9 9 9v10"/><path d="M9 22v-8h6v8"/></svg>
       Villas y Rurales
     </button>
-    <button class="tipo-btn" onclick="filterTipo('actividad')">
+    <button class="tipo-btn" onclick="filterTipo('actividad', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
       Atracciones
     </button>
-    <button class="tipo-btn" onclick="filterTipo('coche')">
+    <button class="tipo-btn" onclick="filterTipo('coche', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/><path d="M5 12h14"/></svg>
       Coches
     </button>
+  </div>
+</div>
+
+<!-- DESTINOS DESTACADOS -->
+<div class="destinos-section">
+  <div class="destinos-inner">
+    <div class="destinos-header">
+      <span class="destinos-title">Destinos populares</span>
+    </div>
+    <div class="destinos-row">
+      <a href="/" class="destino-card {{ 'active-dest' if active_cat == 'todos' else '' }}">
+        <img class="destino-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=70&w=320&auto=format&fit=crop" alt="Todas las ofertas" loading="lazy">
+        <div class="destino-overlay"></div>
+        <div class="destino-label">
+          <span class="destino-name">Todo</span>
+          <span class="destino-count">{{ stats.total }} ofertas</span>
+        </div>
+      </a>
+      <a href="/destino/espana" class="destino-card {{ 'active-dest' if active_cat == 'espana' else '' }}">
+        <img class="destino-img" src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?fm=jpg&q=70&w=320&auto=format&fit=crop" alt="España" loading="lazy">
+        <div class="destino-overlay"></div>
+        <div class="destino-label">
+          <span class="destino-name">España</span>
+          <span class="destino-count">Escapadas nacionales</span>
+        </div>
+      </a>
+      <a href="/destino/playa" class="destino-card {{ 'active-dest' if active_cat == 'playa' else '' }}">
+        <img class="destino-img" src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?fm=jpg&q=70&w=320&auto=format&fit=crop" alt="Playa" loading="lazy">
+        <div class="destino-overlay"></div>
+        <div class="destino-label">
+          <span class="destino-name">Playa</span>
+          <span class="destino-count">Sol y mar</span>
+        </div>
+      </a>
+      <a href="/destino/ciudad" class="destino-card {{ 'active-dest' if active_cat == 'ciudad' else '' }}">
+        <img class="destino-img" src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=70&w=320&auto=format&fit=crop" alt="Ciudad" loading="lazy">
+        <div class="destino-overlay"></div>
+        <div class="destino-label">
+          <span class="destino-name">Ciudad</span>
+          <span class="destino-count">Escapadas urbanas</span>
+        </div>
+      </a>
+      <a href="/destino/rural" class="destino-card {{ 'active-dest' if active_cat == 'rural' else '' }}">
+        <img class="destino-img" src="https://images.unsplash.com/photo-1439539698758-ba2680ecadb9?fm=jpg&q=70&w=320&auto=format&fit=crop" alt="Rural" loading="lazy">
+        <div class="destino-overlay"></div>
+        <div class="destino-label">
+          <span class="destino-name">Rural</span>
+          <span class="destino-count">Naturaleza y paz</span>
+        </div>
+      </a>
+      <a href="/destino/europa" class="destino-card {{ 'active-dest' if active_cat == 'europa' else '' }}">
+        <img class="destino-img" src="https://images.unsplash.com/photo-1491557345352-5929e343eb89?fm=jpg&q=70&w=320&auto=format&fit=crop" alt="Europa" loading="lazy">
+        <div class="destino-overlay"></div>
+        <div class="destino-label">
+          <span class="destino-name">Europa</span>
+          <span class="destino-count">Capitales europeas</span>
+        </div>
+      </a>
+      <a href="/destino/internacional" class="destino-card {{ 'active-dest' if active_cat == 'internacional' else '' }}">
+        <img class="destino-img" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?fm=jpg&q=70&w=320&auto=format&fit=crop" alt="Internacional" loading="lazy">
+        <div class="destino-overlay"></div>
+        <div class="destino-label">
+          <span class="destino-name">Internacional</span>
+          <span class="destino-count">Más allá de Europa</span>
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -314,20 +378,15 @@
         {% if deal.discount_pct %}<span class="badge-discount">-{{ deal.discount_pct }}%</span>{% endif %}
         <span class="badge-tipo">
           {% if deal.tipo == 'apartamento' %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg>
-          Apartamento
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg>Apto
           {% elif deal.tipo == 'villa' %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V12l9-9 9 9v10"/></svg>
-          Villa
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V12l9-9 9 9v10"/></svg>Villa
           {% elif deal.tipo == 'actividad' %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          Actividad
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Actividad
           {% elif deal.tipo == 'coche' %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>
-          Coche
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>Coche
           {% else %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/></svg>
-          Hotel
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/></svg>Hotel
           {% endif %}
         </span>
       </div>
@@ -348,7 +407,7 @@
             {% elif deal.rating >= 7 %}Bueno
             {% else %}Aceptable{% endif %}
           </span>
-          {% if deal.reviews_count %}<span class="rating-count">{{ "{:,}".format(deal.reviews_count) }} valoraciones</span>{% endif %}
+          {% if deal.reviews_count %}<span class="rating-count">{{ "{:,}".format(deal.reviews_count) }} val.</span>{% endif %}
         </div>
         {% endif %}
         <div class="card-price">
@@ -393,18 +452,17 @@
 </footer>
 
 <script>
-// Filtro por tipo
-function filterTipo(tipo) {
+function filterTipo(tipo, btn) {
   document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
+  btn.classList.add('active');
   const cards = document.querySelectorAll('.deal-card');
   let delay = 0;
   cards.forEach(card => {
     if (tipo === 'todos' || card.dataset.tipo === tipo) {
       card.style.display = '';
-      card.style.animationDelay = delay + 'ms';
       card.style.animation = 'none';
       void card.offsetWidth;
+      card.style.animationDelay = delay + 'ms';
       card.style.animation = 'fadeUp 0.4s ease both';
       delay += 40;
     } else {
@@ -413,20 +471,21 @@ function filterTipo(tipo) {
   });
 }
 
-// Entrada escalonada de cards al cargar
 document.addEventListener('DOMContentLoaded', () => {
+  // Cards entrada escalonada
   const cards = document.querySelectorAll('.deal-card');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
         setTimeout(() => {
+          entry.target.style.animationDelay = (i * 50) + 'ms';
           entry.target.style.animation = 'fadeUp 0.5s ease both';
           entry.target.style.opacity = '1';
-        }, i * 60);
+        }, i * 50);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
   cards.forEach(card => observer.observe(card));
 
   // Contador animado en stats
@@ -435,11 +494,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isNaN(target)) return;
     let current = 0;
     const step = Math.ceil(target / 20);
-    const timer = setInterval(() => {
+    const t = setInterval(() => {
       current = Math.min(current + step, target);
       el.textContent = current;
-      if (current >= target) clearInterval(timer);
+      if (current >= target) clearInterval(t);
     }, 50);
+  });
+
+  // Viewers en cards
+  document.querySelectorAll('.card-viewers').forEach(el => {
+    el.textContent = (Math.floor(Math.random() * 10) + 3) + ' personas mirando';
   });
 
   // Slider Ken Burns
@@ -451,24 +515,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function goToSlide(n) {
     slides[current].classList.remove('active');
     dots[current].classList.remove('active');
-    current = n;
+    current = (n + slides.length) % slides.length;
     slides[current].classList.add('active');
     dots[current].classList.add('active');
   }
   window.goToSlide = goToSlide;
 
-    // Viewers en cards
-  document.querySelectorAll('.card-viewers').forEach(el => {
-    el.textContent = (Math.floor(Math.random() * 10) + 3) + ' personas mirando';
-  });
-
   function startTimer() {
-    timer = setInterval(() => goToSlide((current + 1) % slides.length), 6000);
+    timer = setInterval(() => goToSlide(current + 1), 6000);
   }
-
   document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(timer));
   document.querySelector('.hero').addEventListener('mouseleave', startTimer);
-
   startTimer();
 });
 </script>
