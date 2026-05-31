@@ -4,7 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ deal.title }} — GangaViaje</title>
-  <meta name="description" content="{{ deal.description or deal.title }} — Oferta exclusiva en GangaViaje.">
+  <meta name="description" content="{% if deal.discount_pct %}-{{ deal.discount_pct }}% · {% endif %}€{{ deal.sale_price|int }} — {{ (deal.description or deal.title)[:120] }}">
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="GangaViaje">
+  <meta property="og:title"       content="{{ deal.title }}">
+  <meta property="og:description" content="{% if deal.discount_pct %}-{{ deal.discount_pct }}% · {% endif %}Desde €{{ deal.sale_price|int }}{% if deal.location %} en {{ deal.location }}{% endif %}. Oferta exclusiva en GangaViaje.">
+  <meta property="og:image"       content="{{ deal.image_url or 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop' }}">
+  <meta property="og:url"         content="{{ request.url }}">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="{{ deal.title }}">
+  <meta name="twitter:description" content="{% if deal.discount_pct %}-{{ deal.discount_pct }}% · {% endif %}Desde €{{ deal.sale_price|int }}{% if deal.location %} en {{ deal.location }}{% endif %}.">
+  <meta name="twitter:image"      content="{{ deal.image_url or 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop' }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -39,7 +50,30 @@
 
     /* MAIN LAYOUT */
     main { max-width: 900px; margin: 0 auto; padding: 32px 24px 64px; display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
-    @media (max-width: 768px) { main { grid-template-columns: 1fr; } }
+
+    @media (max-width: 768px) {
+      main { grid-template-columns: 1fr; padding: 20px 16px 48px; }
+      /* Booking box sube al top en móvil */
+      .booking-box { order: -1; position: static; }
+      .deal-body { order: 1; }
+      .deal-hero { height: 280px; }
+      .deal-hero-title { font-size: 1.4rem; }
+      .deal-hero-info { padding: 20px 16px; }
+      .discount-badge { top: 16px; right: 16px; font-size: 1rem; padding: 8px 12px; }
+      .booking-price { font-size: 1.8rem; }
+      .card { padding: 18px; }
+      .back-link { font-size: 0.82rem; }
+    }
+
+    @media (max-width: 480px) {
+      .deal-hero { height: 230px; }
+      .deal-hero-title { font-size: 1.2rem; }
+      .nav-inner { padding: 0 16px; }
+      .urgency-bar { padding: 10px 12px; }
+      .urgency-item { font-size: 0.78rem; }
+      .countdown-box { padding: 10px 12px; }
+      .booking-cta { padding: 12px; font-size: 0.95rem; }
+    }
 
     /* LEFT COLUMN */
     .deal-body { display: flex; flex-direction: column; gap: 20px; }
