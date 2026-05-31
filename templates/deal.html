@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ deal.title }} — GangaViaje</title>
+  <meta name="description" content="{{ deal.description or deal.title }} — Oferta exclusiva en GangaViaje.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Raleway', sans-serif; background: #f4f6f9; color: #1a1a2e; }
+
+    /* NAV */
+    nav { background: rgba(8,20,45,0.95); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; height: 64px; gap: 24px; }
+    .logo { text-decoration: none; }
+    .logo-name { font-size: 1.35rem; font-weight: 800; color: white; letter-spacing: -0.5px; display: flex; flex-direction: column; }
+    .logo-name span { color: #c9a84c; }
+    .logo-line { display: block; height: 2px; width: 36px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; margin-top: 3px; }
+    .back-btn { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.875rem; margin-left: auto; transition: color 0.15s; }
+    .back-btn:hover { color: white; }
+    .back-btn svg { width: 16px; height: 16px; }
+
+    /* HERO IMAGE */
+    .deal-hero { position: relative; height: 420px; overflow: hidden; background: #0a2342; }
+    .deal-hero img { width: 100%; height: 100%; object-fit: cover; }
+    .deal-hero-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0a2342, #1a4a7a); }
+    .deal-hero-placeholder svg { width: 80px; height: 80px; color: rgba(255,255,255,0.2); }
+    .deal-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,20,45,0.8) 0%, transparent 60%); }
+    .deal-hero-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; }
+    .deal-hero-info-inner { max-width: 900px; margin: 0 auto; }
+    .deal-tipo-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.25); border: 1px solid rgba(201,168,76,0.5); color: #f0d080; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 20px; margin-bottom: 12px; }
+    .deal-hero-title { font-size: 2rem; font-weight: 800; color: white; text-shadow: 0 2px 16px rgba(0,0,0,0.4); line-height: 1.2; margin-bottom: 8px; }
+    .deal-hero-location { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.8); font-size: 0.95rem; }
+    .deal-hero-location svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .discount-badge { position: absolute; top: 24px; right: 24px; background: #cc0000; color: white; font-size: 1.2rem; font-weight: 800; padding: 10px 16px; border-radius: 10px; }
+
+    /* MAIN LAYOUT */
+    main { max-width: 900px; margin: 0 auto; padding: 32px 24px 64px; display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+    @media (max-width: 768px) { main { grid-template-columns: 1fr; } }
+
+    /* LEFT COLUMN */
+    .deal-body { display: flex; flex-direction: column; gap: 20px; }
+    .card { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .card-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #c9a84c; margin-bottom: 14px; }
+
+    /* RATING */
+    .rating-row { display: flex; align-items: center; gap: 14px; }
+    .rating-big { background: #003580; color: white; font-size: 1.4rem; font-weight: 800; padding: 10px 16px; border-radius: 10px 10px 10px 0; }
+    .rating-info { display: flex; flex-direction: column; gap: 3px; }
+    .rating-label { font-size: 1rem; font-weight: 700; color: #1a1a2e; }
+    .rating-count { font-size: 0.82rem; color: #888; }
+
+    /* DESCRIPTION */
+    .description { font-size: 0.95rem; line-height: 1.8; color: #444; }
+
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+    .feature { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #555; }
+    .feature svg { width: 16px; height: 16px; color: #003580; flex-shrink: 0; }
+
+    /* RIGHT COLUMN — BOOKING BOX */
+    .booking-box { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); position: sticky; top: 88px; }
+    .booking-source { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: #999; margin-bottom: 16px; font-weight: 600; }
+    .booking-price-original { font-size: 0.9rem; color: #aaa; text-decoration: line-through; margin-bottom: 4px; }
+    .booking-price { font-size: 2.2rem; font-weight: 900; color: #003580; line-height: 1; }
+    .booking-price-unit { font-size: 0.8rem; color: #888; margin-top: 4px; margin-bottom: 16px; }
+    .booking-saving { background: #e8f5e9; color: #2e7d32; font-size: 0.85rem; font-weight: 700; padding: 8px 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+    .booking-cta { display: block; background: #0071c2; color: white; text-align: center; padding: 14px; font-size: 1rem; font-weight: 700; text-decoration: none; border-radius: 10px; transition: background 0.15s; margin-bottom: 12px; }
+    .booking-cta:hover { background: #005ea6; }
+    .booking-note { font-size: 0.75rem; color: #aaa; text-align: center; line-height: 1.5; }
+    .booking-divider { border: none; border-top: 1px solid #f0f2f5; margin: 16px 0; }
+
+    /* URGENCY */
+    .urgency-bar { background: #fff8e1; border: 1px solid #ffe082; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .urgency-item { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #555; font-weight: 500; }
+    .urgency-item svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .urgency-viewers { color: #e65100; }
+    .urgency-rooms { color: #c62828; }
+    .urgency-booking { color: #2e7d32; }
+    .pulse { display: inline-block; width: 8px; height: 8px; background: #e53935; border-radius: 50%; animation: pulse-live 1.5s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes pulse-live { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.4)} }
+    .countdown-box { background: #003580; color: white; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; text-align: center; }
+    .countdown-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
+    .countdown-timer { display: flex; justify-content: center; gap: 8px; }
+    .countdown-unit { display: flex; flex-direction: column; align-items: center; }
+    .countdown-num { font-size: 1.3rem; font-weight: 800; line-height: 1; }
+    .countdown-sub { font-size: 0.6rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+    .countdown-sep { font-size: 1.2rem; font-weight: 800; padding-top: 2px; }
+
+    /* BACK TO OFFERS */
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: #003580; text-decoration: none; font-size: 0.875rem; font-weight: 600; margin-bottom: 24px; }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-wrap">
+        <span class="logo-name">Ganga<span>Viaje</span></span>
+        <i class="logo-line"></i>
+      </div>
+    </a>
+    <a href="/" class="back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Volver a ofertas
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="deal-hero">
+  {% if deal.image_url %}
+  <img src="{{ deal.image_url }}" alt="{{ deal.title }}"
+       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+  <div class="deal-hero-placeholder" style="display:none">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 22V8l9-6 9 6v14"/></svg>
+  </div>
+  {% else %}
+  <div class="deal-hero-placeholder">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 22V8l9-6 9 6v14"/></svg>
+  </div>
+  {% endif %}
+  <div class="deal-hero-overlay"></div>
+  <div class="deal-hero-info">
+    <div class="deal-hero-info-inner">
+      <div class="deal-tipo-badge">
+        {% if deal.tipo == 'hotel' %}Hotel
+        {% elif deal.tipo == 'apartamento' %}Apartamento
+        {% elif deal.tipo == 'villa' %}Villa
+        {% elif deal.tipo == 'actividad' %}Actividad
+        {% elif deal.tipo == 'coche' %}Alquiler de coche
+        {% else %}Oferta{% endif %}
+      </div>
+      <h1 class="deal-hero-title">{{ deal.title }}</h1>
+      {% if deal.location %}
+      <div class="deal-hero-location">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        {{ deal.location }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% if deal.discount_pct %}<div class="discount-badge">-{{ deal.discount_pct }}%</div>{% endif %}
+</div>
+
+<!-- MAIN -->
+<main>
+  <!-- LEFT -->
+  <div class="deal-body">
+    <a href="/" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Todas las ofertas
+    </a>
+
+    {% if deal.rating and deal.rating > 0 %}
+    <div class="card">
+      <div class="card-title">Valoración</div>
+      <div class="rating-row">
+        <div class="rating-big">{{ "%.1f"|format(deal.rating) }}</div>
+        <div class="rating-info">
+          <div class="rating-label">
+            {% if deal.rating >= 9 %}Excepcional
+            {% elif deal.rating >= 8 %}Muy bueno
+            {% elif deal.rating >= 7 %}Bueno
+            {% else %}Aceptable{% endif %}
+          </div>
+          {% if deal.reviews_count %}<div class="rating-count">{{ "{:,}".format(deal.reviews_count) }} valoraciones verificadas</div>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if deal.description %}
+    <div class="card">
+      <div class="card-title">Descripción</div>
+      <p class="description">{{ deal.description }}</p>
+    </div>
+    {% endif %}
+
+    <div class="card">
+      <div class="card-title">Lo que incluye</div>
+      <div class="features-grid">
+        {% if deal.tipo in ['hotel', 'apartamento', 'villa'] %}
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Cancelación gratuita</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Check-in flexible</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Confirmación inmediata</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Wifi incluido</div>
+        {% elif deal.tipo == 'actividad' %}
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Cancelación gratuita</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Guía en español</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Confirmación inmediata</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Grupos pequeños</div>
+        {% elif deal.tipo == 'coche' %}
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Cancelación gratuita</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Km ilimitados</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Seguro incluido</div>
+        <div class="feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/></svg>Recogida en aeropuerto</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — BOOKING BOX -->
+  <div class="booking-box">
+    <!-- URGENCY -->
+    <div class="urgency-bar">
+      <div class="urgency-item urgency-viewers">
+        <span class="pulse"></span>
+        <span id="viewers">14</span> personas mirando esta oferta ahora
+      </div>
+      <div class="urgency-item urgency-rooms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/></svg>
+        Solo quedan <strong id="rooms">3</strong> plazas disponibles
+      </div>
+      <div class="urgency-item urgency-booking">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Última reserva hace <span id="last-booking">2</span> horas
+      </div>
+    </div>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown-box">
+      <div class="countdown-label">Precio especial válido por</div>
+      <div class="countdown-timer">
+        <div class="countdown-unit"><span class="countdown-num" id="cd-h">08</span><span class="countdown-sub">horas</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span class="countdown-num" id="cd-m">34</span><span class="countdown-sub">min</span></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><span class="countdown-num" id="cd-s">22</span><span class="countdown-sub">seg</span></div>
+      </div>
+    </div>
+
+    <div class="booking-source">Disponible en Booking.com</div>
+    {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else "noche") %}
+    {% if deal.original_price and deal.original_price > deal.sale_price %}
+    <div class="booking-price-original">€{{ "%.0f"|format(deal.original_price) }} / {{ unidad }}</div>
+    {% endif %}
+    <div class="booking-price">€{{ "%.0f"|format(deal.sale_price) }}</div>
+    <div class="booking-price-unit">por {{ unidad }}</div>
+    {% if deal.original_price and deal.original_price > deal.sale_price %}
+    <div class="booking-saving">Ahorras €{{ "%.0f"|format(deal.original_price - deal.sale_price) }} en esta oferta</div>
+    {% endif %}
+    <a href="{{ deal.affiliate_url }}" class="booking-cta" target="_blank" rel="noopener">
+      Ver disponibilidad
+    </a>
+    <div class="booking-note">Al hacer clic serás redirigido a Booking.com donde podrás ver disponibilidad y precios actualizados.</div>
+    <hr class="booking-divider">
+    <div class="booking-note">Oferta sujeta a disponibilidad. Los precios pueden variar.</div>
+  </div>
+</main>
+
+<script>
+// Contador de personas mirando — fluctúa de forma realista
+const viewersEl = document.getElementById('viewers');
+const roomsEl   = document.getElementById('rooms');
+const lastEl    = document.getElementById('last-booking');
+
+let viewers = Math.floor(Math.random() * 12) + 8;
+let rooms   = Math.floor(Math.random() * 3) + 2;
+let lastH   = Math.floor(Math.random() * 4) + 1;
+
+viewersEl.textContent = viewers;
+roomsEl.textContent   = rooms;
+lastEl.textContent    = lastH;
+
+setInterval(() => {
+  const delta = Math.random() < 0.5 ? 1 : -1;
+  viewers = Math.max(5, Math.min(28, viewers + delta));
+  viewersEl.textContent = viewers;
+}, 8000);
+
+// Countdown realista desde hora actual hasta medianoche
+function updateCountdown() {
+  const now      = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(23, 59, 59, 0);
+  let diff = Math.floor((midnight - now) / 1000);
+
+  const h = Math.floor(diff / 3600);
+  diff %= 3600;
+  const m = Math.floor(diff / 60);
+  const s = diff % 60;
+
+  document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
