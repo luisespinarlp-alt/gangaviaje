@@ -3,6 +3,7 @@ GangaViaje — Bot automático
 Scrape Booking + Civitatis cada hora, publica en Telegram, expira deals viejos.
 """
 
+import json
 import logging
 import ssl
 import time
@@ -31,10 +32,11 @@ log = logging.getLogger(__name__)
 def _tg(method: str, payload: dict) -> bool:
     if not config.TELEGRAM_BOT_TOKEN:
         return False
-    ctx = ssl.create_default_context(cafile=certifi.where())
-    url = f"https://api.telegram.org/bot{config.TELEGRAM_BOT_TOKEN}/{method}"
-    data = urllib.parse.urlencode(payload).encode()
-    req  = urllib.request.Request(url, data=data, method="POST")
+    ctx  = ssl.create_default_context(cafile=certifi.where())
+    url  = f"https://api.telegram.org/bot{config.TELEGRAM_BOT_TOKEN}/{method}"
+    data = json.dumps(payload).encode("utf-8")
+    req  = urllib.request.Request(url, data=data, method="POST",
+                                  headers={"Content-Type": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=10, context=ctx) as r:
             return r.status == 200
@@ -72,17 +74,17 @@ def publish_deal(deal: dict) -> bool:
 
     text += f"🔗 Disponible en {src}"
 
-    buttons = {
+    buttons = json.dumps({
         "inline_keyboard": [[
             {"text": "🌐 Ver oferta", "url": deal_url},
             {"text": "👉 Reservar", "url": deal["affiliate_url"]},
         ]]
-    }
+    })
 
     payload = {
-        "chat_id":    config.TELEGRAM_CHANNEL_ID,
-        "parse_mode": "HTML",
-        "reply_markup": str(buttons).replace("'", '"'),
+        "chat_id":      config.TELEGRAM_CHANNEL_ID,
+        "parse_mode":   "HTML",
+        "reply_markup": buttons,
     }
 
     if deal.get("image_url"):
