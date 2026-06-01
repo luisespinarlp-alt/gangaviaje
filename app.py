@@ -53,6 +53,11 @@ def sobre_nosotros():
     return render_template("about.html", destinos=config.DESTINOS)
 
 
+@app.route("/privacidad")
+def privacidad():
+    return render_template("privacy.html", destinos=config.DESTINOS)
+
+
 @app.route("/sitemap.xml")
 def sitemap():
     base = config.BASE_URL.rstrip("/")
@@ -62,6 +67,7 @@ def sitemap():
     # Páginas estáticas
     urls.append(f"<url><loc>{base}/</loc><changefreq>hourly</changefreq><priority>1.0</priority></url>")
     urls.append(f"<url><loc>{base}/sobre-nosotros</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>")
+    urls.append(f"<url><loc>{base}/privacidad</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>")
     for key in config.DESTINOS:
         urls.append(f"<url><loc>{base}/destino/{key}</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>")
 
