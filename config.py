@@ -16,6 +16,12 @@ GETYOURGUIDE_PARTNER_ID = os.getenv("GETYOURGUIDE_PARTNER_ID", "")
 TRAVELPAYOUTS_TOKEN  = os.getenv("TRAVELPAYOUTS_TOKEN", "")
 TRAVELPAYOUTS_MARKER = os.getenv("TRAVELPAYOUTS_MARKER", "")
 
+# Base de datos (Supabase Postgres)
+DATABASE_URL = os.getenv("DATABASE_URL", "")
+
+# Cron (Vercel Cron Job -> /api/cron)
+CRON_SECRET = os.getenv("CRON_SECRET", "")
+
 # Telegram
 TELEGRAM_BOT_TOKEN  = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID", "@gangaviaje")

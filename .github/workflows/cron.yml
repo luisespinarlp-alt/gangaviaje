@@ -1,0 +1,15 @@
+name: Scrape deals
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call /api/cron
+        run: |
+          curl -sf -X GET "https://gangaviaje.es/api/cron" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"

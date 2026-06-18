@@ -2,10 +2,10 @@
 GangaViaje — Web Flask de ofertas de viajes
 """
 
-import os
 from datetime import datetime
-from flask import Flask, render_template, abort, Response
+from flask import Flask, render_template, abort, Response, request
 
+import bot
 import config
 import database
 
@@ -13,12 +13,6 @@ app = Flask(__name__)
 app.secret_key = config.FLASK_SECRET_KEY
 
 database.init_db()
-
-if os.getenv("VERCEL") == "1" and database.get_stats()["total"] == 0:
-    from scrapers import booking
-    for deal in booking.fetch_deals():
-        if not database.deal_exists(deal["affiliate_url"]):
-            database.add_deal(deal)
 
 
 @app.route("/")
@@ -83,6 +77,14 @@ def sitemap():
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
            + "".join(urls) + "</urlset>")
     return Response(xml, mimetype="application/xml")
+
+
+@app.route("/api/cron")
+def cron():
+    if not config.CRON_SECRET or request.headers.get("Authorization") != f"Bearer {config.CRON_SECRET}":
+        abort(401)
+    bot.run_once()
+    return {"ok": True, "stats": database.get_stats()}
 
 
 @app.route("/robots.txt")

@@ -1,10 +1,12 @@
 """
 GangaViaje — Bot automático
-Scrape Booking + Civitatis cada hora, publica en Telegram, expira deals viejos.
+Scrape Booking + Civitatis + GetYourGuide + TravelPayouts, publica en Telegram, expira deals viejos.
+Se ejecuta vía Vercel Cron (endpoint /api/cron) en producción, o en bucle local con main().
 """
 
 import json
 import logging
+import os
 import ssl
 import time
 import urllib.parse
@@ -16,13 +18,14 @@ import config
 import database
 from scrapers import booking, civitatis, getyourguide, travelpayouts
 
+_handlers = [logging.StreamHandler()]
+if os.getenv("VERCEL") != "1":
+    _handlers.append(logging.FileHandler("bot.log"))
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(message)s",
-    handlers=[
-        logging.FileHandler("bot.log"),
-        logging.StreamHandler(),
-    ],
+    handlers=_handlers,
 )
 log = logging.getLogger(__name__)
 
