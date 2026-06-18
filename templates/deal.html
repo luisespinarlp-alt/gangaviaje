@@ -278,8 +278,9 @@
       </div>
     </div>
 
-    <div class="booking-source">Disponible en Booking.com</div>
-    {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else "noche") %}
+    {% set fuentes = {"booking": "Booking.com", "civitatis": "Civitatis", "getyourguide": "GetYourGuide", "travelpayouts": "Aviasales"} %}
+    <div class="booking-source">Disponible en {{ fuentes.get(deal.source, "GangaViaje") }}</div>
+    {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("vuelo" if deal.tipo == "vuelo" else "noche")) %}
     {% if deal.original_price and deal.original_price > deal.sale_price %}
     <div class="booking-price-original">€{{ "%.0f"|format(deal.original_price) }} / {{ unidad }}</div>
     {% endif %}

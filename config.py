@@ -12,6 +12,10 @@ CIVITATIS_AFFILIATE_ID = os.getenv("CIVITATIS_AFFILIATE_ID", "")
 # GetYourGuide
 GETYOURGUIDE_PARTNER_ID = os.getenv("GETYOURGUIDE_PARTNER_ID", "")
 
+# TravelPayouts (vuelos vía Aviasales Data API)
+TRAVELPAYOUTS_TOKEN  = os.getenv("TRAVELPAYOUTS_TOKEN", "")
+TRAVELPAYOUTS_MARKER = os.getenv("TRAVELPAYOUTS_MARKER", "")
+
 # Telegram
 TELEGRAM_BOT_TOKEN  = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID", "@gangaviaje")
@@ -43,4 +47,5 @@ TIPOS = {
     "villa":       "Villas",
     "actividad":   "Atracciones",
     "coche":       "Coches",
+    "vuelo":       "Vuelos",
 }

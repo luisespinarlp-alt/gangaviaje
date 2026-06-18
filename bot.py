@@ -14,7 +14,7 @@ import certifi
 
 import config
 import database
-from scrapers import booking, civitatis, getyourguide
+from scrapers import booking, civitatis, getyourguide, travelpayouts
 
 logging.basicConfig(
     level=logging.INFO,
@@ -47,14 +47,22 @@ def _tg(method: str, payload: dict) -> bool:
 
 def _tipo_emoji(tipo: str) -> str:
     return {"hotel": "🏨", "apartamento": "🏠", "villa": "🏡",
-            "actividad": "🎯", "coche": "🚗"}.get(tipo, "✈️")
+            "actividad": "🎯", "coche": "🚗", "vuelo": "✈️"}.get(tipo, "✈️")
+
+
+SOURCE_LABELS = {
+    "booking":       "Booking",
+    "civitatis":     "Civitatis",
+    "getyourguide":  "GetYourGuide",
+    "travelpayouts": "Aviasales",
+}
 
 
 def publish_deal(deal: dict) -> bool:
     deal_id = deal["id"]
     deal_url = f"{config.BASE_URL}/oferta/{deal_id}"
     emoji    = _tipo_emoji(deal.get("tipo", "hotel"))
-    src      = "Booking" if deal.get("source") == "booking" else "Civitatis"
+    src      = SOURCE_LABELS.get(deal.get("source"), "GangaViaje")
 
     text = (
         f"{emoji} <b>{deal['title']}</b>\n"
@@ -110,7 +118,7 @@ def run_once():
 
     # 2. Scrape fuentes
     new_total = 0
-    for scraper, name in [(booking, "Booking"), (civitatis, "Civitatis"), (getyourguide, "GetYourGuide")]:
+    for scraper, name in [(booking, "Booking"), (civitatis, "Civitatis"), (getyourguide, "GetYourGuide"), (travelpayouts, "TravelPayouts")]:
         try:
             deals = scraper.fetch_deals(
                 min_discount=config.MIN_DISCOUNT_PCT,
