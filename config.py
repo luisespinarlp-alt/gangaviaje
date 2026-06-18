@@ -5,6 +5,8 @@ load_dotenv()
 
 # Booking
 BOOKING_AFFILIATE_ID = os.getenv("BOOKING_AFFILIATE_ID", "")
+# Poner en "true" solo cuando BOOKING_AFFILIATE_ID sea un ID de afiliado real confirmado
+BOOKING_AFFILIATE_ID_CONFIRMED = os.getenv("BOOKING_AFFILIATE_ID_CONFIRMED", "").lower() == "true"
 
 # Civitatis
 CIVITATIS_AFFILIATE_ID = os.getenv("CIVITATIS_AFFILIATE_ID", "")
