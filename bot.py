@@ -119,9 +119,15 @@ def run_once():
     # 1. Expirar deals viejos
     database.deactivate_old_deals(config.DEAL_EXPIRY_HOURS)
 
-    # 2. Scrape fuentes
+    # 2. Scrape fuentes — solo las que generan comisión real (afiliado configurado)
+    sources = [(booking, "Booking"), (travelpayouts, "TravelPayouts")]
+    if config.CIVITATIS_AFFILIATE_ID:
+        sources.append((civitatis, "Civitatis"))
+    if config.GETYOURGUIDE_PARTNER_ID:
+        sources.append((getyourguide, "GetYourGuide"))
+
     new_total = 0
-    for scraper, name in [(booking, "Booking"), (civitatis, "Civitatis"), (getyourguide, "GetYourGuide"), (travelpayouts, "TravelPayouts")]:
+    for scraper, name in sources:
         try:
             deals = scraper.fetch_deals(
                 min_discount=config.MIN_DISCOUNT_PCT,
