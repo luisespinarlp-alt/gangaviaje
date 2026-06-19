@@ -102,7 +102,7 @@ def get_deals(category: str = None, limit: int = 60) -> list:
     return rows
 
 
-def get_deals_grouped(category: str = None, per_tipo_limit: int = 12) -> list:
+def get_deals_grouped(category: str = None, per_tipo_limit: int = 40) -> list:
     """Devuelve [(tipo, [deals...]), ...] en el orden de config.TIPO_ORDER,
     con un cupo propio por tipo para que ningún tipo (p.ej. vuelos) desplace a los demás."""
     conn = get_conn()
