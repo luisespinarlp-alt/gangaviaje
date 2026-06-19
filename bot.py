@@ -16,7 +16,7 @@ import certifi
 
 import config
 import database
-from scrapers import booking, civitatis, getyourguide, travelpayouts
+from scrapers import booking, civitatis, economybookings, getyourguide, klook, travelpayouts
 
 _handlers = [logging.StreamHandler()]
 if os.getenv("VERCEL") != "1":
@@ -50,14 +50,16 @@ def _tg(method: str, payload: dict) -> bool:
 
 def _tipo_emoji(tipo: str) -> str:
     return {"hotel": "🏨", "apartamento": "🏠", "villa": "🏡",
-            "actividad": "🎯", "coche": "🚗", "vuelo": "✈️"}.get(tipo, "✈️")
+            "actividad": "🎯", "coche": "🚗", "vuelo": "✈️"}.get(tipo, "🎯")
 
 
 SOURCE_LABELS = {
-    "booking":       "Booking",
-    "civitatis":     "Civitatis",
-    "getyourguide":  "GetYourGuide",
-    "travelpayouts": "Aviasales",
+    "booking":          "Booking",
+    "civitatis":        "Civitatis",
+    "getyourguide":     "GetYourGuide",
+    "travelpayouts":    "Aviasales",
+    "klook":            "Klook",
+    "economybookings":  "Economybookings",
 }
 
 
@@ -121,6 +123,9 @@ def run_once():
 
     # 2. Scrape fuentes — solo las que generan comisión real (afiliado confirmado)
     sources = [(travelpayouts, "TravelPayouts")]
+    if config.TRAVELPAYOUTS_TOKEN and config.TRAVELPAYOUTS_TRS:
+        sources.append((klook, "Klook"))
+        sources.append((economybookings, "Economybookings"))
     if config.BOOKING_AFFILIATE_ID_CONFIRMED:
         sources.append((booking, "Booking"))
     if config.CIVITATIS_AFFILIATE_ID:

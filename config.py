@@ -14,9 +14,10 @@ CIVITATIS_AFFILIATE_ID = os.getenv("CIVITATIS_AFFILIATE_ID", "")
 # GetYourGuide
 GETYOURGUIDE_PARTNER_ID = os.getenv("GETYOURGUIDE_PARTNER_ID", "")
 
-# TravelPayouts (vuelos vía Aviasales Data API)
+# TravelPayouts (vuelos vía Aviasales Data API, y links/v1/create para otras marcas)
 TRAVELPAYOUTS_TOKEN  = os.getenv("TRAVELPAYOUTS_TOKEN", "")
 TRAVELPAYOUTS_MARKER = os.getenv("TRAVELPAYOUTS_MARKER", "")
+TRAVELPAYOUTS_TRS    = os.getenv("TRAVELPAYOUTS_TRS", "")
 
 # Base de datos (Supabase Postgres)
 DATABASE_URL = os.getenv("DATABASE_URL", "")
