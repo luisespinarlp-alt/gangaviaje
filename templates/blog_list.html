@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog de viajes — GangaViaje</title>
+  <meta name="description" content="Guías, consejos y rutas de viaje para sacarle el máximo partido a tus vacaciones: destinos, presupuesto y trucos para viajar más por menos.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2308142d'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' text-anchor='middle' fill='%23c9a84c'%3EG%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Raleway', -apple-system, sans-serif; background: #f4f6f9; color: #1a1a2e; line-height: 1.6; }
+
+    nav { background: rgba(8,20,45,0.95); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; text-decoration: none; }
+    .logo-wrap { display: flex; flex-direction: column; }
+    .logo-name { font-size: 1.35rem; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1.1; }
+    .logo-name span { color: #c9a84c; }
+    .logo-line { display: block; height: 2px; width: 40px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; margin-top: 4px; }
+    .nav-back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+    .nav-back:hover { color: white; }
+    .nav-back svg { width: 15px; height: 15px; }
+
+    .page-hero { background: linear-gradient(135deg, #08142d 0%, #0d2145 100%); padding: 56px 24px 48px; text-align: center; border-bottom: 1px solid rgba(201,168,76,0.2); }
+    .page-hero-inner { max-width: 680px; margin: 0 auto; }
+    .page-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); color: #f0d080; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 5px 14px; border-radius: 20px; margin-bottom: 18px; }
+    .page-hero h1 { font-size: 2.2rem; font-weight: 800; color: white; margin-bottom: 14px; line-height: 1.2; }
+    .page-hero h1 span { color: #c9a84c; }
+    .page-hero p { font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto; }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 48px 24px 64px; }
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+
+    .post-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .post-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+    .post-img { height: 180px; background: #dce8f5; overflow: hidden; }
+    .post-img img { width: 100%; height: 100%; object-fit: cover; }
+    .post-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .post-cat { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #c9a84c; margin-bottom: 8px; }
+    .post-title { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 10px; line-height: 1.4; }
+    .post-excerpt { font-size: 0.87rem; color: #666; line-height: 1.6; flex: 1; }
+    .post-readmore { font-size: 0.82rem; font-weight: 600; color: #003580; margin-top: 14px; }
+
+    footer { background: #08142d; color: #6b7e9f; padding: 40px 24px; border-top: 1px solid rgba(201,168,76,0.15); }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    .footer-logo { font-size: 1.25rem; font-weight: 800; color: white; }
+    .footer-logo span { color: #c9a84c; }
+    footer p { font-size: 0.8rem; line-height: 1.7; }
+    .footer-divider { width: 40px; height: 2px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; }
+    .footer-links { display: flex; gap: 20px; }
+    footer a { color: #c9a84c; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .page-hero h1 { font-size: 1.7rem; }
+      main { padding: 32px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-wrap">
+        <span class="logo-name">Ganga<span>Viaje</span></span>
+        <i class="logo-line"></i>
+      </div>
+    </a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Volver a ofertas
+    </a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Blog de viajes</div>
+    <h1>Guías y <span>consejos</span> para viajar más</h1>
+    <p>Rutas, presupuestos y trucos reales para sacarle el máximo partido a tus vacaciones.</p>
+  </div>
+</div>
+
+<main>
+  {% if posts %}
+  <div class="posts-grid">
+    {% for post in posts %}
+    <a href="/blog/{{ post.slug }}" class="post-card">
+      <div class="post-img">
+        {% if post.image_url %}
+        <img src="{{ post.image_url }}" alt="{{ post.title }}" loading="lazy">
+        {% endif %}
+      </div>
+      <div class="post-body">
+        <div class="post-cat">{{ post.category }}</div>
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-excerpt">{{ post.excerpt }}</div>
+        <div class="post-readmore">Leer más →</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>Próximamente nuevos artículos.</p>
+  {% endif %}
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Ganga<span>Viaje</span></div>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="/">Ofertas</a>
+      <a href="/sobre-nosotros">Sobre nosotros</a>
+    </div>
+    <p>Las ofertas están sujetas a disponibilidad. Los precios pueden variar.</p>
+  </div>
+</footer>
+
+</body>
+</html>

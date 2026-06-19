@@ -43,6 +43,22 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_deals_active
         ON deals (active, created_at DESC)
     """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS posts (
+            id          SERIAL PRIMARY KEY,
+            slug        TEXT    NOT NULL UNIQUE,
+            title       TEXT    NOT NULL,
+            excerpt     TEXT    DEFAULT '',
+            content     TEXT    NOT NULL,
+            image_url   TEXT    DEFAULT '',
+            category    TEXT    DEFAULT 'espana',
+            created_at  TIMESTAMP DEFAULT NOW()
+        )
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS idx_posts_created
+        ON posts (created_at DESC)
+    """)
     conn.commit()
     cur.close()
     conn.close()
@@ -195,3 +211,43 @@ def get_stats() -> dict:
     cur.close()
     conn.close()
     return {"total": total, "today": today}
+
+
+def add_post(post: dict) -> int:
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        INSERT INTO posts (slug, title, excerpt, content, image_url, category)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        ON CONFLICT (slug) DO NOTHING
+        RETURNING id
+    """, (
+        post["slug"], post["title"], post.get("excerpt", ""),
+        post["content"], post.get("image_url", ""), post.get("category", "espana"),
+    ))
+    row = cur.fetchone()
+    post_id = row[0] if row else None
+    conn.commit()
+    cur.close()
+    conn.close()
+    return post_id
+
+
+def get_posts(limit: int = 30) -> list:
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM posts ORDER BY created_at DESC LIMIT %s", (limit,))
+    rows = [dict(r) for r in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return rows
+
+
+def get_post_by_slug(slug: str) -> dict | None:
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM posts WHERE slug = %s", (slug,))
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+    return dict(row) if row else None

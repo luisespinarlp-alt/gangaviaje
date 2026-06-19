@@ -43,6 +43,20 @@ def oferta(deal_id: int):
     return render_template("deal.html", deal=deal, destinos=config.DESTINOS)
 
 
+@app.route("/blog")
+def blog():
+    posts = database.get_posts(limit=30)
+    return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS)
+
+
+@app.route("/blog/<slug>")
+def blog_post(slug: str):
+    post = database.get_post_by_slug(slug)
+    if not post:
+        abort(404)
+    return render_template("blog_post.html", post=post, destinos=config.DESTINOS)
+
+
 @app.route("/sobre-nosotros")
 def sobre_nosotros():
     return render_template("about.html", destinos=config.DESTINOS)
@@ -63,8 +77,16 @@ def sitemap():
     urls.append(f"<url><loc>{base}/</loc><changefreq>hourly</changefreq><priority>1.0</priority></url>")
     urls.append(f"<url><loc>{base}/sobre-nosotros</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>")
     urls.append(f"<url><loc>{base}/privacidad</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>")
+    urls.append(f"<url><loc>{base}/blog</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>")
     for key in config.DESTINOS:
         urls.append(f"<url><loc>{base}/destino/{key}</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>")
+
+    # Artículos del blog
+    for post in database.get_posts(limit=100):
+        urls.append(
+            f"<url><loc>{base}/blog/{post['slug']}</loc>"
+            f"<changefreq>monthly</changefreq><priority>0.5</priority></url>"
+        )
 
     # Deals activos
     for deal in database.get_deals(limit=200):
