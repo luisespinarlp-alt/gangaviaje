@@ -102,6 +102,30 @@ def get_deals(category: str = None, limit: int = 60) -> list:
     return rows
 
 
+def get_deals_grouped(category: str = None, per_tipo_limit: int = 12) -> list:
+    """Devuelve [(tipo, [deals...]), ...] en el orden de config.TIPO_ORDER,
+    con un cupo propio por tipo para que ningún tipo (p.ej. vuelos) desplace a los demás."""
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    grouped = []
+    for tipo in config.TIPO_ORDER:
+        conditions = ["active = 1", "tipo = %s"]
+        params: list = [tipo]
+        if category:
+            conditions.append("category = %s")
+            params.append(category)
+        query = ("SELECT * FROM deals WHERE " + " AND ".join(conditions)
+                 + " ORDER BY discount_pct DESC, created_at DESC LIMIT %s")
+        params.append(per_tipo_limit)
+        cur.execute(query, params)
+        rows = [dict(r) for r in cur.fetchall()]
+        if rows:
+            grouped.append((tipo, rows))
+    cur.close()
+    conn.close()
+    return grouped
+
+
 def get_deal(deal_id: int) -> dict | None:
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)

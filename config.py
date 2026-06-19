@@ -67,3 +67,6 @@ TIPOS = {
     "coche":       "Coches",
     "vuelo":       "Vuelos",
 }
+
+# Orden en el que se agrupan las secciones automáticas de la web (solo se muestran las que tengan ofertas)
+TIPO_ORDER = ["vuelo", "hotel", "apartamento", "villa", "actividad", "coche"]

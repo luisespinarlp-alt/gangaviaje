@@ -17,21 +17,22 @@ database.init_db()
 
 @app.route("/")
 def index():
-    deals = database.get_deals(limit=60)
+    grouped = database.get_deals_grouped()
     stats = database.get_stats()
-    return render_template("index.html", deals=deals, stats=stats,
-                           active_cat="todos", destinos=config.DESTINOS)
+    return render_template("index.html", grouped=grouped, stats=stats,
+                           active_cat="todos", destinos=config.DESTINOS,
+                           tipo_labels=config.TIPOS)
 
 
 @app.route("/destino/<cat>")
 def destino(cat: str):
     if cat not in config.DESTINOS:
         abort(404)
-    deals = database.get_deals(category=cat, limit=60)
+    grouped = database.get_deals_grouped(category=cat)
     stats = database.get_stats()
-    return render_template("index.html", deals=deals, stats=stats,
+    return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat=cat, destinos=config.DESTINOS,
-                           cat_title=config.DESTINOS[cat])
+                           cat_title=config.DESTINOS[cat], tipo_labels=config.TIPOS)
 
 
 @app.route("/oferta/<int:deal_id>")
@@ -96,8 +97,9 @@ def robots():
 
 @app.errorhandler(404)
 def not_found(e):
-    return render_template("index.html", deals=[], stats={"total": 0, "today": 0},
-                           active_cat="todos", destinos=config.DESTINOS), 404
+    return render_template("index.html", grouped=[], stats={"total": 0, "today": 0},
+                           active_cat="todos", destinos=config.DESTINOS,
+                           tipo_labels=config.TIPOS), 404
 
 
 if __name__ == "__main__":

@@ -119,6 +119,13 @@
     .section-title { font-size: 1.25rem; font-weight: 700; color: #1a1a2e; }
     .section-count { font-size: 0.85rem; color: #777; }
 
+    /* ── SECCIONES POR TIPO ── */
+    .tipo-section { margin-bottom: 38px; }
+    .tipo-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #eef1f5; }
+    .tipo-section-title { display: flex; align-items: center; gap: 8px; font-size: 1.05rem; font-weight: 700; color: #1a1a2e; }
+    .tipo-section-title svg { width: 19px; height: 19px; color: #003580; flex-shrink: 0; }
+    .tipo-section-count { font-size: 0.74rem; color: #777; background: #eef2f7; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+
     /* ── GRID ── */
     .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 
@@ -230,6 +237,22 @@
 </head>
 <body>
 
+{% macro tipo_icon(tipo) -%}
+{%- if tipo == 'vuelo' -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
+{%- elif tipo == 'apartamento' -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 21V10h8v11"/><path d="M2 9h20"/></svg>
+{%- elif tipo == 'villa' -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V12l9-9 9 9v10"/><path d="M9 22v-8h6v8"/></svg>
+{%- elif tipo == 'actividad' -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+{%- elif tipo == 'coche' -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/><path d="M5 12h14"/></svg>
+{%- else -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/><rect x="9" y="10" width="2" height="3"/><rect x="13" y="10" width="2" height="3"/></svg>
+{%- endif -%}
+{%- endmacro %}
+
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
@@ -293,24 +316,28 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       Todos
     </button>
+    <button class="tipo-btn" onclick="filterTipo('vuelo', this)">
+      {{ tipo_icon('vuelo') }}
+      Vuelos
+    </button>
     <button class="tipo-btn" onclick="filterTipo('hotel', this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/><rect x="9" y="10" width="2" height="3"/><rect x="13" y="10" width="2" height="3"/></svg>
+      {{ tipo_icon('hotel') }}
       Hoteles
     </button>
     <button class="tipo-btn" onclick="filterTipo('apartamento', this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 21V10h8v11"/><path d="M2 9h20"/></svg>
+      {{ tipo_icon('apartamento') }}
       Apartamentos
     </button>
     <button class="tipo-btn" onclick="filterTipo('villa', this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V12l9-9 9 9v10"/><path d="M9 22v-8h6v8"/></svg>
+      {{ tipo_icon('villa') }}
       Villas y Rurales
     </button>
     <button class="tipo-btn" onclick="filterTipo('actividad', this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      {{ tipo_icon('actividad') }}
       Atracciones
     </button>
     <button class="tipo-btn" onclick="filterTipo('coche', this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/><path d="M5 12h14"/></svg>
+      {{ tipo_icon('coche') }}
       Coches
     </button>
   </div>
@@ -395,86 +422,97 @@
 
 <!-- MAIN -->
 <main>
+  {% set total = grouped | map(attribute=1) | map('length') | sum %}
   <div class="section-header">
     <h2 class="section-title">
       {% if cat_title is defined %}{{ cat_title }}
       {% else %}Mejores ofertas ahora{% endif %}
     </h2>
-    <span class="section-count">{{ deals|length }} ofertas encontradas</span>
+    <span class="section-count" id="total-count">{{ total }} ofertas encontradas</span>
   </div>
 
-  {% if deals %}
-  <div class="deals-grid" id="deals-grid">
-    {% for deal in deals %}
-    <a href="/oferta/{{ deal.id }}" class="deal-card" data-tipo="{{ deal.tipo or 'hotel' }}">
-      <div class="card-img">
-        {% if deal.image_url %}
-        <img src="{{ deal.image_url }}" alt="{{ deal.title }}" loading="lazy"
-             onerror="this.parentElement.innerHTML='<div class=\'card-img-fallback\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><path d=\'M3 22V8l9-6 9 6v14\'/></svg></div>'">
-        {% else %}
-        <div class="card-img-fallback">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/></svg>
-        </div>
-        {% endif %}
-        {% if deal.discount_pct %}<span class="badge-discount">-{{ deal.discount_pct }}%</span>{% endif %}
-        <span class="badge-tipo">
-          {% if deal.tipo == 'apartamento' %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg>Apto
-          {% elif deal.tipo == 'villa' %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V12l9-9 9 9v10"/></svg>Villa
-          {% elif deal.tipo == 'actividad' %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Actividad
-          {% elif deal.tipo == 'coche' %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>Coche
+  {% if grouped %}
+  {% for tipo, items in grouped %}
+  <section class="tipo-section" data-tipo="{{ tipo }}">
+    <div class="tipo-section-header">
+      <h3 class="tipo-section-title">{{ tipo_icon(tipo) }}<span>{{ tipo_labels.get(tipo, tipo) }}</span></h3>
+      <span class="tipo-section-count">{{ items|length }}</span>
+    </div>
+    <div class="deals-grid">
+      {% for deal in items %}
+      <a href="/oferta/{{ deal.id }}" class="deal-card" data-tipo="{{ deal.tipo or 'hotel' }}">
+        <div class="card-img">
+          {% if deal.image_url %}
+          <img src="{{ deal.image_url }}" alt="{{ deal.title }}" loading="lazy"
+               onerror="this.parentElement.innerHTML='<div class=\'card-img-fallback\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><path d=\'M3 22V8l9-6 9 6v14\'/></svg></div>'">
           {% else %}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/></svg>Hotel
-          {% endif %}
-        </span>
-      </div>
-      <div class="card-body">
-        {% if deal.location %}
-        <div class="card-location">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          {{ deal.location }}
-        </div>
-        {% endif %}
-        <div class="card-title">{{ deal.title }}</div>
-        {% if deal.rating and deal.rating > 0 %}
-        <div class="card-rating">
-          <span class="rating-badge">{{ "%.1f"|format(deal.rating) }}</span>
-          <span class="rating-label">
-            {% if deal.rating >= 9 %}Excepcional
-            {% elif deal.rating >= 8 %}Muy bueno
-            {% elif deal.rating >= 7 %}Bueno
-            {% else %}Aceptable{% endif %}
-          </span>
-          {% if deal.reviews_count %}<span class="rating-count">{{ "{:,}".format(deal.reviews_count) }} val.</span>{% endif %}
-        </div>
-        {% endif %}
-        <div class="card-price">
-          {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else "noche") %}
-          {% if deal.original_price and deal.original_price > deal.sale_price %}
-          <div class="price-original">Antes: €{{ "%.0f"|format(deal.original_price) }}/{{ unidad }}</div>
-          {% endif %}
-          <div class="price-row">
-            <div>
-              <div class="price-current">€{{ "%.0f"|format(deal.sale_price) }}</div>
-              <div class="price-unit">por {{ unidad }}</div>
-            </div>
-            {% if deal.original_price and deal.original_price > deal.sale_price %}
-            <div class="price-saving">Ahorras €{{ "%.0f"|format(deal.original_price - deal.sale_price) }}</div>
-            {% endif %}
+          <div class="card-img-fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/></svg>
           </div>
+          {% endif %}
+          {% if deal.discount_pct %}<span class="badge-discount">-{{ deal.discount_pct }}%</span>{% endif %}
+          <span class="badge-tipo">
+            {% if deal.tipo == 'vuelo' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>Vuelo
+            {% elif deal.tipo == 'apartamento' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg>Apto
+            {% elif deal.tipo == 'villa' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V12l9-9 9 9v10"/></svg>Villa
+            {% elif deal.tipo == 'actividad' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Actividad
+            {% elif deal.tipo == 'coche' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>Coche
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/></svg>Hotel
+            {% endif %}
+          </span>
         </div>
-        <div class="card-urgency">
-          <span class="card-pulse"></span>
-          <span class="card-viewers"></span>
+        <div class="card-body">
+          {% if deal.location %}
+          <div class="card-location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            {{ deal.location }}
+          </div>
+          {% endif %}
+          <div class="card-title">{{ deal.title }}</div>
+          {% if deal.rating and deal.rating > 0 %}
+          <div class="card-rating">
+            <span class="rating-badge">{{ "%.1f"|format(deal.rating) }}</span>
+            <span class="rating-label">
+              {% if deal.rating >= 9 %}Excepcional
+              {% elif deal.rating >= 8 %}Muy bueno
+              {% elif deal.rating >= 7 %}Bueno
+              {% else %}Aceptable{% endif %}
+            </span>
+            {% if deal.reviews_count %}<span class="rating-count">{{ "{:,}".format(deal.reviews_count) }} val.</span>{% endif %}
+          </div>
+          {% endif %}
+          <div class="card-price">
+            {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("trayecto" if deal.tipo == "vuelo" else "noche")) %}
+            {% if deal.original_price and deal.original_price > deal.sale_price %}
+            <div class="price-original">Antes: €{{ "%.0f"|format(deal.original_price) }}/{{ unidad }}</div>
+            {% endif %}
+            <div class="price-row">
+              <div>
+                <div class="price-current">€{{ "%.0f"|format(deal.sale_price) }}</div>
+                <div class="price-unit">por {{ unidad }}</div>
+              </div>
+              {% if deal.original_price and deal.original_price > deal.sale_price %}
+              <div class="price-saving">Ahorras €{{ "%.0f"|format(deal.original_price - deal.sale_price) }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="card-urgency">
+            <span class="card-pulse"></span>
+            <span class="card-viewers"></span>
+          </div>
+          <span class="card-cta">Ver oferta</span>
         </div>
-        <span class="card-cta">Ver oferta</span>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
   {% else %}
   <div class="empty">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -493,23 +531,35 @@
 </footer>
 
 <script>
+let activeTipo = 'todos';
+
+function applyFilters() {
+  const q = (document.getElementById('search-input')?.value || '').trim().toLowerCase();
+  let totalVisible = 0;
+  document.querySelectorAll('.tipo-section').forEach(sec => {
+    const sectionMatches = (activeTipo === 'todos' || sec.dataset.tipo === activeTipo);
+    let sectionVisible = 0;
+    sec.querySelectorAll('.deal-card').forEach(card => {
+      const title    = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+      const location = (card.querySelector('.card-location')?.textContent || '').toLowerCase();
+      const cardMatches = sectionMatches && (!q || title.includes(q) || location.includes(q));
+      card.style.display = cardMatches ? '' : 'none';
+      if (cardMatches) sectionVisible++;
+    });
+    sec.style.display = sectionVisible > 0 ? '' : 'none';
+    const countEl = sec.querySelector('.tipo-section-count');
+    if (countEl) countEl.textContent = sectionVisible;
+    totalVisible += sectionVisible;
+  });
+  const totalEl = document.getElementById('total-count');
+  if (totalEl) totalEl.textContent = totalVisible + ' ofertas encontradas';
+}
+
 function filterTipo(tipo, btn) {
   document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const cards = document.querySelectorAll('.deal-card');
-  let delay = 0;
-  cards.forEach(card => {
-    if (tipo === 'todos' || card.dataset.tipo === tipo) {
-      card.style.display = '';
-      card.style.animation = 'none';
-      void card.offsetWidth;
-      card.style.animationDelay = delay + 'ms';
-      card.style.animation = 'fadeUp 0.4s ease both';
-      delay += 40;
-    } else {
-      card.style.display = 'none';
-    }
-  });
+  activeTipo = tipo;
+  applyFilters();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -571,19 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Buscador por ciudad / título
   const searchInput = document.getElementById('search-input');
-  searchInput.addEventListener('input', () => {
-    const q = searchInput.value.trim().toLowerCase();
-    const cards = document.querySelectorAll('.deal-card');
-    let visible = 0;
-    cards.forEach(card => {
-      const title    = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
-      const location = (card.querySelector('.card-location')?.textContent || '').toLowerCase();
-      const match = !q || title.includes(q) || location.includes(q);
-      card.style.display = match ? '' : 'none';
-      if (match) visible++;
-    });
-    document.querySelector('.section-count').textContent = visible + ' ofertas encontradas';
-  });
+  searchInput.addEventListener('input', applyFilters);
 });
 </script>
 </body>
