@@ -16,7 +16,7 @@ import certifi
 
 import config
 import database
-from scrapers import booking, civitatis, economybookings, getyourguide, klook, travelpayouts
+from scrapers import booking, civitatis, economybookings, getyourguide, iberostar, klook, travelpayouts
 
 _handlers = [logging.StreamHandler()]
 if os.getenv("VERCEL") != "1":
@@ -60,6 +60,7 @@ SOURCE_LABELS = {
     "travelpayouts":    "Aviasales",
     "klook":            "Klook",
     "economybookings":  "Economybookings",
+    "iberostar":        "Iberostar",
 }
 
 
@@ -126,6 +127,8 @@ def run_once():
     if config.TRAVELPAYOUTS_TOKEN and config.TRAVELPAYOUTS_TRS:
         sources.append((klook, "Klook"))
         sources.append((economybookings, "Economybookings"))
+    if config.CJ_WEBSITE_ID:
+        sources.append((iberostar, "Iberostar"))
     if config.BOOKING_AFFILIATE_ID_CONFIRMED:
         sources.append((booking, "Booking"))
     if config.CIVITATIS_AFFILIATE_ID:

@@ -14,6 +14,10 @@ CIVITATIS_AFFILIATE_ID = os.getenv("CIVITATIS_AFFILIATE_ID", "")
 # GetYourGuide
 GETYOURGUIDE_PARTNER_ID = os.getenv("GETYOURGUIDE_PARTNER_ID", "")
 
+# CJ Affiliate (Commission Junction) — PID = ID de sitio web GangaViaje en CJ.
+# Válido para todos los anunciantes aprobados en CJ (Iberostar, Hotels.com, etc.)
+CJ_WEBSITE_ID = os.getenv("CJ_WEBSITE_ID", "")
+
 # TravelPayouts (vuelos vía Aviasales Data API, y links/v1/create para otras marcas)
 TRAVELPAYOUTS_TOKEN  = os.getenv("TRAVELPAYOUTS_TOKEN", "")
 TRAVELPAYOUTS_MARKER = os.getenv("TRAVELPAYOUTS_MARKER", "")
