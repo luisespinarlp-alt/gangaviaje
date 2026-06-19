@@ -55,6 +55,17 @@
     .cta-box p { color: rgba(255,255,255,0.85); font-size: 0.92rem; margin-bottom: 16px; }
     .cta-box a { display: inline-block; background: #c9a84c; color: #08142d; font-weight: 700; padding: 11px 24px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; }
 
+    .related-deals { margin-top: 36px; }
+    .related-deals h3 { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+    .related-card { display: block; text-decoration: none; color: inherit; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); background: #f8fafc; transition: transform 0.2s ease; }
+    .related-card:hover { transform: translateY(-3px); }
+    .related-img { height: 90px; background: #dce8f5; }
+    .related-img img { width: 100%; height: 100%; object-fit: cover; }
+    .related-body { padding: 10px 12px; }
+    .related-title { font-size: 0.8rem; font-weight: 600; color: #1a1a2e; line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .related-price { font-size: 0.85rem; font-weight: 700; color: #003580; }
+
     footer { background: #08142d; color: #6b7e9f; padding: 40px 24px; border-top: 1px solid rgba(201,168,76,0.15); }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
     .footer-logo { font-size: 1.25rem; font-weight: 800; color: white; }
@@ -120,9 +131,28 @@
   <div class="post-content">
     {{ post.content | safe }}
 
+    {% if related_deals %}
+    <div class="related-deals">
+      <h3>Ofertas relacionadas con este destino</h3>
+      <div class="related-grid">
+        {% for deal in related_deals %}
+        <a href="/oferta/{{ deal.id }}" class="related-card">
+          <div class="related-img">
+            {% if deal.image_url %}<img src="{{ deal.image_url }}" alt="{{ deal.title }}" loading="lazy">{% endif %}
+          </div>
+          <div class="related-body">
+            <div class="related-title">{{ deal.title }}</div>
+            <div class="related-price">€{{ "%.0f"|format(deal.sale_price) }}</div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
     <div class="cta-box">
       <p>¿Te ha entrado el gusanillo de viajar? Echa un vistazo a las ofertas activas ahora mismo.</p>
-      <a href="/">Ver ofertas de viaje</a>
+      <a href="/destino/{{ post.category }}">Ver ofertas de {{ destinos.get(post.category, 'este destino') }}</a>
     </div>
   </div>
 </main>

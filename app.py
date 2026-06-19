@@ -54,7 +54,9 @@ def blog_post(slug: str):
     post = database.get_post_by_slug(slug)
     if not post:
         abort(404)
-    return render_template("blog_post.html", post=post, destinos=config.DESTINOS)
+    related_deals = database.get_deals(category=post["category"], limit=3)
+    return render_template("blog_post.html", post=post, destinos=config.DESTINOS,
+                           related_deals=related_deals)
 
 
 @app.route("/sobre-nosotros")
