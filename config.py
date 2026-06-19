@@ -18,6 +18,11 @@ GETYOURGUIDE_PARTNER_ID = os.getenv("GETYOURGUIDE_PARTNER_ID", "")
 # Válido para todos los anunciantes aprobados en CJ (Iberostar, Hotels.com, etc.)
 CJ_WEBSITE_ID = os.getenv("CJ_WEBSITE_ID", "")
 
+# CJ Product Search API (GraphQL) — automatiza catálogos de anunciantes con feed de producto.
+# CJ_COMPANY_ID = CID de publisher de GangaViaje en CJ (visible en members.cj.com, selector de cuenta).
+CJ_PERSONAL_ACCESS_TOKEN = os.getenv("CJ_PERSONAL_ACCESS_TOKEN", "")
+CJ_COMPANY_ID = os.getenv("CJ_COMPANY_ID", "")
+
 # TravelPayouts (vuelos vía Aviasales Data API, y links/v1/create para otras marcas)
 TRAVELPAYOUTS_TOKEN  = os.getenv("TRAVELPAYOUTS_TOKEN", "")
 TRAVELPAYOUTS_MARKER = os.getenv("TRAVELPAYOUTS_MARKER", "")
