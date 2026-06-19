@@ -15,39 +15,17 @@ log = logging.getLogger(__name__)
 
 _HOME_URL = "https://www.economybookings.com/"
 
-# Precios "desde" estimados a partir de tarifas habituales de alquiler de coche económico.
+# Economybookings no tiene URLs de búsqueda por ciudad verificadas (su buscador es un
+# formulario), así que solo se ofrece UN deal genérico con el enlace real a la home
+# -> evita mostrar varias tarjetas de "ciudad" que en realidad llevan todas al mismo sitio.
 _COCHES = [
     {
-        "title":         "Alquiler de coche en Barcelona",
-        "description":   "Compara las mejores tarifas de alquiler de coche en Barcelona con cancelación gratuita.",
-        "location":      "Barcelona",
-        "sale_price":    19.0,
-        "image_url":     "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?fm=jpg&q=80&w=800&auto=format&fit=crop",
-        "category":      "ciudad",
-    },
-    {
-        "title":         "Alquiler de coche en Madrid",
-        "description":   "Encuentra el coche de alquiler más barato en Madrid, sin sorpresas en el precio.",
-        "location":      "Madrid",
-        "sale_price":    18.0,
-        "image_url":     "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?fm=jpg&q=80&w=800&auto=format&fit=crop",
-        "category":      "ciudad",
-    },
-    {
-        "title":         "Alquiler de coche en Málaga",
-        "description":   "Tarifas bajas para tu alquiler de coche en Málaga, ideal para la Costa del Sol.",
-        "location":      "Málaga",
+        "title":         "Alquiler de coche barato en toda España",
+        "description":   "Compara tarifas de alquiler de coche en cualquier ciudad de España, con cancelación gratuita y sin sorpresas en el precio.",
+        "location":      "España",
         "sale_price":    16.0,
-        "image_url":     "https://images.unsplash.com/photo-1591018120414-83c5f0e7fe8e?fm=jpg&q=80&w=800&auto=format&fit=crop",
-        "category":      "playa",
-    },
-    {
-        "title":         "Alquiler de coche en Palma de Mallorca",
-        "description":   "Compara precios de alquiler de coche en Mallorca con seguro incluido.",
-        "location":      "Palma de Mallorca",
-        "sale_price":    21.0,
-        "image_url":     "https://images.unsplash.com/photo-1562766591-80ba2f6feffb?fm=jpg&q=80&w=800&auto=format&fit=crop",
-        "category":      "playa",
+        "image_url":     "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "category":      "espana",
     },
 ]
 
