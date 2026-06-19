@@ -20,17 +20,30 @@ log = logging.getLogger(__name__)
 _UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
 
 # Origen España → destinos populares con su categoría en la web
-ORIGINS = ["MAD", "BCN"]
+ORIGINS = ["MAD", "BCN", "VLC", "AGP", "PMI", "BIO", "SVQ"]
+
+_ORIGIN_NAMES = {
+    "MAD": "Madrid", "BCN": "Barcelona", "VLC": "Valencia", "AGP": "Málaga",
+    "PMI": "Palma de Mallorca", "BIO": "Bilbao", "SVQ": "Sevilla",
+}
 
 DESTINATIONS = [
-    ("PAR", "París",      "europa"),
-    ("ROM", "Roma",        "europa"),
-    ("LIS", "Lisboa",      "europa"),
-    ("AMS", "Ámsterdam",   "europa"),
-    ("LON", "Londres",     "europa"),
-    ("IST", "Estambul",    "internacional"),
-    ("NYC", "Nueva York",  "internacional"),
-    ("BKK", "Bangkok",     "internacional"),
+    ("PAR", "París",        "europa"),
+    ("ROM", "Roma",         "europa"),
+    ("LIS", "Lisboa",       "europa"),
+    ("AMS", "Ámsterdam",    "europa"),
+    ("LON", "Londres",      "europa"),
+    ("BER", "Berlín",       "europa"),
+    ("VIE", "Viena",        "europa"),
+    ("PRG", "Praga",        "europa"),
+    ("DUB", "Dublín",       "europa"),
+    ("ATH", "Atenas",       "europa"),
+    ("IST", "Estambul",     "internacional"),
+    ("NYC", "Nueva York",   "internacional"),
+    ("BKK", "Bangkok",      "internacional"),
+    ("DXB", "Dubái",        "internacional"),
+    ("RAK", "Marrakech",    "internacional"),
+    ("CUN", "Cancún",       "internacional"),
 ]
 
 
@@ -116,7 +129,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
                 continue
             depart_date = (flight.get("departure_at") or "")[:10]
             deals.append({
-                "title":          f"Vuelo {('Madrid' if origin == 'MAD' else 'Barcelona')} → {dest_name}",
+                "title":          f"Vuelo {_ORIGIN_NAMES.get(origin, origin)} → {dest_name}",
                 "description":    f"Vuelo encontrado por Aviasales con {flight.get('airline', '')} "
                                    f"({flight.get('number_of_changes', 0)} escalas).",
                 "location":       dest_name,
