@@ -72,6 +72,19 @@
       main { padding: 32px 16px 48px; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ post.title | tojson }},
+    "description": {{ post.excerpt | tojson }},
+    "image": {{ (post.image_url or '') | tojson }},
+    "datePublished": {{ post.created_at.isoformat() | tojson }},
+    "author": { "@type": "Organization", "name": "GangaViaje" },
+    "publisher": { "@type": "Organization", "name": "GangaViaje" },
+    "mainEntityOfPage": {{ request.url | tojson }}
+  }
+  </script>
 </head>
 <body>
 

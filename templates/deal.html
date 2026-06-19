@@ -145,6 +145,29 @@
       document.head.appendChild(script);
     })();
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ deal.title | tojson }},
+    "description": {{ (deal.description or deal.title) | tojson }},
+    "image": {{ (deal.image_url or 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop') | tojson }},
+    "offers": {
+      "@type": "Offer",
+      "price": {{ deal.sale_price | tojson }},
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "url": {{ deal.affiliate_url | tojson }}
+    }{% if deal.rating and deal.rating > 0 and deal.reviews_count and deal.reviews_count > 0 %},
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": {{ deal.rating | tojson }},
+      "bestRating": "10",
+      "worstRating": "0",
+      "reviewCount": {{ deal.reviews_count | tojson }}
+    }{% endif %}
+  }
+  </script>
 </head>
 <body>
 
