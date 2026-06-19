@@ -257,7 +257,7 @@ POSTS = [
         "slug": "lisboa-fin-de-semana-barrios",
         "title": "Lisboa en un fin de semana: barrio a barrio",
         "category": "europa",
-        "image_url": "https://images.unsplash.com/photo-1585465607853-9e4b7c8c5b5f?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+        "image_url": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?fm=jpg&q=80&w=1200&auto=format&fit=crop",
         "excerpt": "Lisboa se entiende mejor recorriéndola barrio a barrio que persiguiendo una lista de monumentos. Aquí va un plan para dos días intensos.",
         "content": """
 <p>Lisboa es una ciudad de colinas, miradores y tranvías históricos que se disfruta caminando despacio, aunque eso signifique subir alguna cuesta de más.</p>
@@ -286,7 +286,7 @@ POSTS = [
         "slug": "consejos-equipaje-mano-no-pagar-de-mas",
         "title": "Cómo viajar solo con equipaje de mano y no pagar de más",
         "category": "espana",
-        "image_url": "https://images.unsplash.com/photo-1581553680321-4fffae59fc36?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+        "image_url": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?fm=jpg&q=80&w=1200&auto=format&fit=crop",
         "excerpt": "Las aerolíneas low cost han hecho que viajar ligero sea casi obligatorio si no quieres que el equipaje cueste más que el billete. Estos trucos ayudan.",
         "content": """
 <p>Con la política de equipaje de las aerolíneas low cost cada vez más restrictiva, aprender a viajar con poco se ha vuelto casi una necesidad económica.</p>
