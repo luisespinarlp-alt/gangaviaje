@@ -43,6 +43,8 @@
     .nav-links { display: flex; gap: 2px; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.82rem; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
     .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.1); color: white; }
+    .nav-toggle { display: none; background: none; border: none; color: white; padding: 8px; cursor: pointer; }
+    .nav-toggle svg { width: 22px; height: 22px; display: block; }
 
     /* ── HERO SLIDER ── */
     .hero { position: relative; height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -202,7 +204,15 @@
     @media (max-width: 768px) {
       .search-inner { padding: 0 16px; }
       .search-wrap { max-width: 100%; }
-      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 2px;
+        position: absolute; top: 60px; left: 0; right: 0;
+        background: #08142d; padding: 10px 16px 16px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 10px 12px; }
       .hero { height: 440px; }
       .hero h1 { font-size: 2rem; }
       .hero p { font-size: 0.9rem; margin-bottom: 24px; }
@@ -270,15 +280,28 @@
         <i class="logo-line"></i>
       </div>
     </a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
       <a href="/" class="{{ 'active' if active_cat == 'todos' else '' }}">Todas</a>
       {% for key, name in destinos.items() %}
       <a href="/destino/{{ key }}" class="{{ 'active' if active_cat == key else '' }}">{{ name }}</a>
       {% endfor %}
       <a href="/blog">Blog</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
   </div>
 </nav>
+<script>
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    toggle.addEventListener('click', function () {
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+</script>
 
 <!-- HERO -->
 <div class="hero">
