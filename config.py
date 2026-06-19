@@ -23,6 +23,11 @@ CJ_WEBSITE_ID = os.getenv("CJ_WEBSITE_ID", "")
 CJ_PERSONAL_ACCESS_TOKEN = os.getenv("CJ_PERSONAL_ACCESS_TOKEN", "")
 CJ_COMPANY_ID = os.getenv("CJ_COMPANY_ID", "")
 
+# Google Analytics Data API (lectura de tráfico bajo demanda)
+GA_OAUTH_CLIENT_ID = os.getenv("GA_OAUTH_CLIENT_ID", "")
+GA_OAUTH_CLIENT_SECRET = os.getenv("GA_OAUTH_CLIENT_SECRET", "")
+GA_PROPERTY_ID = os.getenv("GA_PROPERTY_ID", "")
+
 # TravelPayouts (vuelos vía Aviasales Data API, y links/v1/create para otras marcas)
 TRAVELPAYOUTS_TOKEN  = os.getenv("TRAVELPAYOUTS_TOKEN", "")
 TRAVELPAYOUTS_MARKER = os.getenv("TRAVELPAYOUTS_MARKER", "")

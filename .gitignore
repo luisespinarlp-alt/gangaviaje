@@ -5,3 +5,4 @@ __pycache__/
 venv/
 bot.log
 web.log
+scripts/ga_token.json
