@@ -447,7 +447,7 @@
                onerror="this.parentElement.innerHTML='<div class=\'card-img-fallback\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><path d=\'M3 22V8l9-6 9 6v14\'/></svg></div>'">
           {% else %}
           <div class="card-img-fallback">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/></svg>
+            {{ tipo_icon(deal.tipo) }}
           </div>
           {% endif %}
           {% if deal.discount_pct %}<span class="badge-discount">-{{ deal.discount_pct }}%</span>{% endif %}

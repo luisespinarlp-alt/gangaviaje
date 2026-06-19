@@ -46,6 +46,25 @@ DESTINATIONS = [
     ("CUN", "Cancún",       "internacional"),
 ]
 
+_DEST_IMAGES = {
+    "PAR": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "ROM": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "LIS": "https://images.unsplash.com/photo-1585465607853-9e4b7c8c5b5f?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "AMS": "https://images.unsplash.com/photo-1576924542622-772281b13aa8?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "LON": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "BER": "https://images.unsplash.com/photo-1560969184-10fe8719e047?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "VIE": "https://images.unsplash.com/photo-1516550893923-42d28e5677af?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "PRG": "https://images.unsplash.com/photo-1541849546-216549ae216d?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "DUB": "https://images.unsplash.com/photo-1549918864-48ac978761a4?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "ATH": "https://images.unsplash.com/photo-1555993539-1732b0258235?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "IST": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "NYC": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "BKK": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "DXB": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "RAK": "https://images.unsplash.com/photo-1539020140153-e479b8c2bafa?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "CUN": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?fm=jpg&q=80&w=800&auto=format&fit=crop",
+}
+
 
 def _affiliate_url(origin: str, destination: str, depart_date: str = "") -> str:
     marker = config.TRAVELPAYOUTS_MARKER
@@ -136,7 +155,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
                 "original_price": None,
                 "sale_price":     round(flight["price"], 2),
                 "discount_pct":   0,
-                "image_url":      "",
+                "image_url":      _DEST_IMAGES.get(dest_code, ""),
                 "affiliate_url":  _affiliate_url(origin, dest_code, depart_date),
                 "source":         "travelpayouts",
                 "category":       category,
