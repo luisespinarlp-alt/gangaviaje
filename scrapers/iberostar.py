@@ -63,6 +63,28 @@ _HOTELES = [
         "image_url":      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "category":       "playa",
     },
+    {
+        "link_id":        "17250297",
+        "title":          "Iberostar Waves Cristina",
+        "description":    "Hotel Iberostar en Mallorca, a pocos pasos de la playa.",
+        "location":       "Mallorca",
+        "original_price": None,
+        "sale_price":     125.0,
+        "discount_pct":   0,
+        "image_url":      "https://images.unsplash.com/photo-1561501900-3701fa6a0864?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "category":       "playa",
+    },
+    {
+        "link_id":        "17250286",
+        "title":          "Iberostar Selection Jardín del Sol Suites",
+        "description":    "Suites Iberostar Selection en Mallorca, con servicios premium.",
+        "location":       "Mallorca",
+        "original_price": None,
+        "sale_price":     160.0,
+        "discount_pct":   0,
+        "image_url":      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "category":       "playa",
+    },
 ]
 
 
