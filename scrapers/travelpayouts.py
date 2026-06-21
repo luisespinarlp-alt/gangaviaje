@@ -44,6 +44,12 @@ DESTINATIONS = [
     ("DXB", "Dubái",        "internacional"),
     ("RAK", "Marrakech",    "internacional"),
     ("CUN", "Cancún",       "internacional"),
+    ("BRU", "Bruselas",     "europa"),
+    ("BUD", "Budapest",     "europa"),
+    ("MIL", "Milán",        "europa"),
+    ("TYO", "Tokio",        "internacional"),
+    ("MIA", "Miami",        "internacional"),
+    ("BUE", "Buenos Aires", "internacional"),
 ]
 
 _DEST_IMAGES = {
@@ -63,6 +69,12 @@ _DEST_IMAGES = {
     "DXB": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?fm=jpg&q=80&w=800&auto=format&fit=crop",
     "RAK": "https://images.unsplash.com/photo-1539020140153-e479b8c2bafa?fm=jpg&q=80&w=800&auto=format&fit=crop",
     "CUN": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "BRU": "https://images.unsplash.com/photo-1559113202-c916b8e44373?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "BUD": "https://images.unsplash.com/photo-1551867633-194f125bddfa?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "MIL": "https://images.unsplash.com/photo-1513581166391-887a96ddeafd?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "TYO": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "MIA": "https://images.unsplash.com/photo-1506966953602-c20cc11f75e3?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "BUE": "https://images.unsplash.com/photo-1589909202802-8f4aadce1849?fm=jpg&q=80&w=800&auto=format&fit=crop",
 }
 
 
