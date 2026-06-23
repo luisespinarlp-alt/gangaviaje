@@ -50,6 +50,7 @@ DESTINATIONS = [
     ("TYO", "Tokio",        "internacional"),
     ("MIA", "Miami",        "internacional"),
     ("BUE", "Buenos Aires", "internacional"),
+    ("VCE", "Venecia",      "europa"),
 ]
 
 _DEST_IMAGES = {
@@ -75,6 +76,7 @@ _DEST_IMAGES = {
     "TYO": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?fm=jpg&q=80&w=800&auto=format&fit=crop",
     "MIA": "https://images.unsplash.com/photo-1506966953602-c20cc11f75e3?fm=jpg&q=80&w=800&auto=format&fit=crop",
     "BUE": "https://images.unsplash.com/photo-1589909202802-8f4aadce1849?fm=jpg&q=80&w=800&auto=format&fit=crop",
+    "VCE": "https://images.unsplash.com/photo-1534113414509-0eec2bfb493f?fm=jpg&q=80&w=800&auto=format&fit=crop",
 }
 
 
