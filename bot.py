@@ -16,7 +16,7 @@ import certifi
 
 import config
 import database
-from scrapers import booking, civitatis, economybookings, getyourguide, hotelscom, iberostar, klook, travelpayouts
+from scrapers import booking, civitatis, economybookings, expedia, getyourguide, hotelscom, iberostar, klook, travelpayouts
 
 _handlers = [logging.StreamHandler()]
 if os.getenv("VERCEL") != "1":
@@ -62,6 +62,7 @@ SOURCE_LABELS = {
     "economybookings":  "Economybookings",
     "iberostar":        "Iberostar",
     "hotelscom":        "Hotels.com",
+    "expedia":          "Expedia",
 }
 
 
@@ -130,6 +131,7 @@ def run_once():
         sources.append((economybookings, "Economybookings"))
     if config.CJ_WEBSITE_ID:
         sources.append((iberostar, "Iberostar"))
+        sources.append((expedia, "Expedia"))
     if config.CJ_PERSONAL_ACCESS_TOKEN and config.CJ_COMPANY_ID and config.CJ_WEBSITE_ID:
         sources.append((hotelscom, "Hotels.com"))
     if config.BOOKING_AFFILIATE_ID_CONFIRMED:
