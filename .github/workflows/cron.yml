@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Call /api/cron
         run: |
-          curl -sf -X GET "https://gangaviaje.es/api/cron" \
+          curl -sf -X GET "https://www.gangaviaje.es/api/cron" \
             -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
