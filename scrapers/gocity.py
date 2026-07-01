@@ -49,7 +49,7 @@ _PASES = [
         "description":    "Sagrada Família, Park Güell, Fundació Miró y más de 20 atracciones de Barcelona incluidas en un solo pase.",
         "location":       "Barcelona",
         "sale_price":     49.00,
-        "image_url":      "https://images.unsplash.com/photo-1583779457094-ab6f77f7bf63?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "image_url":      "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://gocity.com/barcelona/en-us",
         "category":       "ciudad",
         "rating":         8.7,

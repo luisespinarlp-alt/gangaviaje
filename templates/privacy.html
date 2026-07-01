@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Política de Privacidad — GangaViaje</title>
   <meta name="description" content="Política de privacidad y protección de datos de GangaViaje conforme al RGPD.">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2308142d'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' text-anchor='middle' fill='%23c9a84c'%3EG%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,48 +19,47 @@
   </script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Raleway', -apple-system, sans-serif; background: #f4f6f9; color: #1a1a2e; line-height: 1.6; }
+    body { font-family: 'Raleway', -apple-system, sans-serif; background: #f4f6f9; color: #333333; line-height: 1.6; }
 
-    nav { background: rgba(8,20,45,0.95); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+    nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.10); position: sticky; top: 0; z-index: 100; }
     .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .logo { display: flex; align-items: center; text-decoration: none; }
-    .logo-wrap { display: flex; flex-direction: column; }
-    .logo-name { font-size: 1.35rem; font-weight: 800; color: white; letter-spacing: -0.5px; line-height: 1.1; }
-    .logo-name span { color: #c9a84c; }
-    .logo-line { display: block; height: 2px; width: 40px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; margin-top: 4px; }
-    .nav-back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
-    .nav-back:hover { color: white; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { height: 40px; width: auto; }
+    .logo-name { font-size: 1.35rem; font-weight: 800; color: #333; letter-spacing: -0.5px; line-height: 1.1; }
+    .logo-name span { color: #E85D50; }
+    .nav-back { color: #666; text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+    .nav-back:hover { color: #E85D50; }
     .nav-back svg { width: 15px; height: 15px; }
 
-    .page-hero { background: linear-gradient(135deg, #08142d 0%, #0d2145 100%); padding: 48px 24px 40px; text-align: center; border-bottom: 1px solid rgba(201,168,76,0.2); }
+    .page-hero { background: linear-gradient(135deg, #2D2D2D 0%, #3D3D3D 100%); padding: 48px 24px 40px; text-align: center; border-bottom: 1px solid rgba(232,93,80,0.2); }
     .page-hero h1 { font-size: 2rem; font-weight: 800; color: white; margin-bottom: 10px; }
     .page-hero p { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
 
     main { max-width: 780px; margin: 0 auto; padding: 48px 24px 64px; display: flex; flex-direction: column; gap: 28px; }
 
     .section { background: white; border-radius: 14px; padding: 28px 32px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-    .section h2 { font-size: 1.05rem; font-weight: 700; color: #08142d; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #f0f2f5; display: flex; align-items: center; gap: 10px; }
-    .section h2 svg { width: 18px; height: 18px; color: #c9a84c; flex-shrink: 0; }
+    .section h2 { font-size: 1.05rem; font-weight: 700; color: #333333; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #f0f2f5; display: flex; align-items: center; gap: 10px; }
+    .section h2 svg { width: 18px; height: 18px; color: #E85D50; flex-shrink: 0; }
     .section p { font-size: 0.9rem; color: #555; line-height: 1.85; margin-bottom: 10px; }
     .section p:last-child { margin-bottom: 0; }
     .section ul { list-style: none; margin: 8px 0 10px 0; display: flex; flex-direction: column; gap: 7px; }
     .section ul li { font-size: 0.9rem; color: #555; padding-left: 18px; position: relative; line-height: 1.7; }
-    .section ul li::before { content: '·'; position: absolute; left: 4px; color: #c9a84c; font-weight: 700; }
-    .section a { color: #003580; text-decoration: none; }
+    .section ul li::before { content: '·'; position: absolute; left: 4px; color: #E85D50; font-weight: 700; }
+    .section a { color: #E85D50; text-decoration: none; }
     .section a:hover { text-decoration: underline; }
 
-    .highlight { background: #f0f4ff; border-left: 3px solid #003580; border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 12px 0; }
-    .highlight p { margin: 0; font-size: 0.875rem; color: #1a3a6e; }
+    .highlight { background: #fff5f4; border-left: 3px solid #E85D50; border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 12px 0; }
+    .highlight p { margin: 0; font-size: 0.875rem; color: #333; }
 
     .updated { text-align: center; font-size: 0.8rem; color: #aaa; margin-top: 8px; }
 
-    footer { background: #08142d; color: #6b7e9f; padding: 40px 24px; border-top: 1px solid rgba(201,168,76,0.15); }
+    footer { background: #2D2D2D; color: #999999; padding: 40px 24px; border-top: 1px solid rgba(232,93,80,0.15); }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
     .footer-logo { font-size: 1.25rem; font-weight: 800; color: white; }
-    .footer-logo span { color: #c9a84c; }
+    .footer-logo span { color: #E85D50; }
     footer p { font-size: 0.8rem; line-height: 1.7; }
-    footer a { color: #c9a84c; text-decoration: none; }
-    .footer-divider { width: 40px; height: 2px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; }
+    footer a { color: #E85D50; text-decoration: none; }
+    .footer-divider { width: 40px; height: 2px; background: linear-gradient(to right, #E85D50, transparent); border-radius: 2px; }
 
     @media (max-width: 600px) {
       .section { padding: 20px; }
@@ -82,10 +81,8 @@
 <nav>
   <div class="nav-inner">
     <a href="/" class="logo">
-      <div class="logo-wrap">
-        <span class="logo-name">Ganga<span>Viaje</span></span>
-        <i class="logo-line"></i>
-      </div>
+      <img src="/static/img/logo_icon.png" alt="GangaViaje" class="logo-icon">
+      <span class="logo-name">Ganga<span>Viaje</span></span>
     </a>
     <a href="/" class="nav-back">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>

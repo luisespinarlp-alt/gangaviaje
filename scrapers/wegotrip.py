@@ -27,7 +27,7 @@ _TOURS = [
         "description":    "Descubre el Barrio Gótico y el Born con una ruta interactiva en tu móvil. Sin esperas, sin grupo.",
         "location":       "Barcelona",
         "sale_price":     5.00,
-        "image_url":      "https://images.unsplash.com/photo-1583779457094-ab6f77f7bf63?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "image_url":      "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://wegotrip.com/en/spain/barcelona/",
         "category":       "ciudad",
         "rating":         8.9,
