@@ -62,14 +62,35 @@ def blog():
     return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS)
 
 
+_CITY_MAP = {
+    "roma": ("Roma", "roma"), "paris": ("París", "paris"),
+    "barcelona": ("Barcelona", "barcelona"), "madrid": ("Madrid", "madrid"),
+    "venecia": ("Venecia", "venecia"), "tokio": ("Tokio", "tokio"),
+    "budapest": ("Budapest", "budapest"), "bangkok": ("Bangkok", "bangkok"),
+    "berlin": ("Berlín", "berlin"), "dubai": ("Dubái", "dubai"),
+    "lisboa": ("Lisboa", "lisboa"), "amsterdam": ("Ámsterdam", "amsterdam"),
+    "mallorca": ("Mallorca", "mallorca"), "sevilla": ("Sevilla", "sevilla"),
+    "canarias": ("Canarias", "canarias"), "london": ("Londres", "londres"),
+    "londres": ("Londres", "londres"), "venecia": ("Venecia", "venecia"),
+}
+
+def _detect_city(slug: str):
+    for keyword, (name, url_slug) in _CITY_MAP.items():
+        if keyword in slug:
+            return name, url_slug
+    return None, None
+
+
 @app.route("/blog/<slug>")
 def blog_post(slug: str):
     post = database.get_post_by_slug(slug)
     if not post:
         abort(404)
     related_deals = database.get_deals(category=post["category"], limit=3)
+    ciudad_name, ciudad_slug = _detect_city(post["slug"])
     return render_template("blog_post.html", post=post, destinos=config.DESTINOS,
-                           related_deals=related_deals)
+                           related_deals=related_deals,
+                           ciudad_name=ciudad_name, ciudad_slug=ciudad_slug)
 
 
 @app.route("/sobre-nosotros")

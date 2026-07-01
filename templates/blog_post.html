@@ -54,6 +54,9 @@
     .cta-box { background: linear-gradient(135deg, #08142d, #0d2145); border-radius: 16px; padding: 28px 32px; margin-top: 32px; text-align: center; }
     .cta-box p { color: rgba(255,255,255,0.85); font-size: 0.92rem; margin-bottom: 16px; }
     .cta-box a { display: inline-block; background: #c9a84c; color: #08142d; font-weight: 700; padding: 11px 24px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; }
+    .ciudad-cta { background: #f0f4ff; border: 1px solid #d0dcf7; border-radius: 12px; padding: 18px 24px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .ciudad-cta p { font-size: 0.92rem; color: #333; margin: 0; }
+    .ciudad-cta a { display: inline-block; background: #003580; color: white; font-weight: 700; padding: 9px 20px; border-radius: 8px; text-decoration: none; font-size: 0.88rem; white-space: nowrap; }
 
     .related-deals { margin-top: 36px; }
     .related-deals h3 { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; }
@@ -147,6 +150,13 @@
         </a>
         {% endfor %}
       </div>
+    </div>
+    {% endif %}
+
+    {% if ciudad_slug %}
+    <div class="ciudad-cta">
+      <p>¿Listo para reservar? Consulta las ofertas actualizadas para {{ ciudad_name }}.</p>
+      <a href="/ciudad/{{ ciudad_slug }}">Ver ofertas en {{ ciudad_name }} →</a>
     </div>
     {% endif %}
 
