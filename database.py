@@ -152,6 +152,25 @@ def get_deal(deal_id: int) -> dict | None:
     return dict(row) if row else None
 
 
+def get_deals_grouped_by_location(location: str, per_tipo_limit: int = 20) -> list:
+    """Devuelve [(tipo, [deals...]), ...] filtrado por location (búsqueda parcial)."""
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    grouped = []
+    for tipo in config.TIPO_ORDER:
+        cur.execute(
+            "SELECT * FROM deals WHERE active = 1 AND tipo = %s AND location ILIKE %s "
+            "ORDER BY discount_pct DESC, created_at DESC LIMIT %s",
+            (tipo, f"%{location}%", per_tipo_limit)
+        )
+        rows = [dict(r) for r in cur.fetchall()]
+        if rows:
+            grouped.append((tipo, rows))
+    cur.close()
+    conn.close()
+    return grouped
+
+
 def get_top_deals(limit: int = 3) -> list:
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)

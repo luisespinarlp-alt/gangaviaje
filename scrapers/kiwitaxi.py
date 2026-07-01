@@ -104,7 +104,7 @@ def fetch_deals(min_discount: int = 0, max_results: int = 10) -> list[dict]:
             "affiliate_url":  affiliate_url,
             "source":         "kiwitaxi",
             "category":       t["category"],
-            "tipo":           "actividad",
+            "tipo":           "traslado",
             "rating":         t["rating"],
             "reviews_count":  t["reviews_count"],
         })

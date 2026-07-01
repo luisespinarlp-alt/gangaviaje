@@ -51,7 +51,7 @@ def _tg(method: str, payload: dict) -> bool:
 
 def _tipo_emoji(tipo: str) -> str:
     return {"hotel": "🏨", "apartamento": "🏠", "villa": "🏡",
-            "actividad": "🎯", "coche": "🚗", "vuelo": "✈️"}.get(tipo, "🎯")
+            "actividad": "🎯", "traslado": "🚕", "coche": "🚗", "vuelo": "✈️"}.get(tipo, "🎯")
 
 
 SOURCE_LABELS = {

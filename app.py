@@ -35,6 +35,19 @@ def destino(cat: str):
                            cat_title=config.DESTINOS[cat], tipo_labels=config.TIPOS)
 
 
+@app.route("/ciudad/<name>")
+def ciudad(name: str):
+    name_display = name.replace("-", " ").title()
+    grouped = database.get_deals_grouped_by_location(name_display)
+    if not grouped:
+        abort(404)
+    stats = database.get_stats()
+    return render_template("index.html", grouped=grouped, stats=stats,
+                           active_cat="todos", destinos=config.DESTINOS,
+                           cat_title=f"Ofertas en {name_display}",
+                           tipo_labels=config.TIPOS)
+
+
 @app.route("/oferta/<int:deal_id>")
 def oferta(deal_id: int):
     deal = database.get_deal(deal_id)
@@ -82,6 +95,17 @@ def sitemap():
     urls.append(f"<url><loc>{base}/blog</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>")
     for key in config.DESTINOS:
         urls.append(f"<url><loc>{base}/destino/{key}</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>")
+
+    # Páginas de ciudad (generadas dinámicamente desde locations de deals activos)
+    import psycopg2
+    conn = psycopg2.connect(config.DATABASE_URL)
+    cur = conn.cursor()
+    cur.execute("SELECT DISTINCT location FROM deals WHERE active = 1 AND location != '' ORDER BY location")
+    ciudades = [r[0] for r in cur.fetchall()]
+    cur.close(); conn.close()
+    for ciudad_name in ciudades:
+        slug = ciudad_name.lower().replace(" ", "-").replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u")
+        urls.append(f"<url><loc>{base}/ciudad/{slug}</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>")
 
     # Artículos del blog
     for post in database.get_posts(limit=100):
