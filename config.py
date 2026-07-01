@@ -39,6 +39,17 @@ DATABASE_URL = os.getenv("DATABASE_URL", "")
 # Cron (Vercel Cron Job -> /api/cron)
 CRON_SECRET = os.getenv("CRON_SECRET", "")
 
+# Pinterest
+PINTEREST_ACCESS_TOKEN = os.getenv("PINTEREST_ACCESS_TOKEN", "")
+PINTEREST_BOARD_IDS = {
+    "vuelo":       os.getenv("PINTEREST_BOARD_VUELOS", ""),
+    "hotel":       os.getenv("PINTEREST_BOARD_HOTELES", ""),
+    "apartamento": os.getenv("PINTEREST_BOARD_HOTELES", ""),
+    "actividad":   os.getenv("PINTEREST_BOARD_ACTIVIDADES", ""),
+    "coche":       os.getenv("PINTEREST_BOARD_COCHES", ""),
+}
+PINTEREST_BOARD_OFERTAS = os.getenv("PINTEREST_BOARD_OFERTAS", "")
+
 # Telegram
 TELEGRAM_BOT_TOKEN  = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID", "@gangaviaje")

@@ -16,6 +16,7 @@ import certifi
 
 import config
 import database
+import pinterest as pinterest_publisher
 from scrapers import autoeurope, booking, booking_cee, civitatis, economybookings, expedia, getyourguide, hotelscom, iberostar, klook, tiqets, travelpayouts
 
 _handlers = [logging.StreamHandler()]
@@ -175,6 +176,18 @@ def run_once():
         log.info(f"Telegram: {published} deals publicados")
     else:
         log.info("Telegram: sin token configurado, omitiendo publicación")
+
+    # 4. Publicar en Pinterest los deals nuevos (máx 3 por ciclo)
+    if config.PINTEREST_ACCESS_TOKEN:
+        pending_pins = database.get_unpublished_deals()
+        pinned = 0
+        for deal in pending_pins[:3]:
+            if pinterest_publisher.publish_pin(deal):
+                pinned += 1
+                time.sleep(3)
+        log.info(f"Pinterest: {pinned} pins publicados")
+    else:
+        log.info("Pinterest: sin token configurado, omitiendo")
 
     stats = database.get_stats()
     log.info(f"BD: {stats['total']} deals activos, {stats['today']} de hoy")
