@@ -16,7 +16,7 @@
   <meta name="twitter:title"      content="{{ deal.title }}">
   <meta name="twitter:description" content="{% if deal.discount_pct %}-{{ deal.discount_pct }}% · {% endif %}Desde €{{ deal.sale_price|int }}{% if deal.location %} en {{ deal.location }}{% endif %}.">
   <meta name="twitter:image"      content="{{ deal.image_url or 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop' }}">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2308142d'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='bold' text-anchor='middle' fill='%23c9a84c'%3EG%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -30,28 +30,28 @@
   </script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Raleway', sans-serif; background: #f4f6f9; color: #1a1a2e; }
+    body { font-family: 'Raleway', sans-serif; background: #f4f6f9; color: #333333; }
 
     /* NAV */
-    nav { background: rgba(8,20,45,0.95); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+    nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.10); position: sticky; top: 0; z-index: 100; }
     .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; height: 64px; gap: 24px; }
-    .logo { text-decoration: none; }
-    .logo-name { font-size: 1.35rem; font-weight: 800; color: white; letter-spacing: -0.5px; display: flex; flex-direction: column; }
-    .logo-name span { color: #c9a84c; }
-    .logo-line { display: block; height: 2px; width: 36px; background: linear-gradient(to right, #c9a84c, transparent); border-radius: 2px; margin-top: 3px; }
-    .back-btn { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.875rem; margin-left: auto; transition: color 0.15s; }
-    .back-btn:hover { color: white; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { height: 40px; width: auto; }
+    .logo-name { font-size: 1.35rem; font-weight: 800; color: #333; letter-spacing: -0.5px; }
+    .logo-name span { color: #E85D50; }
+    .back-btn { display: flex; align-items: center; gap: 6px; color: #666; text-decoration: none; font-size: 0.875rem; margin-left: auto; transition: color 0.15s; }
+    .back-btn:hover { color: #E85D50; }
     .back-btn svg { width: 16px; height: 16px; }
 
     /* HERO IMAGE */
-    .deal-hero { position: relative; height: 420px; overflow: hidden; background: #0a2342; }
+    .deal-hero { position: relative; height: 420px; overflow: hidden; background: #2D2D2D; }
     .deal-hero img { width: 100%; height: 100%; object-fit: cover; }
-    .deal-hero-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0a2342, #1a4a7a); }
+    .deal-hero-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #2D2D2D, #444444); }
     .deal-hero-placeholder svg { width: 80px; height: 80px; color: rgba(255,255,255,0.2); }
-    .deal-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,20,45,0.8) 0%, transparent 60%); }
+    .deal-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(45,45,45,0.8) 0%, transparent 60%); }
     .deal-hero-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px; }
     .deal-hero-info-inner { max-width: 900px; margin: 0 auto; }
-    .deal-tipo-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,0.25); border: 1px solid rgba(201,168,76,0.5); color: #f0d080; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 20px; margin-bottom: 12px; }
+    .deal-tipo-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(232,93,80,0.25); border: 1px solid rgba(232,93,80,0.5); color: white; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 20px; margin-bottom: 12px; }
     .deal-hero-title { font-size: 2rem; font-weight: 800; color: white; text-shadow: 0 2px 16px rgba(0,0,0,0.4); line-height: 1.2; margin-bottom: 8px; }
     .deal-hero-location { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.8); font-size: 0.95rem; }
     .deal-hero-location svg { width: 14px; height: 14px; flex-shrink: 0; }
@@ -87,13 +87,13 @@
     /* LEFT COLUMN */
     .deal-body { display: flex; flex-direction: column; gap: 20px; }
     .card { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-    .card-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #c9a84c; margin-bottom: 14px; }
+    .card-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #E85D50; margin-bottom: 14px; }
 
     /* RATING */
     .rating-row { display: flex; align-items: center; gap: 14px; }
-    .rating-big { background: #003580; color: white; font-size: 1.4rem; font-weight: 800; padding: 10px 16px; border-radius: 10px 10px 10px 0; }
+    .rating-big { background: #E85D50; color: white; font-size: 1.4rem; font-weight: 800; padding: 10px 16px; border-radius: 10px 10px 10px 0; }
     .rating-info { display: flex; flex-direction: column; gap: 3px; }
-    .rating-label { font-size: 1rem; font-weight: 700; color: #1a1a2e; }
+    .rating-label { font-size: 1rem; font-weight: 700; color: #333333; }
     .rating-count { font-size: 0.82rem; color: #888; }
 
     /* DESCRIPTION */
@@ -102,17 +102,17 @@
     /* FEATURES */
     .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
     .feature { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #555; }
-    .feature svg { width: 16px; height: 16px; color: #003580; flex-shrink: 0; }
+    .feature svg { width: 16px; height: 16px; color: #E85D50; flex-shrink: 0; }
 
     /* RIGHT COLUMN — BOOKING BOX */
     .booking-box { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); position: sticky; top: 88px; }
     .booking-source { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: #999; margin-bottom: 16px; font-weight: 600; }
     .booking-price-original { font-size: 0.9rem; color: #aaa; text-decoration: line-through; margin-bottom: 4px; }
-    .booking-price { font-size: 2.2rem; font-weight: 900; color: #003580; line-height: 1; }
+    .booking-price { font-size: 2.2rem; font-weight: 900; color: #E85D50; line-height: 1; }
     .booking-price-unit { font-size: 0.8rem; color: #888; margin-top: 4px; margin-bottom: 16px; }
     .booking-saving { background: #e8f5e9; color: #2e7d32; font-size: 0.85rem; font-weight: 700; padding: 8px 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
-    .booking-cta { display: block; background: #0071c2; color: white; text-align: center; padding: 14px; font-size: 1rem; font-weight: 700; text-decoration: none; border-radius: 10px; transition: background 0.15s; margin-bottom: 12px; }
-    .booking-cta:hover { background: #005ea6; }
+    .booking-cta { display: block; background: #E85D50; color: white; text-align: center; padding: 14px; font-size: 1rem; font-weight: 700; text-decoration: none; border-radius: 10px; transition: background 0.15s; margin-bottom: 12px; }
+    .booking-cta:hover { background: #D14A3E; }
     .booking-note { font-size: 0.75rem; color: #aaa; text-align: center; line-height: 1.5; }
     .booking-divider { border: none; border-top: 1px solid #f0f2f5; margin: 16px 0; }
 
@@ -125,7 +125,7 @@
     .urgency-booking { color: #2e7d32; }
     .pulse { display: inline-block; width: 8px; height: 8px; background: #e53935; border-radius: 50%; animation: pulse-live 1.5s ease-in-out infinite; flex-shrink: 0; }
     @keyframes pulse-live { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.4)} }
-    .countdown-box { background: #003580; color: white; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; text-align: center; }
+    .countdown-box { background: #E85D50; color: white; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; text-align: center; }
     .countdown-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
     .countdown-timer { display: flex; justify-content: center; gap: 8px; }
     .countdown-unit { display: flex; flex-direction: column; align-items: center; }
@@ -134,7 +134,7 @@
     .countdown-sep { font-size: 1.2rem; font-weight: 800; padding-top: 2px; }
 
     /* BACK TO OFFERS */
-    .back-link { display: inline-flex; align-items: center; gap: 8px; color: #003580; text-decoration: none; font-size: 0.875rem; font-weight: 600; margin-bottom: 24px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: #E85D50; text-decoration: none; font-size: 0.875rem; font-weight: 600; margin-bottom: 24px; }
     .back-link:hover { text-decoration: underline; }
   </style>
   <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
@@ -174,10 +174,8 @@
 <nav>
   <div class="nav-inner">
     <a href="/" class="logo">
-      <div class="logo-wrap">
-        <span class="logo-name">Ganga<span>Viaje</span></span>
-        <i class="logo-line"></i>
-      </div>
+      <img src="/static/img/logo_icon.png" alt="GangaViaje" class="logo-icon">
+      <span class="logo-name">Ganga<span>Viaje</span></span>
     </a>
     <a href="/" class="back-btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
