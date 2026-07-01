@@ -17,7 +17,7 @@ import certifi
 import config
 import database
 import pinterest as pinterest_publisher
-from scrapers import autoeurope, booking, booking_cee, civitatis, economybookings, expedia, getyourguide, hotelscom, iberostar, klook, tiqets, travelpayouts
+from scrapers import autoeurope, booking, booking_cee, centauro, civitatis, economybookings, expedia, getyourguide, hotelscom, iberostar, klook, tiqets, travelpayouts
 
 _handlers = [logging.StreamHandler()]
 if os.getenv("VERCEL") != "1":
@@ -67,6 +67,7 @@ SOURCE_LABELS = {
     "tiqets":           "Tiqets",
     "autoeurope":       "AutoEurope",
     "booking_cee":      "Booking.com",
+    "centauro":         "Centauro",
 }
 
 
@@ -139,6 +140,7 @@ def run_once():
         sources.append((iberostar, "Iberostar"))
         sources.append((expedia, "Expedia"))
         sources.append((booking_cee, "Booking.com CEE"))
+        sources.append((centauro, "Centauro"))
     if config.CJ_PERSONAL_ACCESS_TOKEN and config.CJ_COMPANY_ID and config.CJ_WEBSITE_ID:
         sources.append((hotelscom, "Hotels.com"))
     if config.BOOKING_AFFILIATE_ID_CONFIRMED:
