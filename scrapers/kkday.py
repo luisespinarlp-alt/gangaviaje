@@ -16,7 +16,7 @@ _ACTIVIDADES = [
         "description":    "Descubre Tokio con las mejores experiencias: visita al Monte Fuji, tour por Shibuya y mucho más.",
         "location":       "Tokio",
         "sale_price":     35.00,
-        "image_url":      "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "image_url":      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kkday.com/es/city/tokyo",
         "category":       "internacional",
         "rating":         9.0,

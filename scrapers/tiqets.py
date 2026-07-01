@@ -73,7 +73,7 @@ _ACTIVIDADES = [
         "description":    "Museo Van Gogh, Anne Frank Huis y cruceros por los canales sin colas.",
         "location":       "Ámsterdam",
         "sale_price":     22.00,
-        "image_url":      "https://images.unsplash.com/photo-1576924542622-772281b13aa8?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "image_url":      "https://images.unsplash.com/photo-1459679749680-18eb1eb37418?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-amsterdam-c75061/",
         "category":       "europa",
         "rating":         8.7,

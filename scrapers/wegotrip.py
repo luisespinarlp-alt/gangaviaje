@@ -71,7 +71,7 @@ _TOURS = [
         "description":    "Descubre el centro histórico de Ámsterdam a tu ritmo con una audioguía interactiva en móvil.",
         "location":       "Ámsterdam",
         "sale_price":     5.00,
-        "image_url":      "https://images.unsplash.com/photo-1576924542622-772281b13aa8?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "image_url":      "https://images.unsplash.com/photo-1459679749680-18eb1eb37418?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://wegotrip.com/en/netherlands/amsterdam/",
         "category":       "europa",
         "rating":         8.7,
