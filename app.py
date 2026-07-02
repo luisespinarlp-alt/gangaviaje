@@ -3,7 +3,7 @@ GangaViaje — Web Flask de ofertas de viajes
 """
 
 from datetime import datetime
-from flask import Flask, render_template, abort, Response, request
+from flask import Flask, render_template, abort, Response, request, jsonify
 
 import bot
 import config
@@ -109,6 +109,25 @@ def blog_post(slug: str):
     return render_template("blog_post.html", post=post, destinos=config.DESTINOS,
                            related_deals=related_deals,
                            ciudad_name=ciudad_name, ciudad_slug=ciudad_slug)
+
+
+@app.route("/newsletter", methods=["POST"])
+def newsletter():
+    import psycopg2
+    email = (request.json or {}).get("email", "").strip().lower()
+    if not email or "@" not in email or "." not in email:
+        return jsonify({"ok": False, "msg": "Email no válido"}), 400
+    try:
+        conn = psycopg2.connect(config.DATABASE_URL)
+        cur = conn.cursor()
+        cur.execute("INSERT INTO newsletter_subscribers (email) VALUES (%s) ON CONFLICT (email) DO NOTHING", (email,))
+        new = cur.rowcount > 0
+        conn.commit()
+        conn.close()
+        msg = "¡Apuntado! Te enviaremos las mejores ofertas." if new else "Ya estás suscrito."
+        return jsonify({"ok": True, "msg": msg})
+    except Exception as e:
+        return jsonify({"ok": False, "msg": "Error al guardar. Inténtalo de nuevo."}), 500
 
 
 @app.route("/sobre-nosotros")
