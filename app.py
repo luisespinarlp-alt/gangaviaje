@@ -71,7 +71,9 @@ def oferta(deal_id: int):
     deal = database.get_deal(deal_id)
     if not deal:
         abort(404)
-    return render_template("deal.html", deal=deal, destinos=config.DESTINOS)
+    related = database.get_deals(category=deal.get("category", "europa"), limit=4)
+    related = [d for d in related if d["id"] != deal_id][:3]
+    return render_template("deal.html", deal=deal, destinos=config.DESTINOS, related=related)
 
 
 @app.route("/blog")
