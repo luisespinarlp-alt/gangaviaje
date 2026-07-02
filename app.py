@@ -135,7 +135,10 @@ def newsletter():
 
 @app.route("/sobre-nosotros")
 def sobre_nosotros():
-    return render_template("about.html", destinos=config.DESTINOS)
+    stats = database.get_stats()
+    post_count = len(database.get_posts(limit=200))
+    return render_template("about.html", destinos=config.DESTINOS,
+                           stats=stats, post_count=post_count)
 
 
 @app.route("/privacidad")
