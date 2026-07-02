@@ -79,34 +79,40 @@ SOURCE_LABELS = {
 
 
 def publish_deal(deal: dict) -> bool:
-    deal_id = deal["id"]
+    deal_id  = deal["id"]
     deal_url = f"{config.BASE_URL}/oferta/{deal_id}"
     emoji    = _tipo_emoji(deal.get("tipo", "hotel"))
     src      = SOURCE_LABELS.get(deal.get("source"), "GangaViaje")
+    tipo     = deal.get("tipo", "hotel")
+    unidad   = {"actividad": "persona", "coche": "día", "vuelo": "trayecto"}.get(tipo, "noche")
 
-    text = (
-        f"{emoji} <b>{deal['title']}</b>\n"
-        f"📍 {deal.get('location', '')}\n\n"
-    )
-    if deal.get("original_price") and deal["original_price"] > deal["sale_price"]:
-        text += (
-            f"<s>€{deal['original_price']:.0f}</s>  "
-            f"<b>€{deal['sale_price']:.0f}</b>  "
-            f"🔥 -{deal['discount_pct']}%\n\n"
-        )
+    lines = [f"🏷️ <b>OFERTA DETECTADA</b>\n"]
+    lines.append(f"{emoji} <b>{deal['title']}</b>")
+    if deal.get("location"):
+        lines.append(f"📍 {deal['location']}\n")
     else:
-        text += f"💰 Desde <b>€{deal['sale_price']:.0f}</b>\n\n"
+        lines.append("")
+
+    if deal.get("original_price") and deal["original_price"] > deal["sale_price"]:
+        saving = deal["original_price"] - deal["sale_price"]
+        lines.append(f"<s>Antes: €{deal['original_price']:.0f}</s>")
+        lines.append(f"💥 <b>€{deal['sale_price']:.0f}</b> por {unidad}")
+        lines.append(f"✅ Ahorras <b>€{saving:.0f}</b> · {deal['discount_pct']}% descuento\n")
+    else:
+        lines.append(f"💥 <b>Desde €{deal['sale_price']:.0f}</b> por {unidad}\n")
 
     if deal.get("rating") and deal["rating"] > 0:
-        text += f"⭐ {deal['rating']:.1f}/10\n\n"
+        label = "Excepcional" if deal["rating"] >= 9 else "Muy bueno" if deal["rating"] >= 8 else "Bueno"
+        lines.append(f"⭐ {deal['rating']:.1f}/10 · {label}")
 
-    text += f"🔗 Disponible en {src}"
+    lines.append(f"\n🔗 {src}  |  ⏰ <i>Oferta limitada</i>")
+    text = "\n".join(lines)
 
     buttons = json.dumps({
-        "inline_keyboard": [[
-            {"text": "🌐 Ver oferta", "url": deal_url},
-            {"text": "👉 Reservar", "url": deal["affiliate_url"]},
-        ]]
+        "inline_keyboard": [
+            [{"text": f"🎫 Ver oferta completa", "url": deal_url}],
+            [{"text": f"➡️ Reservar en {src}", "url": deal["affiliate_url"]}],
+        ]
     })
 
     payload = {
