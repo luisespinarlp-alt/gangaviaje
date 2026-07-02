@@ -125,6 +125,35 @@ def refresh_deal(affiliate_url: str, deal: dict):
     conn.close()
 
 
+def search(query: str, limit_deals: int = 18, limit_posts: int = 6) -> dict:
+    """Busca en deals y posts por título, location y excerpt."""
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    q = f"%{query}%"
+
+    cur.execute("""
+        SELECT * FROM deals
+        WHERE active = 1 AND (
+            title ILIKE %s OR location ILIKE %s OR description ILIKE %s
+        )
+        ORDER BY discount_pct DESC, created_at DESC
+        LIMIT %s
+    """, (q, q, q, limit_deals))
+    deals = [dict(r) for r in cur.fetchall()]
+
+    cur.execute("""
+        SELECT slug, title, category, excerpt, image_url FROM posts
+        WHERE title ILIKE %s OR excerpt ILIKE %s OR content ILIKE %s
+        ORDER BY created_at DESC
+        LIMIT %s
+    """, (q, q, q, limit_posts))
+    posts = [dict(r) for r in cur.fetchall()]
+
+    cur.close()
+    conn.close()
+    return {"deals": deals, "posts": posts}
+
+
 def get_deals(category: str = None, limit: int = 60) -> list:
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)

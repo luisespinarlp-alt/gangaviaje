@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if q %}Resultados para "{{ q }}"{% else %}Buscar ofertas{% endif %} — GangaViaje</title>
+  <meta name="description" content="Busca entre cientos de ofertas de viajes en GangaViaje: vuelos, hoteles, actividades y más.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05YGXD7GX7"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-05YGXD7GX7");</script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Raleway', -apple-system, sans-serif; background: #f4f6f9; color: #333; line-height: 1.5; }
+
+    nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.10); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { height: 40px; width: auto; }
+    .logo-name { font-size: 1.35rem; font-weight: 800; color: #333; letter-spacing: -0.5px; }
+    .logo-name span { color: #E85D50; }
+    .nav-back { color: #666; text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+    .nav-back:hover { color: #E85D50; }
+    .nav-back svg { width: 15px; height: 15px; }
+
+    /* SEARCH HERO */
+    .search-hero { background: linear-gradient(135deg, #2D2D2D 0%, #3D3D3D 100%); padding: 40px 24px 36px; }
+    .search-hero-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .search-hero h1 { font-size: 1.7rem; font-weight: 800; color: white; margin-bottom: 20px; }
+    .search-hero h1 span { color: #E85D50; }
+    .search-form { display: flex; gap: 8px; }
+    .search-input { flex: 1; padding: 14px 18px; border: none; border-radius: 10px; font-family: inherit; font-size: 1rem; outline: none; }
+    .search-btn { background: #E85D50; color: white; border: none; border-radius: 10px; padding: 14px 22px; font-family: inherit; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+    .search-btn:hover { background: #D14A3E; }
+
+    /* QUICK SEARCHES */
+    .quick-searches { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+    .quick-chip { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 5px 14px; font-size: 0.8rem; text-decoration: none; transition: all 0.15s; cursor: pointer; font-family: inherit; }
+    .quick-chip:hover { background: rgba(255,255,255,0.25); color: white; }
+
+    /* MAIN */
+    main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 60px; }
+
+    /* RESULTS INFO */
+    .results-info { font-size: 0.9rem; color: #777; margin-bottom: 24px; }
+    .results-info strong { color: #333; }
+
+    /* DEALS GRID */
+    .section-title { font-size: 1.1rem; font-weight: 800; color: #333; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .section-title svg { width: 20px; height: 20px; color: #E85D50; }
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin-bottom: 40px; }
+    .deal-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: transform 0.2s ease, box-shadow 0.2s ease; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+    .deal-card:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+    .card-img { height: 160px; overflow: hidden; background: #fde8e6; position: relative; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .deal-card:hover .card-img img { transform: scale(1.04); }
+    .badge-discount { position: absolute; top: 10px; left: 10px; background: #E85D50; color: white; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+    .card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+    .card-location { font-size: 0.75rem; color: #999; margin-bottom: 4px; }
+    .card-title { font-size: 0.92rem; font-weight: 600; color: #333; line-height: 1.35; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px; }
+    .card-price { border-top: 1px solid #f0f2f5; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; }
+    .price-current { font-size: 1.3rem; font-weight: 800; color: #E85D50; }
+    .price-unit { font-size: 0.72rem; color: #888; }
+    .card-cta { display: block; background: #E85D50; color: white; text-align: center; padding: 9px; font-size: 0.82rem; font-weight: 700; margin-top: 8px; border-radius: 7px; text-decoration: none; transition: background 0.15s; }
+    .card-cta:hover { background: #D14A3E; }
+
+    /* BLOG RESULTS */
+    .posts-list { display: flex; flex-direction: column; gap: 14px; }
+    .post-result { background: white; border-radius: 12px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); text-decoration: none; color: inherit; display: flex; gap: 16px; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .post-result:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
+    .post-result-img { width: 80px; height: 60px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #fde8e6; }
+    .post-result-body { flex: 1; }
+    .post-result-cat { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #E85D50; margin-bottom: 4px; }
+    .post-result-title { font-size: 0.92rem; font-weight: 700; color: #333; line-height: 1.35; }
+    .post-result-excerpt { font-size: 0.8rem; color: #777; margin-top: 3px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+    .post-result-arrow { color: #E85D50; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
+
+    /* EMPTY */
+    .empty { text-align: center; padding: 60px 20px; }
+    .empty-icon { font-size: 3.5rem; margin-bottom: 16px; display: block; }
+    .empty h2 { font-size: 1.2rem; font-weight: 700; color: #333; margin-bottom: 8px; }
+    .empty p { color: #777; font-size: 0.9rem; margin-bottom: 24px; }
+    .empty-suggestions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .empty-chip { background: white; border: 1.5px solid #e8ecf0; border-radius: 8px; padding: 8px 16px; text-decoration: none; color: #555; font-size: 0.85rem; font-weight: 600; transition: all 0.15s; }
+    .empty-chip:hover { border-color: #E85D50; color: #E85D50; }
+
+    footer { background: #2D2D2D; color: #999; padding: 24px; text-align: center; font-size: 0.8rem; }
+    footer a { color: #E85D50; text-decoration: none; margin: 0 8px; }
+
+    @media (max-width: 600px) {
+      .deals-grid { grid-template-columns: 1fr; }
+      .search-hero h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <img src="/static/img/logo_icon.png" alt="GangaViaje" class="logo-icon">
+      <span class="logo-name">Ganga<span>Viaje</span></span>
+    </a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Todas las ofertas
+    </a>
+  </div>
+</nav>
+
+<div class="search-hero">
+  <div class="search-hero-inner">
+    <h1>Busca tu próxima <span>ganga</span></h1>
+    <form class="search-form" action="/buscar" method="get">
+      <input class="search-input" type="text" name="q" value="{{ q }}" placeholder="París, hotel, vuelo Tokyo..." autofocus autocomplete="off">
+      <button class="search-btn" type="submit">🔍 Buscar</button>
+    </form>
+    <div class="quick-searches">
+      <a href="/buscar?q=paris" class="quick-chip">París</a>
+      <a href="/buscar?q=roma" class="quick-chip">Roma</a>
+      <a href="/buscar?q=vuelo" class="quick-chip">Vuelos</a>
+      <a href="/buscar?q=hotel" class="quick-chip">Hoteles</a>
+      <a href="/buscar?q=tokio" class="quick-chip">Tokio</a>
+      <a href="/buscar?q=bali" class="quick-chip">Bali</a>
+      <a href="/buscar?q=canarias" class="quick-chip">Canarias</a>
+    </div>
+  </div>
+</div>
+
+<main>
+  {% set total = results.deals|length + results.posts|length %}
+
+  {% if q and total == 0 %}
+  <div class="empty">
+    <span class="empty-icon">🔍</span>
+    <h2>Sin resultados para "{{ q }}"</h2>
+    <p>Prueba con otro término o explora los destinos populares</p>
+    <div class="empty-suggestions">
+      <a href="/buscar?q=paris" class="empty-chip">París</a>
+      <a href="/buscar?q=roma" class="empty-chip">Roma</a>
+      <a href="/buscar?q=vuelo" class="empty-chip">Vuelos baratos</a>
+      <a href="/buscar?q=hotel" class="empty-chip">Hoteles</a>
+      <a href="/buscar?q=tokio" class="empty-chip">Tokio</a>
+      <a href="/" class="empty-chip">🏠 Volver al inicio</a>
+    </div>
+  </div>
+
+  {% elif q %}
+  <p class="results-info">
+    <strong>{{ total }} resultado{% if total != 1 %}s{% endif %}</strong> para "<strong>{{ q }}</strong>"
+    {% if results.deals %} — {{ results.deals|length }} oferta{% if results.deals|length != 1 %}s{% endif %}{% endif %}
+    {% if results.posts %} · {{ results.posts|length }} artículo{% if results.posts|length != 1 %}s{% endif %}{% endif %}
+  </p>
+
+  {% if results.deals %}
+  <h2 class="section-title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+    Ofertas
+  </h2>
+  <div class="deals-grid">
+    {% for deal in results.deals %}
+    <a href="/oferta/{{ deal.id }}" class="deal-card">
+      <div class="card-img">
+        {% if deal.image_url %}<img src="{{ deal.image_url }}" alt="{{ deal.title }}" loading="lazy">{% endif %}
+        {% if deal.discount_pct %}<span class="badge-discount">-{{ deal.discount_pct }}%</span>{% endif %}
+      </div>
+      <div class="card-body">
+        {% if deal.location %}<div class="card-location">📍 {{ deal.location }}</div>{% endif %}
+        <div class="card-title">{{ deal.title }}</div>
+        <div class="card-price">
+          <div>
+            <div class="price-current">€{{ "%.0f"|format(deal.sale_price) }}</div>
+            <div class="price-unit">por {{ "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("trayecto" if deal.tipo == "vuelo" else "noche")) }}</div>
+          </div>
+        </div>
+        <span class="card-cta">Ver oferta →</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if results.posts %}
+  <h2 class="section-title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    Guías de viaje
+  </h2>
+  <div class="posts-list">
+    {% for post in results.posts %}
+    <a href="/blog/{{ post.slug }}" class="post-result">
+      {% if post.image_url %}<img src="{{ post.image_url }}" alt="{{ post.title }}" class="post-result-img" loading="lazy">{% endif %}
+      <div class="post-result-body">
+        <div class="post-result-cat">{{ post.category }}</div>
+        <div class="post-result-title">{{ post.title }}</div>
+        <div class="post-result-excerpt">{{ post.excerpt }}</div>
+      </div>
+      <span class="post-result-arrow">→</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% else %}
+  <div class="empty">
+    <span class="empty-icon">✈️</span>
+    <h2>¿A dónde quieres ir?</h2>
+    <p>Escribe un destino, tipo de alojamiento o actividad para encontrar las mejores gangas</p>
+    <div class="empty-suggestions">
+      <a href="/buscar?q=paris" class="empty-chip">🗼 París</a>
+      <a href="/buscar?q=tokio" class="empty-chip">🗾 Tokio</a>
+      <a href="/buscar?q=bali" class="empty-chip">🌴 Bali</a>
+      <a href="/buscar?q=vuelo" class="empty-chip">✈️ Vuelos</a>
+      <a href="/buscar?q=hotel" class="empty-chip">🏨 Hoteles</a>
+      <a href="/buscar?q=actividad" class="empty-chip">🎯 Actividades</a>
+    </div>
+  </div>
+  {% endif %}
+</main>
+
+<footer>
+  <a href="/">Inicio</a> · <a href="/blog">Blog</a> · <a href="/sobre-nosotros">Sobre nosotros</a>
+  <br><br>© GangaViaje.es
+</footer>
+
+</body>
+</html>

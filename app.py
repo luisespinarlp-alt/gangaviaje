@@ -164,6 +164,13 @@ def newsletter():
         return jsonify({"ok": False, "msg": "Error al guardar. Inténtalo de nuevo."}), 500
 
 
+@app.route("/buscar")
+def buscar():
+    q = request.args.get("q", "").strip()
+    results = database.search(q) if len(q) >= 2 else {"deals": [], "posts": []}
+    return render_template("buscar.html", q=q, results=results, destinos=config.DESTINOS)
+
+
 @app.route("/sobre-nosotros")
 def sobre_nosotros():
     stats = database.get_stats()
