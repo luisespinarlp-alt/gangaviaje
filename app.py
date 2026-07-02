@@ -79,7 +79,7 @@ def oferta(deal_id: int):
 
 @app.route("/blog")
 def blog():
-    posts = database.get_posts(limit=30)
+    posts = database.get_posts(limit=100)
     return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS)
 
 
