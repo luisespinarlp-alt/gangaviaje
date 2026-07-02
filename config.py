@@ -62,9 +62,9 @@ PORT     = int(os.getenv("PORT", 5002))
 
 # Bot
 BOT_INTERVAL_SEC   = 3600
-MAX_DEALS_PER_RUN  = 30
-DEAL_EXPIRY_HOURS  = 48
-MIN_DISCOUNT_PCT   = 20
+MAX_DEALS_PER_RUN  = 40
+DEAL_EXPIRY_HOURS  = 36
+MIN_DISCOUNT_PCT   = 10
 
 DESTINOS = {
     "espana":        "España",

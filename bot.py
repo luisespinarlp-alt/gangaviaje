@@ -178,11 +178,15 @@ def run_once():
                 max_results=config.MAX_DEALS_PER_RUN,
             )
             added = 0
+            refreshed = 0
             for d in deals:
-                if not database.deal_exists(d["affiliate_url"]):
+                if database.deal_exists(d["affiliate_url"]):
+                    database.refresh_deal(d["affiliate_url"], d)
+                    refreshed += 1
+                else:
                     database.add_deal(d)
                     added += 1
-            log.info(f"{name}: {len(deals)} scrapeados, {added} nuevos")
+            log.info(f"{name}: {len(deals)} scrapeados, {added} nuevos, {refreshed} actualizados")
             new_total += added
         except Exception as e:
             log.error(f"{name} scraper error: {e}")
@@ -191,7 +195,7 @@ def run_once():
     if config.TELEGRAM_BOT_TOKEN:
         pending = database.get_unpublished_deals()
         published = 0
-        for deal in pending[:5]:  # máx 5 por ciclo para no saturar el canal
+        for deal in pending[:10]:  # máx 10 por ciclo
             if publish_deal(deal):
                 published += 1
                 time.sleep(2)  # pausa entre mensajes

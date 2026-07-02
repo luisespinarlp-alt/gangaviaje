@@ -89,15 +89,40 @@ def add_deal(deal: dict) -> int:
 
 
 def deal_exists(affiliate_url: str) -> bool:
+    """True si ya existe un deal con esta URL (activo o no) — evita duplicados."""
     conn = get_conn()
     cur = conn.cursor()
-    cur.execute(
-        "SELECT id FROM deals WHERE affiliate_url = %s AND active = 1", (affiliate_url,)
-    )
+    cur.execute("SELECT id FROM deals WHERE affiliate_url = %s LIMIT 1", (affiliate_url,))
     row = cur.fetchone()
     cur.close()
     conn.close()
     return row is not None
+
+
+def refresh_deal(affiliate_url: str, deal: dict):
+    """Actualiza precio e imagen de un deal existente y lo reactiva."""
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE deals SET
+            sale_price     = %s,
+            original_price = %s,
+            discount_pct   = %s,
+            image_url      = %s,
+            rating         = %s,
+            reviews_count  = %s,
+            active         = 1,
+            created_at     = NOW()
+        WHERE affiliate_url = %s
+    """, (
+        deal["sale_price"], deal.get("original_price"),
+        deal.get("discount_pct", 0), deal.get("image_url", ""),
+        deal.get("rating", 0), deal.get("reviews_count", 0),
+        affiliate_url,
+    ))
+    conn.commit()
+    cur.close()
+    conn.close()
 
 
 def get_deals(category: str = None, limit: int = 60) -> list:
