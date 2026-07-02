@@ -47,11 +47,40 @@ _SLUG_TO_CITY = {
     "bruselas": "Bruselas", "budapest": "Budapest", "praga": "Praga",
     "viena": "Viena", "roma": "Roma", "barcelona": "Barcelona",
     "madrid": "Madrid", "lisboa": "Lisboa", "bangkok": "Bangkok",
-    "bali": "Bali", "tokio": "Tokio", "singapur": "Singapur",
+    "bali": "Bali", "singapur": "Singapur",
     "nueva-york": "Nueva York", "miami": "Miami", "canarias": "Canarias",
     "mallorca": "Mallorca", "ibiza": "Ibiza", "sevilla": "Sevilla",
     "granada": "Granada", "atenas": "Atenas", "estambul": "Estambul",
     "venecia": "Venecia", "florencia": "Florencia", "napoles": "Nápoles",
+}
+
+_CITY_IMAGES = {
+    "barcelona": "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "madrid":    "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "paris":     "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "roma":      "https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "lisboa":    "https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "amsterdam": "https://images.unsplash.com/photo-1459679749680-18eb1eb37418?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "berlin":    "https://images.unsplash.com/photo-1560969184-10fe8719e047?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "dubai":     "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "bangkok":   "https://images.unsplash.com/photo-1528181304800-259b08848526?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "nueva-york":"https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "tokio":     "https://images.unsplash.com/photo-1528360983277-13d401cdc186?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "cancun":    "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "praga":     "https://images.unsplash.com/photo-1541849546-216549ae216d?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "viena":     "https://images.unsplash.com/photo-1516550893923-42d28e5677af?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "budapest":  "https://images.unsplash.com/photo-1551867633-194f125bddfa?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "atenas":    "https://images.unsplash.com/photo-1555993539-1732b0258235?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "estambul":  "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "venecia":   "https://images.unsplash.com/photo-1514890547357-a9ee288728e0?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "bali":      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "mallorca":  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "sevilla":   "https://images.unsplash.com/photo-1503376780353-7e6692767b70?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "canarias":  "https://images.unsplash.com/photo-1559827260-dc66d52bef19?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "marrakech": "https://images.unsplash.com/photo-1542401886-65d6c61db217?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "dublin":    "https://images.unsplash.com/photo-1549918864-48ac978761a4?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "bruselas":  "https://images.unsplash.com/photo-1559113202-c916b8e44373?fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    "miami":     "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop",
 }
 
 @app.route("/ciudad/<name>")
@@ -61,10 +90,12 @@ def ciudad(name: str):
     if not grouped:
         abort(404)
     stats = database.get_stats()
-    return render_template("index.html", grouped=grouped, stats=stats,
-                           active_cat="todos", destinos=config.DESTINOS,
-                           cat_title=f"Ofertas en {name_display}",
-                           tipo_labels=config.TIPOS)
+    city_image = _CITY_IMAGES.get(name, "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop")
+    total = sum(len(items) for _, items in grouped)
+    return render_template("ciudad.html", grouped=grouped, stats=stats,
+                           city_name=name_display, city_slug=name,
+                           city_image=city_image, total=total,
+                           tipo_labels=config.TIPOS, destinos=config.DESTINOS)
 
 
 @app.route("/oferta/<int:deal_id>")

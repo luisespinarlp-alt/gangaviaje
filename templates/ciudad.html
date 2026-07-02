@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas en {{ city_name }} — GangaViaje</title>
+  <meta name="description" content="{{ total }} ofertas en {{ city_name }}: hoteles, vuelos, actividades y más. Precios actualizados cada hora en GangaViaje.">
+  <meta property="og:title" content="Ofertas en {{ city_name }} — GangaViaje">
+  <meta property="og:description" content="{{ total }} ofertas en {{ city_name }} con los mejores precios.">
+  <meta property="og:image" content="{{ city_image }}">
+  <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05YGXD7GX7"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-05YGXD7GX7");</script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Raleway', -apple-system, sans-serif; background: #f4f6f9; color: #333; line-height: 1.5; }
+
+    /* NAV */
+    nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.10); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { height: 40px; width: auto; }
+    .logo-name { font-size: 1.35rem; font-weight: 800; color: #333; letter-spacing: -0.5px; }
+    .logo-name span { color: #E85D50; }
+    .nav-back { color: #666; text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+    .nav-back:hover { color: #E85D50; }
+    .nav-back svg { width: 15px; height: 15px; }
+
+    /* HERO */
+    .city-hero { position: relative; height: 320px; overflow: hidden; }
+    .city-hero-img { width: 100%; height: 100%; object-fit: cover; }
+    .city-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(20,20,20,0.3) 0%, rgba(20,20,20,0.7) 100%); }
+    .city-hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 32px 24px; }
+    .city-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .city-breadcrumb { font-size: 0.78rem; color: rgba(255,255,255,0.65); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .city-breadcrumb a { color: rgba(255,255,255,0.65); text-decoration: none; }
+    .city-breadcrumb a:hover { color: white; }
+    .city-hero h1 { font-size: 2.4rem; font-weight: 900; color: white; text-shadow: 0 2px 16px rgba(0,0,0,0.4); margin-bottom: 8px; }
+    .city-hero-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .city-badge { background: #E85D50; color: white; font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+    .city-count { color: rgba(255,255,255,0.8); font-size: 0.88rem; }
+
+    /* TIPO FILTER */
+    .tipo-bar { background: white; border-bottom: 1px solid #e8ecf0; position: sticky; top: 60px; z-index: 90; }
+    .tipo-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+    .tipo-inner::-webkit-scrollbar { display: none; }
+    .tipo-btn { display: flex; align-items: center; gap: 7px; padding: 13px 16px; border: none; background: none; cursor: pointer; font-size: 0.84rem; font-weight: 500; color: #555; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.15s; font-family: inherit; }
+    .tipo-btn:hover { color: #E85D50; }
+    .tipo-btn.active { color: #E85D50; border-bottom-color: #E85D50; font-weight: 600; }
+    .tipo-btn svg { width: 16px; height: 16px; }
+
+    /* MAIN */
+    main { max-width: 1200px; margin: 0 auto; padding: 28px 24px 60px; }
+    .tipo-section { margin-bottom: 36px; }
+    .tipo-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #eef1f5; }
+    .tipo-section-title { display: flex; align-items: center; gap: 8px; font-size: 1.05rem; font-weight: 700; color: #333; }
+    .tipo-section-title svg { width: 19px; height: 19px; color: #E85D50; }
+    .tipo-section-count { font-size: 0.74rem; color: #777; background: #eef2f7; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+
+    /* GRID */
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .deal-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+    .deal-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 12px 32px rgba(0,0,0,0.08); }
+    .card-img { height: 190px; position: relative; overflow: hidden; background: #fde8e6; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .deal-card:hover .card-img img { transform: scale(1.04); }
+    .badge-discount { position: absolute; top: 12px; left: 12px; color: white; font-size: 0.78rem; font-weight: 700; padding: 4px 9px; border-radius: 6px; background: linear-gradient(90deg, #cc0000, #e03030, #cc0000); background-size: 200% 100%; animation: shimmer 2.5s infinite linear; }
+    .badge-tipo { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); color: white; font-size: 0.7rem; font-weight: 500; padding: 4px 9px; border-radius: 6px; }
+    .card-body { padding: 15px; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-size: 0.95rem; font-weight: 600; color: #333; margin-bottom: 10px; line-height: 1.4; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .rating-badge { background: #E85D50; color: white; font-size: 0.78rem; font-weight: 700; padding: 3px 7px; border-radius: 6px 6px 6px 0; }
+    .card-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .rating-label { font-size: 0.78rem; color: #555; font-weight: 500; }
+    .card-price { border-top: 1px solid #f0f2f5; padding-top: 11px; margin-top: auto; }
+    .price-original { font-size: 0.8rem; color: #999; text-decoration: line-through; margin-bottom: 2px; }
+    .price-row { display: flex; align-items: flex-end; gap: 8px; }
+    .price-current { font-size: 1.45rem; font-weight: 800; color: #E85D50; line-height: 1; }
+    .price-unit { font-size: 0.75rem; color: #888; margin-bottom: 2px; }
+    .price-saving { margin-left: auto; font-size: 0.75rem; color: #2e7d32; font-weight: 600; background: #e8f5e9; padding: 2px 7px; border-radius: 4px; }
+    .card-cta { display: block; background: #E85D50; color: white; text-align: center; padding: 10px; font-size: 0.85rem; font-weight: 600; text-decoration: none; margin-top: 8px; border-radius: 8px; transition: background 0.15s; }
+    .card-cta:hover { background: #D14A3E; }
+
+    @keyframes shimmer { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* FOOTER */
+    footer { background: #2D2D2D; color: #999; padding: 32px 24px; text-align: center; font-size: 0.82rem; }
+    footer a { color: #E85D50; text-decoration: none; margin: 0 8px; }
+
+    @media (max-width: 768px) {
+      .city-hero { height: 240px; }
+      .city-hero h1 { font-size: 1.7rem; }
+      .deals-grid { grid-template-columns: 1fr; gap: 14px; }
+      main { padding: 20px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+{% macro tipo_icon(tipo) -%}
+{%- if tipo == 'vuelo' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-8 20-3-8-9-4z"/></svg>
+{%- elif tipo == 'apartamento' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 21V10h8v11"/><path d="M2 9h20"/></svg>
+{%- elif tipo == 'villa' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V12l9-9 9 9v10"/><path d="M9 22v-8h6v8"/></svg>
+{%- elif tipo == 'actividad' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+{%- elif tipo == 'traslado' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>
+{%- elif tipo == 'coche' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/><path d="M5 12h14"/></svg>
+{%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/></svg>
+{%- endif -%}
+{%- endmacro %}
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <img src="/static/img/logo_icon.png" alt="GangaViaje" class="logo-icon">
+      <span class="logo-name">Ganga<span>Viaje</span></span>
+    </a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Todas las ofertas
+    </a>
+  </div>
+</nav>
+
+<!-- HERO DE CIUDAD -->
+<div class="city-hero">
+  <img src="{{ city_image }}" alt="Ofertas en {{ city_name }}" class="city-hero-img">
+  <div class="city-hero-overlay"></div>
+  <div class="city-hero-content">
+    <div class="city-hero-inner">
+      <div class="city-breadcrumb">
+        <a href="/">GangaViaje</a>
+        <span>›</span>
+        <span>{{ city_name }}</span>
+      </div>
+      <h1>Ofertas en {{ city_name }}</h1>
+      <div class="city-hero-meta">
+        <span class="city-badge">🏷️ {{ total }} ofertas</span>
+        <span class="city-count">Actualizadas cada hora</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIPO FILTER -->
+<div class="tipo-bar">
+  <div class="tipo-inner">
+    <button class="tipo-btn active" onclick="filterTipo('todos',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Todos
+    </button>
+    {% for tipo, items in grouped %}
+    <button class="tipo-btn" onclick="filterTipo('{{ tipo }}',this)">
+      {{ tipo_icon(tipo) }}{{ tipo_labels.get(tipo, tipo)|title }}
+    </button>
+    {% endfor %}
+  </div>
+</div>
+
+<main>
+  {% for tipo, items in grouped %}
+  <section class="tipo-section" data-tipo="{{ tipo }}">
+    <div class="tipo-section-header">
+      <h2 class="tipo-section-title">{{ tipo_icon(tipo) }}<span>{{ tipo_labels.get(tipo, tipo) }}</span></h2>
+      <span class="tipo-section-count">{{ items|length }}</span>
+    </div>
+    <div class="deals-grid">
+      {% for deal in items %}
+      <a href="/oferta/{{ deal.id }}" class="deal-card">
+        <div class="card-img">
+          {% if deal.image_url %}
+          <img src="{{ deal.image_url }}" alt="{{ deal.title }}" loading="lazy"
+               onerror="this.parentElement.style.background='#fde8e6'">
+          {% endif %}
+          {% if deal.discount_pct %}<span class="badge-discount">-{{ deal.discount_pct }}%</span>{% endif %}
+          <span class="badge-tipo">{{ tipo_labels.get(deal.tipo, deal.tipo) }}</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">{{ deal.title }}</div>
+          {% if deal.rating and deal.rating > 0 %}
+          <div class="card-rating">
+            <span class="rating-badge">{{ "%.1f"|format(deal.rating) }}</span>
+            <span class="rating-label">{% if deal.rating >= 9 %}Excepcional{% elif deal.rating >= 8 %}Muy bueno{% else %}Bueno{% endif %}</span>
+          </div>
+          {% endif %}
+          <div class="card-price">
+            {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("trayecto" if deal.tipo == "vuelo" else "noche")) %}
+            {% if deal.original_price and deal.original_price > deal.sale_price %}
+            <div class="price-original">Antes: €{{ "%.0f"|format(deal.original_price) }}</div>
+            {% endif %}
+            <div class="price-row">
+              <div>
+                <div class="price-current">€{{ "%.0f"|format(deal.sale_price) }}</div>
+                <div class="price-unit">por {{ unidad }}</div>
+              </div>
+              {% if deal.original_price and deal.original_price > deal.sale_price %}
+              <div class="price-saving">Ahorras €{{ "%.0f"|format(deal.original_price - deal.sale_price) }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <span class="card-cta">Ver oferta →</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</main>
+
+<footer>
+  <a href="/">Inicio</a> · <a href="/blog">Blog</a> · <a href="/sobre-nosotros">Sobre nosotros</a>
+  <br><br>© GangaViaje.es · Las mejores ofertas de viajes actualizadas cada hora
+</footer>
+
+<script>
+function filterTipo(tipo, btn) {
+  document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tipo-section').forEach(sec => {
+    sec.style.display = (tipo === 'todos' || sec.dataset.tipo === tipo) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
