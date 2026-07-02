@@ -35,9 +35,27 @@ def destino(cat: str):
                            cat_title=config.DESTINOS[cat], tipo_labels=config.TIPOS)
 
 
+_SLUG_TO_CITY = {
+    "paris": "París", "amsterdam": "Ámsterdam", "berlin": "Berlín",
+    "dubai": "Dubái", "dublin": "Dublín", "cancun": "Cancún",
+    "malaga": "Málaga", "almeria": "Almería", "cadiz": "Cádiz",
+    "cordoba": "Córdoba", "murcia": "Murcia", "leon": "León",
+    "espana": "España", "tokio": "Tokio", "milan": "Milán",
+    "buenos-aires": "Buenos Aires", "marrakech": "Marrakech",
+    "moscu": "Moscú", "munich": "Múnich", "zurich": "Zúrich",
+    "bruselas": "Bruselas", "budapest": "Budapest", "praga": "Praga",
+    "viena": "Viena", "roma": "Roma", "barcelona": "Barcelona",
+    "madrid": "Madrid", "lisboa": "Lisboa", "bangkok": "Bangkok",
+    "bali": "Bali", "tokio": "Tokio", "singapur": "Singapur",
+    "nueva-york": "Nueva York", "miami": "Miami", "canarias": "Canarias",
+    "mallorca": "Mallorca", "ibiza": "Ibiza", "sevilla": "Sevilla",
+    "granada": "Granada", "atenas": "Atenas", "estambul": "Estambul",
+    "venecia": "Venecia", "florencia": "Florencia", "napoles": "Nápoles",
+}
+
 @app.route("/ciudad/<name>")
 def ciudad(name: str):
-    name_display = name.replace("-", " ").title()
+    name_display = _SLUG_TO_CITY.get(name, name.replace("-", " ").title())
     grouped = database.get_deals_grouped_by_location(name_display)
     if not grouped:
         abort(404)
