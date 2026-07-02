@@ -209,9 +209,8 @@ def robots():
 
 @app.errorhandler(404)
 def not_found(e):
-    return render_template("index.html", grouped=[], stats={"total": 0, "today": 0},
-                           active_cat="todos", destinos=config.DESTINOS,
-                           tipo_labels=config.TIPOS), 404
+    deals = database.get_deals(limit=6)
+    return render_template("404.html", deals=deals), 404
 
 
 if __name__ == "__main__":
