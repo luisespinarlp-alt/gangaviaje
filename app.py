@@ -19,9 +19,10 @@ database.init_db()
 def index():
     grouped = database.get_deals_grouped()
     stats = database.get_stats()
+    recent_posts = database.get_posts(limit=3)
     return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat="todos", destinos=config.DESTINOS,
-                           tipo_labels=config.TIPOS)
+                           tipo_labels=config.TIPOS, recent_posts=recent_posts)
 
 
 @app.route("/destino/<cat>")
