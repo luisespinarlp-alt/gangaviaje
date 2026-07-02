@@ -183,6 +183,21 @@
     .empty svg { width: 64px; height: 64px; margin-bottom: 16px; opacity: 0.4; }
     .empty p { font-size: 1rem; }
 
+    /* ── CIUDADES POPULARES ── */
+    .ciudades-section { background: #f4f6f9; padding: 40px 24px; }
+    .ciudades-inner { max-width: 1200px; margin: 0 auto; }
+    .ciudades-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .ciudades-title { font-size: 1.15rem; font-weight: 800; color: #333; display: flex; align-items: center; gap: 8px; }
+    .ciudades-title svg { color: #E85D50; width: 20px; height: 20px; }
+    .ciudades-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+    .ciudad-chip { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: inherit; background: white; border-radius: 12px; padding: 16px 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); transition: transform 0.2s ease, box-shadow 0.2s ease; text-align: center; }
+    .ciudad-chip:hover { transform: translateY(-3px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .ciudad-chip img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+    .ciudad-chip-name { font-size: 0.82rem; font-weight: 700; color: #333; }
+    .ciudad-chip-flag { font-size: 1.3rem; }
+    @media (max-width: 768px) { .ciudades-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 480px) { .ciudades-grid { grid-template-columns: repeat(2, 1fr); } }
+
     /* ── BLOG PREVIEW ── */
     .blog-preview { background: white; padding: 48px 24px; border-top: 1px solid #e8ecf0; }
     .blog-preview-inner { max-width: 1200px; margin: 0 auto; }
@@ -377,6 +392,80 @@
     <button class="dot" onclick="goToSlide(2)"></button>
     <button class="dot" onclick="goToSlide(3)"></button>
     <button class="dot" onclick="goToSlide(4)"></button>
+  </div>
+</div>
+
+<!-- CIUDADES POPULARES -->
+<div class="ciudades-section">
+  <div class="ciudades-inner">
+    <div class="ciudades-header">
+      <h2 class="ciudades-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Destinos más buscados
+      </h2>
+    </div>
+    <div class="ciudades-grid">
+      <a href="/ciudad/barcelona" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Barcelona">
+        <span class="ciudad-chip-name">Barcelona</span>
+        <span class="ciudad-chip-flag">🇪🇸</span>
+      </a>
+      <a href="/ciudad/madrid" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Madrid">
+        <span class="ciudad-chip-name">Madrid</span>
+        <span class="ciudad-chip-flag">🇪🇸</span>
+      </a>
+      <a href="/ciudad/paris" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="París">
+        <span class="ciudad-chip-name">París</span>
+        <span class="ciudad-chip-flag">🇫🇷</span>
+      </a>
+      <a href="/ciudad/roma" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Roma">
+        <span class="ciudad-chip-name">Roma</span>
+        <span class="ciudad-chip-flag">🇮🇹</span>
+      </a>
+      <a href="/ciudad/lisboa" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Lisboa">
+        <span class="ciudad-chip-name">Lisboa</span>
+        <span class="ciudad-chip-flag">🇵🇹</span>
+      </a>
+      <a href="/ciudad/amsterdam" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1459679749680-18eb1eb37418?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Ámsterdam">
+        <span class="ciudad-chip-name">Ámsterdam</span>
+        <span class="ciudad-chip-flag">🇳🇱</span>
+      </a>
+      <a href="/ciudad/berlin" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Berlín">
+        <span class="ciudad-chip-name">Berlín</span>
+        <span class="ciudad-chip-flag">🇩🇪</span>
+      </a>
+      <a href="/ciudad/dubai" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Dubái">
+        <span class="ciudad-chip-name">Dubái</span>
+        <span class="ciudad-chip-flag">🇦🇪</span>
+      </a>
+      <a href="/ciudad/bangkok" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1508009603885-50cf7c5793b4?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Bangkok">
+        <span class="ciudad-chip-name">Bangkok</span>
+        <span class="ciudad-chip-flag">🇹🇭</span>
+      </a>
+      <a href="/ciudad/nueva-york" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Nueva York">
+        <span class="ciudad-chip-name">Nueva York</span>
+        <span class="ciudad-chip-flag">🇺🇸</span>
+      </a>
+      <a href="/ciudad/tokio" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Tokio">
+        <span class="ciudad-chip-name">Tokio</span>
+        <span class="ciudad-chip-flag">🇯🇵</span>
+      </a>
+      <a href="/ciudad/cancun" class="ciudad-chip">
+        <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Cancún">
+        <span class="ciudad-chip-name">Cancún</span>
+        <span class="ciudad-chip-flag">🇲🇽</span>
+      </a>
+    </div>
   </div>
 </div>
 

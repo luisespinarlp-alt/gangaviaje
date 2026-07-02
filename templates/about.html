@@ -126,14 +126,34 @@
 
 <main>
 
+  <!-- STATS -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:8px;">
+    <div class="card" style="text-align:center;padding:20px 16px;">
+      <div style="font-size:2rem;font-weight:900;color:#E85D50;">139+</div>
+      <div style="font-size:0.78rem;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Ofertas activas</div>
+    </div>
+    <div class="card" style="text-align:center;padding:20px 16px;">
+      <div style="font-size:2rem;font-weight:900;color:#E85D50;">64</div>
+      <div style="font-size:0.78rem;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Guías de viaje</div>
+    </div>
+    <div class="card" style="text-align:center;padding:20px 16px;">
+      <div style="font-size:2rem;font-weight:900;color:#E85D50;">15</div>
+      <div style="font-size:0.78rem;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Plataformas</div>
+    </div>
+    <div class="card" style="text-align:center;padding:20px 16px;">
+      <div style="font-size:2rem;font-weight:900;color:#E85D50;">24h</div>
+      <div style="font-size:0.78rem;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Actualización</div>
+    </div>
+  </div>
+
   <!-- QUIÉNES SOMOS -->
   <div class="card">
     <div class="card-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     </div>
     <h2>Nuestro proyecto</h2>
-    <p>Somos un equipo de viajeros apasionados que creamos GangaViaje con un objetivo claro: que nadie pague de más por sus vacaciones. Sabemos lo frustrante que es encontrar el precio perfecto entre miles de opciones.</p>
-    <p>Por eso automatizamos la búsqueda. Nuestro sistema revisa cada hora las mejores plataformas de viajes y publica solo las ofertas con descuentos reales, para que tú te dediques a planificar tu viaje y no a buscar chollos.</p>
+    <p>Creamos GangaViaje con un objetivo claro: que nadie pague de más por sus vacaciones. Sabemos lo frustrante que es comparar cientos de opciones para encontrar el precio real.</p>
+    <p>Por eso automatizamos la búsqueda. Nuestro sistema revisa cada hora más de 15 plataformas de viajes — Booking.com, Expedia, Hotels.com, GetYourGuide, Klook, Kiwi.com, Civitatis y más — y publica solo las ofertas con descuentos reales. Sin spam, sin precios inflados artificialmente.</p>
   </div>
 
   <!-- CÓMO FUNCIONA -->
@@ -146,22 +166,22 @@
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-body">
-          <h3>Buscamos cada hora</h3>
-          <p>Nuestro bot analiza automáticamente Booking.com, Civitatis, GetYourGuide y otras plataformas en busca de ofertas con descuentos reales.</p>
+          <h3>Rastreamos cada hora</h3>
+          <p>Nuestro bot analiza automáticamente más de 15 plataformas: Booking.com, Expedia, Hotels.com, GetYourGuide, Klook, Kiwi.com, Tiqets, AutoEurope, Centauro y más.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
           <h3>Filtramos las mejores</h3>
-          <p>Solo publicamos ofertas con un descuento mínimo significativo. Sin relleno, sin precios inflados artificialmente.</p>
+          <p>Solo publicamos ofertas con descuentos reales. Verificamos que el precio es efectivamente inferior al precio habitual — sin trucos de precios inflados.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
           <h3>Tú reservas directamente</h3>
-          <p>Al hacer clic te redirigimos a la plataforma oficial. Reservas directamente con ellos, con sus garantías y servicio de atención al cliente.</p>
+          <p>Al hacer clic te redirigimos a la plataforma oficial. Reservas con sus garantías y atención al cliente. GangaViaje no cobra nada — somos gratuitos para el usuario.</p>
         </div>
       </div>
     </div>
@@ -200,6 +220,13 @@
           <span class="contact-value"><a href="https://t.me/gangaviaje" target="_blank" rel="noopener">@gangaviaje</a></span>
         </div>
       </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        <div class="contact-item-body">
+          <span class="contact-label">Instagram</span>
+          <span class="contact-value"><a href="https://instagram.com/gangaviaje.es" target="_blank" rel="noopener">@gangaviaje.es</a></span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -207,7 +234,10 @@
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">Ganga<span>Viaje</span></div>
+    <div class="footer-logo">
+      <img src="/static/img/logo_icon.png" alt="GangaViaje" style="height:32px;width:auto;vertical-align:middle;margin-right:8px;">
+      Ganga<span>Viaje</span>.es
+    </div>
     <div class="footer-divider"></div>
     <div class="footer-links">
       <a href="/">Ofertas</a>
