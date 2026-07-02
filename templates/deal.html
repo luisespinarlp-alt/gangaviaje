@@ -10,12 +10,12 @@
   <meta property="og:site_name"   content="GangaViaje">
   <meta property="og:title"       content="{{ deal.title }}">
   <meta property="og:description" content="{% if deal.discount_pct %}-{{ deal.discount_pct }}% · {% endif %}Desde €{{ deal.sale_price|int }}{% if deal.location %} en {{ deal.location }}{% endif %}. Oferta exclusiva en GangaViaje.">
-  <meta property="og:image"       content="{{ deal.image_url or 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop' }}">
+  <meta property="og:image"       content="{{ deal.image_url or 'https://www.gangaviaje.es/static/img/og-image.png' }}">
   <meta property="og:url"         content="{{ request.url }}">
   <meta name="twitter:card"       content="summary_large_image">
   <meta name="twitter:title"      content="{{ deal.title }}">
   <meta name="twitter:description" content="{% if deal.discount_pct %}-{{ deal.discount_pct }}% · {% endif %}Desde €{{ deal.sale_price|int }}{% if deal.location %} en {{ deal.location }}{% endif %}.">
-  <meta name="twitter:image"      content="{{ deal.image_url or 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop' }}">
+  <meta name="twitter:image"      content="{{ deal.image_url or 'https://www.gangaviaje.es/static/img/og-image.png' }}">
   <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
