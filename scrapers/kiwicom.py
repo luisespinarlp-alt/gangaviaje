@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 _VUELOS = [
     {
-        "title":          "Vuelos baratos desde Madrid — Kiwi.com",
+        "title":          "Vuelos baratos desde Madrid",
         "description":    "Busca y compara vuelos baratos desde Madrid a cientos de destinos. Combinaciones únicas con precio garantizado.",
         "location":       "Madrid",
         "sale_price":     49.00,
@@ -23,7 +23,7 @@ _VUELOS = [
         "reviews_count":  0,
     },
     {
-        "title":          "Vuelos baratos desde Barcelona — Kiwi.com",
+        "title":          "Vuelos baratos desde Barcelona",
         "description":    "Encuentra los mejores precios de vuelos desde Barcelona. Miles de combinaciones con escala optimizada.",
         "location":       "Barcelona",
         "sale_price":     45.00,
@@ -34,7 +34,7 @@ _VUELOS = [
         "reviews_count":  0,
     },
     {
-        "title":          "Vuelos baratos a Europa — Kiwi.com",
+        "title":          "Vuelos baratos a Europa",
         "description":    "Descubre destinos europeos al mejor precio. Londres, París, Roma, Berlín y más desde aeropuertos españoles.",
         "location":       "Europa",
         "sale_price":     39.00,
@@ -45,7 +45,7 @@ _VUELOS = [
         "reviews_count":  0,
     },
     {
-        "title":          "Vuelos baratos a Canarias — Kiwi.com",
+        "title":          "Vuelos baratos a Canarias",
         "description":    "Vuela a Tenerife, Gran Canaria, Lanzarote y Fuerteventura al mejor precio. Compara todas las aerolíneas.",
         "location":       "Canarias",
         "sale_price":     55.00,
@@ -56,7 +56,7 @@ _VUELOS = [
         "reviews_count":  0,
     },
     {
-        "title":          "Vuelos baratos a América — Kiwi.com",
+        "title":          "Vuelos baratos a América",
         "description":    "Combina vuelos para conseguir el precio más bajo a Estados Unidos, México, Colombia y Latinoamérica.",
         "location":       "América",
         "sale_price":     299.00,
@@ -67,7 +67,7 @@ _VUELOS = [
         "reviews_count":  0,
     },
     {
-        "title":          "Vuelos baratos a Asia — Kiwi.com",
+        "title":          "Vuelos baratos a Asia",
         "description":    "Los mejores precios a Tokio, Bangkok, Dubái, Singapur y más destinos de Asia con Kiwi.com.",
         "location":       "Asia",
         "sale_price":     349.00,

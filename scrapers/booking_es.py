@@ -25,7 +25,7 @@ def _deep_url(destination: str) -> str:
 _OFERTAS = [
     {
         "link_id":        "11891543",
-        "title":          "Hoteles en Booking.com — Cancelación gratis en la mayoría",
+        "title":          "Hoteles con cancelación gratuita",
         "description":    "Más de 2,3 millones de alojamientos en todo el mundo. Cancela gratis en la mayoría de reservas y paga en el hotel.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -37,7 +37,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17259345",
-        "title":          "Booking.com: al menos 15% de descuento en estancias seleccionadas",
+        "title":          "Al menos 15% de descuento en estancias seleccionadas",
         "description":    "Ofertas Getaway 2026: consigue al menos un 15% de descuento en una selección de hoteles. Válido hasta el 30 de septiembre de 2026.",
         "location":       "España y resto del mundo",
         "original_price": 120.0,
@@ -49,7 +49,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17211509",
-        "title":          "Booking.com Genius: descuentos exclusivos para miembros",
+        "title":          "Descuentos exclusivos para miembros Genius",
         "description":    "Accede a precios rebajados y ventajas como desayuno gratis y upgrade de habitación con el programa de fidelidad Genius.",
         "location":       "España y resto del mundo",
         "original_price": 100.0,
@@ -61,7 +61,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "15734352",
-        "title":          "Apartamentos y alojamientos únicos en Booking.com",
+        "title":          "Apartamentos y alojamientos únicos",
         "description":    "Desde apartamentos hasta casas en los árboles: encuentra el alojamiento perfecto para tu próximo viaje con Booking.com.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -73,7 +73,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17053226",
-        "title":          "Vuelos baratos con Booking.com — +500 aerolíneas",
+        "title":          "Vuelos baratos a todo el mundo — +500 aerolíneas",
         "description":    "Compara vuelos de más de 500 aerolíneas en 10.000 destinos y encuentra el mejor precio para tu próximo viaje.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -85,7 +85,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17122734",
-        "title":          "Alquiler de coche con Booking.com — +800 proveedores",
+        "title":          "Alquiler de coche — cancelación gratuita incluida",
         "description":    "Compara precios de alquiler de coches en más de 50.000 ubicaciones con cancelación flexible y sin cargos ocultos.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -97,7 +97,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17254651",
-        "title":          "Atracciones y experiencias con Booking.com",
+        "title":          "Entradas y tours sin colas en los mejores destinos",
         "description":    "Entradas, tours y experiencias en más de 2.300 ciudades. Reserva sin complicaciones y cancela gratis.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -113,7 +113,7 @@ _OFERTAS = [
 _HOTELES_CIUDAD = [
     {
         "dest":           "Madrid",
-        "title":          "Hoteles en Madrid — Booking.com",
+        "title":          "Hoteles en Madrid",
         "sale_price":     75.0,
         "original_price": 95.0,
         "discount_pct":   21,
@@ -123,7 +123,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Barcelona",
-        "title":          "Hoteles en Barcelona — Booking.com",
+        "title":          "Hoteles en Barcelona",
         "sale_price":     90.0,
         "original_price": 115.0,
         "discount_pct":   22,
@@ -133,7 +133,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Paris",
-        "title":          "Hoteles en París — Booking.com",
+        "title":          "Hoteles en París",
         "sale_price":     110.0,
         "original_price": 140.0,
         "discount_pct":   21,
@@ -143,7 +143,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Rome",
-        "title":          "Hoteles en Roma — Booking.com",
+        "title":          "Hoteles en Roma",
         "sale_price":     95.0,
         "original_price": 120.0,
         "discount_pct":   21,
@@ -153,7 +153,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Lisbon",
-        "title":          "Hoteles en Lisboa — Booking.com",
+        "title":          "Hoteles en Lisboa",
         "sale_price":     70.0,
         "original_price": 90.0,
         "discount_pct":   22,
@@ -163,7 +163,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Amsterdam",
-        "title":          "Hoteles en Ámsterdam — Booking.com",
+        "title":          "Hoteles en Ámsterdam",
         "sale_price":     105.0,
         "original_price": 135.0,
         "discount_pct":   22,
@@ -173,7 +173,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Berlin",
-        "title":          "Hoteles en Berlín — Booking.com",
+        "title":          "Hoteles en Berlín",
         "sale_price":     80.0,
         "original_price": 100.0,
         "discount_pct":   20,
@@ -183,7 +183,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Dubai",
-        "title":          "Hoteles en Dubái — Booking.com",
+        "title":          "Hoteles en Dubái",
         "sale_price":     120.0,
         "original_price": 155.0,
         "discount_pct":   23,
@@ -193,7 +193,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Malaga",
-        "title":          "Hoteles en Málaga — Booking.com",
+        "title":          "Hoteles en Málaga",
         "sale_price":     65.0,
         "original_price": 85.0,
         "discount_pct":   24,
@@ -203,7 +203,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Sevilla",
-        "title":          "Hoteles en Sevilla — Booking.com",
+        "title":          "Hoteles en Sevilla",
         "sale_price":     70.0,
         "original_price": 90.0,
         "discount_pct":   22,
@@ -213,7 +213,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Valencia",
-        "title":          "Hoteles en Valencia — Booking.com",
+        "title":          "Hoteles en Valencia",
         "sale_price":     60.0,
         "original_price": 78.0,
         "discount_pct":   23,
@@ -223,7 +223,7 @@ _HOTELES_CIUDAD = [
     },
     {
         "dest":           "Prague",
-        "title":          "Hoteles en Praga — Booking.com",
+        "title":          "Hoteles en Praga",
         "sale_price":     65.0,
         "original_price": 85.0,
         "discount_pct":   24,

@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 _ACTIVIDADES = [
     {
-        "title":          "Entradas y atracciones en Barcelona con Tiqets",
+        "title":          "Entradas y atracciones en Barcelona",
         "description":    "Sagrada Família, Park Güell y los principales museos de Barcelona con confirmación instantánea.",
         "location":       "Barcelona",
         "sale_price":     32.00,
@@ -25,7 +25,7 @@ _ACTIVIDADES = [
         "reviews_count":  1850,
     },
     {
-        "title":          "Entradas y atracciones en Madrid con Tiqets",
+        "title":          "Entradas y atracciones en Madrid",
         "description":    "Museo del Prado, Palacio Real y los principales monumentos de Madrid sin colas.",
         "location":       "Madrid",
         "sale_price":     18.00,
@@ -36,7 +36,7 @@ _ACTIVIDADES = [
         "reviews_count":  720,
     },
     {
-        "title":          "Entradas y atracciones en Roma con Tiqets",
+        "title":          "Entradas y atracciones en Roma",
         "description":    "Coliseo, Vaticano y Foro Romano con acceso prioritario y confirmación inmediata.",
         "location":       "Roma",
         "sale_price":     28.00,
@@ -47,7 +47,7 @@ _ACTIVIDADES = [
         "reviews_count":  2300,
     },
     {
-        "title":          "Entradas y atracciones en París con Tiqets",
+        "title":          "Entradas y atracciones en París",
         "description":    "Torre Eiffel, Louvre y Versalles con entrada sin colas y confirmación al instante.",
         "location":       "París",
         "sale_price":     30.00,
@@ -58,7 +58,7 @@ _ACTIVIDADES = [
         "reviews_count":  1920,
     },
     {
-        "title":          "Entradas y atracciones en Londres con Tiqets",
+        "title":          "Entradas y atracciones en Londres",
         "description":    "London Eye, Torre de Londres y los museos más visitados con reserva instantánea.",
         "location":       "Londres",
         "sale_price":     26.00,
@@ -69,7 +69,7 @@ _ACTIVIDADES = [
         "reviews_count":  1340,
     },
     {
-        "title":          "Entradas y atracciones en Ámsterdam con Tiqets",
+        "title":          "Entradas y atracciones en Ámsterdam",
         "description":    "Museo Van Gogh, Anne Frank Huis y cruceros por los canales sin colas.",
         "location":       "Ámsterdam",
         "sale_price":     22.00,
@@ -80,7 +80,7 @@ _ACTIVIDADES = [
         "reviews_count":  980,
     },
     {
-        "title":          "Entradas y atracciones en Berlín con Tiqets",
+        "title":          "Entradas y atracciones en Berlín",
         "description":    "Museumsinsel, Reichstag y memorial del Muro con entrada prioritaria.",
         "location":       "Berlín",
         "sale_price":     19.00,
@@ -91,7 +91,7 @@ _ACTIVIDADES = [
         "reviews_count":  610,
     },
     {
-        "title":          "Entradas y atracciones en Lisboa con Tiqets",
+        "title":          "Entradas y atracciones en Lisboa",
         "description":    "Torre de Belém, Oceanário y excursiones a Sintra con confirmación inmediata.",
         "location":       "Lisboa",
         "sale_price":     21.00,

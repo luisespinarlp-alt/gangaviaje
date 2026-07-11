@@ -22,7 +22,7 @@ def _cj_url(link_id: str) -> str:
 _OFERTAS = [
     {
         "link_id":        "13386171",
-        "title":          "Hoteles en Booking.com con cancelación gratuita",
+        "title":          "Hoteles con cancelación gratuita",
         "description":    "Millones de alojamientos en todo el mundo, con cancelación gratuita en la mayoría de reservas.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -34,7 +34,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17211504",
-        "title":          "Descuentos Booking.com Genius",
+        "title":          "Descuentos exclusivos para miembros Genius",
         "description":    "Accede a precios rebajados y ventajas exclusivas en miles de hoteles con el programa Genius de Booking.com.",
         "location":       "España y resto del mundo",
         "original_price": 100.0,
@@ -46,7 +46,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "14312908",
-        "title":          "Ofertas de viaje en Booking.com",
+        "title":          "Ofertas de viaje — las mejores del momento",
         "description":    "Las mejores rebajas en hoteles, apartamentos y casas vacacionales seleccionadas por Booking.com.",
         "location":       "Europa",
         "original_price": None,
@@ -58,7 +58,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17053224",
-        "title":          "Vuelos baratos con Booking.com",
+        "title":          "Vuelos baratos a todo el mundo",
         "description":    "Compara vuelos de cientos de aerolíneas y encuentra el mejor precio para tu próximo viaje.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -70,7 +70,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17122732",
-        "title":          "Alquiler de coches con Booking.com",
+        "title":          "Alquiler de coche con cancelación gratuita",
         "description":    "Compara precios de alquiler de coches en España y el extranjero con cancelación flexible.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -82,7 +82,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "17254616",
-        "title":          "Entradas y actividades con Booking.com",
+        "title":          "Entradas y tours sin colas",
         "description":    "Reserva entradas, tours y excursiones en los principales destinos turísticos con Booking.com.",
         "location":       "Europa",
         "original_price": None,

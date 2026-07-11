@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 _COCHES = [
     {
-        "title":          "Alquiler de coche en Madrid con AutoEurope",
+        "title":          "Alquiler de coche en Madrid",
         "description":    "Compara las mejores tarifas de alquiler de coche en Madrid, con cancelación gratuita.",
         "location":       "Madrid",
         "sale_price":     24.00,
@@ -23,7 +23,7 @@ _COCHES = [
         "category":       "ciudad",
     },
     {
-        "title":          "Alquiler de coche en Barcelona con AutoEurope",
+        "title":          "Alquiler de coche en Barcelona",
         "description":    "Las mejores ofertas de alquiler de coche en Barcelona, comparando varias compañías a la vez.",
         "location":       "Barcelona",
         "sale_price":     22.00,
@@ -32,7 +32,7 @@ _COCHES = [
         "category":       "ciudad",
     },
     {
-        "title":          "Alquiler de coche en Málaga con AutoEurope",
+        "title":          "Alquiler de coche en Málaga",
         "description":    "Coches de alquiler en el aeropuerto de Málaga y la Costa del Sol al mejor precio.",
         "location":       "Málaga",
         "sale_price":     19.00,
@@ -41,7 +41,7 @@ _COCHES = [
         "category":       "playa",
     },
     {
-        "title":          "Alquiler de coche en Mallorca con AutoEurope",
+        "title":          "Alquiler de coche en Mallorca",
         "description":    "Recorre Mallorca a tu ritmo con un coche de alquiler reservado con antelación.",
         "location":       "Palma de Mallorca",
         "sale_price":     21.00,
@@ -50,7 +50,7 @@ _COCHES = [
         "category":       "playa",
     },
     {
-        "title":          "Alquiler de coche en Tenerife con AutoEurope",
+        "title":          "Alquiler de coche en Tenerife",
         "description":    "Explora la isla de Tenerife con total libertad alquilando un coche con cancelación gratuita.",
         "location":       "Tenerife",
         "sale_price":     18.00,
@@ -59,7 +59,7 @@ _COCHES = [
         "category":       "playa",
     },
     {
-        "title":          "Alquiler de coche en Sevilla con AutoEurope",
+        "title":          "Alquiler de coche en Sevilla",
         "description":    "Coches de alquiler en Sevilla para descubrir Andalucía a tu ritmo.",
         "location":       "Sevilla",
         "sale_price":     20.00,
@@ -68,7 +68,7 @@ _COCHES = [
         "category":       "ciudad",
     },
     {
-        "title":          "Alquiler de coche en Roma con AutoEurope",
+        "title":          "Alquiler de coche en Roma",
         "description":    "Compara precios de alquiler de coche en Roma con varias compañías a la vez.",
         "location":       "Roma",
         "sale_price":     26.00,
@@ -77,7 +77,7 @@ _COCHES = [
         "category":       "europa",
     },
     {
-        "title":          "Alquiler de coche en París con AutoEurope",
+        "title":          "Alquiler de coche en París",
         "description":    "Encuentra el coche de alquiler más barato en París y alrededores.",
         "location":       "París",
         "sale_price":     28.00,

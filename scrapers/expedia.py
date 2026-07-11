@@ -33,7 +33,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "13852544",
-        "title":          "Hoteles en Expedia con cancelación gratuita",
+        "title":          "Hoteles con cancelación gratuita",
         "description":    "Miles de hoteles en España y el resto del mundo, con cancelación gratuita en la mayoría de reservas.",
         "location":       "España",
         "original_price": None,
@@ -45,7 +45,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "13852545",
-        "title":          "Vuelos baratos con Expedia",
+        "title":          "Vuelos baratos a todo el mundo",
         "description":    "Compara vuelos de las principales aerolíneas y encuentra el mejor precio para tu próximo viaje.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -57,7 +57,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "13852548",
-        "title":          "Vuelo + Hotel: paquetes con descuento en Expedia",
+        "title":          "Vuelo + Hotel — paquetes con descuento",
         "description":    "Reserva vuelo y hotel juntos en Expedia y ahorra frente a reservarlos por separado.",
         "location":       "España y resto del mundo",
         "original_price": None,
@@ -69,7 +69,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "13852550",
-        "title":          "Alquiler de coches con Expedia",
+        "title":          "Alquiler de coche — las mejores tarifas",
         "description":    "Compara precios de alquiler de coches en España y el extranjero con cancelación flexible.",
         "location":       "España",
         "original_price": None,
@@ -81,7 +81,7 @@ _OFERTAS = [
     },
     {
         "link_id":        "13852552",
-        "title":          "Alquileres vacacionales con Expedia",
+        "title":          "Alquileres vacacionales — apartamentos y villas",
         "description":    "Apartamentos y casas vacacionales en playa, ciudad o zona rural con reserva directa en Expedia.",
         "location":       "España",
         "original_price": None,
