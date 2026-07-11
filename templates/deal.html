@@ -107,7 +107,7 @@
 
     /* RIGHT COLUMN — BOOKING BOX */
     .booking-box { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); position: sticky; top: 88px; }
-    .booking-source { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: #999; margin-bottom: 16px; font-weight: 600; }
+    .booking-source { font-size: 0.82rem; color: #2e7d32; margin-bottom: 16px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
     .booking-price-original { font-size: 0.9rem; color: #aaa; text-decoration: line-through; margin-bottom: 4px; }
     .booking-price { font-size: 2.2rem; font-weight: 900; color: #E85D50; line-height: 1; }
     .booking-price-unit { font-size: 0.8rem; color: #888; margin-top: 4px; margin-bottom: 16px; }
@@ -315,8 +315,10 @@
 
   <!-- RIGHT — BOOKING BOX -->
   <div class="booking-box">
-    {% set fuentes = {"booking": "Booking.com", "civitatis": "Civitatis", "getyourguide": "GetYourGuide", "travelpayouts": "Aviasales", "klook": "Klook", "economybookings": "Economybookings", "iberostar": "Iberostar", "hotelscom": "Hotels.com", "booking_es": "Booking.com", "booking_cee": "Booking.com", "expedia": "Expedia", "tiqets": "Tiqets", "autoeurope": "AutoEurope", "centauro": "Centauro", "hotelscom_es": "Hotels.com", "kiwitaxi": "Kiwitaxi", "getrentacar": "GetRentacar", "kiwicom": "Kiwi.com", "wegotrip": "WeGoTrip", "kkday": "KKday", "gocity": "Go City"} %}
-    <div class="booking-source">Disponible en {{ fuentes.get(deal.source, "GangaViaje") }}</div>
+    <div class="booking-source">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Reserva asegurada
+    </div>
     {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("vuelo" if deal.tipo == "vuelo" else "noche")) %}
     {% if deal.original_price and deal.original_price > deal.sale_price %}
     <div class="booking-price-original">€{{ "%.0f"|format(deal.original_price) }} / {{ unidad }}</div>
@@ -338,8 +340,8 @@
     <!-- TRUST BADGES -->
     <div class="trust-badges">
       <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Sin comisiones extra de GangaViaje</div>
-      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Reserva directa con el proveedor oficial</div>
-      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Garantías del proveedor aplicadas</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Precio real — sin sorpresas al reservar</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Cancelación gratuita en la mayoría de ofertas</div>
     </div>
 
     <!-- WHATSAPP SHARE -->
