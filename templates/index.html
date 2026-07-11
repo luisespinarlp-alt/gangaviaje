@@ -716,10 +716,7 @@
               {% endif %}
             </div>
           </div>
-          <div class="card-urgency">
-            <span class="card-pulse"></span>
-            <span class="card-viewers"></span>
-          </div>
+          <div class="card-urgency" style="display:none"></div>
           <span class="card-cta">Ver oferta</span>
         </div>
       </a>
@@ -860,10 +857,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 50);
   });
 
-  // Viewers en cards
-  document.querySelectorAll('.card-viewers').forEach(el => {
-    el.textContent = (Math.floor(Math.random() * 10) + 3) + ' personas mirando';
-  });
+  // Viewers eliminados — no mostrar datos falsos
 
   // Slider Ken Burns
   const slides = document.querySelectorAll('.slide');

@@ -315,35 +315,7 @@
 
   <!-- RIGHT — BOOKING BOX -->
   <div class="booking-box">
-    <!-- URGENCY -->
-    <div class="urgency-bar">
-      <div class="urgency-item urgency-viewers">
-        <span class="pulse"></span>
-        <span id="viewers">14</span> personas mirando esta oferta ahora
-      </div>
-      <div class="urgency-item urgency-rooms">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22v-6h6v6"/></svg>
-        Solo quedan <strong id="rooms">3</strong> plazas disponibles
-      </div>
-      <div class="urgency-item urgency-booking">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        Última reserva hace <span id="last-booking">2</span> horas
-      </div>
-    </div>
-
-    <!-- COUNTDOWN -->
-    <div class="countdown-box">
-      <div class="countdown-label">Precio especial válido por</div>
-      <div class="countdown-timer">
-        <div class="countdown-unit"><span class="countdown-num" id="cd-h">08</span><span class="countdown-sub">horas</span></div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-unit"><span class="countdown-num" id="cd-m">34</span><span class="countdown-sub">min</span></div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-unit"><span class="countdown-num" id="cd-s">22</span><span class="countdown-sub">seg</span></div>
-      </div>
-    </div>
-
-    {% set fuentes = {"booking": "Booking.com", "civitatis": "Civitatis", "getyourguide": "GetYourGuide", "travelpayouts": "Aviasales", "klook": "Klook", "economybookings": "Economybookings", "iberostar": "Iberostar", "hotelscom": "Hotels.com"} %}
+    {% set fuentes = {"booking": "Booking.com", "civitatis": "Civitatis", "getyourguide": "GetYourGuide", "travelpayouts": "Aviasales", "klook": "Klook", "economybookings": "Economybookings", "iberostar": "Iberostar", "hotelscom": "Hotels.com", "booking_es": "Booking.com", "booking_cee": "Booking.com", "expedia": "Expedia", "tiqets": "Tiqets", "autoeurope": "AutoEurope", "centauro": "Centauro", "hotelscom_es": "Hotels.com", "kiwitaxi": "Kiwitaxi", "getrentacar": "GetRentacar", "kiwicom": "Kiwi.com", "wegotrip": "WeGoTrip", "kkday": "KKday", "gocity": "Go City"} %}
     <div class="booking-source">Disponible en {{ fuentes.get(deal.source, "GangaViaje") }}</div>
     {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("vuelo" if deal.tipo == "vuelo" else "noche")) %}
     {% if deal.original_price and deal.original_price > deal.sale_price %}
@@ -357,14 +329,17 @@
     <a href="{{ deal.affiliate_url }}" class="booking-cta" target="_blank" rel="noopener">
       Ver disponibilidad
     </a>
-    <div class="booking-note">Al hacer clic serás redirigido al proveedor donde podrás ver disponibilidad y precios actualizados.</div>
+    <!-- DISCLAIMER PRECIO -->
+    <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:0.78rem;color:#555;line-height:1.5;">
+      ⚠️ <strong>Precio orientativo.</strong> El precio final puede variar según disponibilidad y fechas. Confirma siempre en el sitio del proveedor antes de reservar.
+    </div>
     <hr class="booking-divider">
 
     <!-- TRUST BADGES -->
     <div class="trust-badges">
       <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Sin comisiones extra de GangaViaje</div>
-      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Precio actualizado en tiempo real</div>
-      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Reserva directa con el proveedor</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Reserva directa con el proveedor oficial</div>
+      <div class="trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Garantías del proveedor aplicadas</div>
     </div>
 
     <!-- WHATSAPP SHARE -->
@@ -412,43 +387,7 @@
 </div>
 
 <script>
-// Contador de personas mirando — fluctúa de forma realista
-const viewersEl = document.getElementById('viewers');
-const roomsEl   = document.getElementById('rooms');
-const lastEl    = document.getElementById('last-booking');
-
-let viewers = Math.floor(Math.random() * 12) + 8;
-let rooms   = Math.floor(Math.random() * 3) + 2;
-let lastH   = Math.floor(Math.random() * 4) + 1;
-
-viewersEl.textContent = viewers;
-roomsEl.textContent   = rooms;
-lastEl.textContent    = lastH;
-
-setInterval(() => {
-  const delta = Math.random() < 0.5 ? 1 : -1;
-  viewers = Math.max(5, Math.min(28, viewers + delta));
-  viewersEl.textContent = viewers;
-}, 8000);
-
-// Countdown realista desde hora actual hasta medianoche
-function updateCountdown() {
-  const now      = new Date();
-  const midnight = new Date(now);
-  midnight.setHours(23, 59, 59, 0);
-  let diff = Math.floor((midnight - now) / 1000);
-
-  const h = Math.floor(diff / 3600);
-  diff %= 3600;
-  const m = Math.floor(diff / 60);
-  const s = diff % 60;
-
-  document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
-  document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
-  document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
+// Sin contadores falsos — eliminados para mantener la confianza del usuario
 </script>
 </body>
 </html>
