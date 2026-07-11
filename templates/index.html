@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GangaViaje — Las mejores ofertas de viajes</title>
-  <meta name="description" content="Las mejores ofertas en hoteles, apartamentos, villas y actividades. Precios actualizados cada hora.">
+  <title>{% if cat_title is defined and cat_title %}{{ cat_title }} — GangaViaje{% else %}GangaViaje — Las mejores ofertas de viajes{% endif %}</title>
+  <meta name="description" content="{% if cat_title is defined and cat_title %}{{ cat_title }} con descuentos reales. Precios actualizados cada hora en GangaViaje.{% else %}Las mejores ofertas en hoteles, vuelos, actividades y coches. Precios actualizados cada hora.{% endif %}">
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
   <meta property="og:site_name"   content="GangaViaje">
-  <meta property="og:title"       content="GangaViaje — Las mejores ofertas de viajes">
+  <meta property="og:title"       content="{% if cat_title is defined and cat_title %}{{ cat_title }} — GangaViaje{% else %}GangaViaje — Las mejores ofertas de viajes{% endif %}">
   <meta property="og:description" content="{{ stats.total }} ofertas activas en hoteles, apartamentos, actividades y más. Actualizadas cada hora.">
   <meta property="og:image"       content="https://www.gangaviaje.es/static/img/og-image.png">
   <meta property="og:url"         content="{{ request.url }}">
   <meta name="twitter:card"       content="summary_large_image">
-  <meta name="twitter:title"      content="GangaViaje — Las mejores ofertas de viajes">
+  <meta name="twitter:title"      content="{% if cat_title is defined and cat_title %}{{ cat_title }} — GangaViaje{% else %}GangaViaje — Las mejores ofertas de viajes{% endif %}">
   <meta name="twitter:description" content="{{ stats.total }} ofertas activas. Hoteles, apartamentos, actividades y más.">
   <meta name="twitter:image"      content="https://www.gangaviaje.es/static/img/og-image.png">
   <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
-  <link rel="canonical" href="https://www.gangaviaje.es/">
+  <link rel="canonical" href="{{ request.url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">

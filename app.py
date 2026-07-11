@@ -47,25 +47,32 @@ def index():
 @app.route("/ofertas/<tipo>")
 def ofertas_tipo(tipo: str):
     tipo_nombres = {
-        "vuelos": ("vuelo", "Ofertas de vuelos baratos"),
-        "hoteles": ("hotel", "Ofertas de hoteles con descuento"),
-        "actividades": ("actividad", "Actividades y tours con descuento"),
-        "coches": ("coche", "Alquiler de coches baratos"),
-        "apartamentos": ("apartamento", "Apartamentos y alojamientos"),
-        "traslados": ("traslado", "Traslados aeropuerto baratos"),
+        "vuelos":      ("vuelo",      "Ofertas de vuelos baratos"),
+        "hoteles":     ("hotel",      "Hoteles con descuento — Mejores ofertas"),
+        "actividades": ("actividad",  "Actividades y tours con descuento"),
+        "coches":      ("coche",      "Alquiler de coches baratos"),
+        "apartamentos":("apartamento","Apartamentos y alojamientos"),
+        "traslados":   ("traslado",   "Traslados aeropuerto baratos"),
     }
     if tipo not in tipo_nombres:
         abort(404)
     tipo_db, titulo = tipo_nombres[tipo]
-    conn = database.get_conn()
-    cur = conn.cursor(cursor_factory=__import__('psycopg2').extras.RealDictCursor)
-    cur.execute("SELECT * FROM deals WHERE active=1 AND tipo=%s ORDER BY discount_pct DESC, created_at DESC LIMIT 60", (tipo_db,))
-    deals = [dict(r) for r in cur.fetchall()]
-    cur.close(); conn.close()
+    cache_key = f"ofertas_{tipo}"
+    cached = _cache_get(cache_key)
+    if cached:
+        deals, stats = cached
+    else:
+        import psycopg2.extras as _extras
+        conn = database.get_conn()
+        cur = conn.cursor(cursor_factory=_extras.RealDictCursor)
+        cur.execute("SELECT * FROM deals WHERE active=1 AND tipo=%s ORDER BY discount_pct DESC, created_at DESC LIMIT 60", (tipo_db,))
+        deals = [dict(r) for r in cur.fetchall()]
+        cur.close(); conn.close()
+        stats = database.get_stats()
+        _cache_set(cache_key, (deals, stats))
     if not deals:
         abort(404)
     grouped = [(tipo_db, deals)]
-    stats = database.get_stats()
     return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat="todos", destinos=config.DESTINOS,
                            cat_title=titulo, tipo_labels=config.TIPOS)
