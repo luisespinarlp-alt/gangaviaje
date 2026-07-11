@@ -77,6 +77,12 @@
     .hero h1 { font-size: 2.8rem; font-weight: 800; color: white; margin-bottom: 12px; line-height: 1.15; text-shadow: 0 2px 20px rgba(0,0,0,0.4); animation: fadeUp 0.8s 0.15s ease both; opacity: 0; }
     .hero h1 em { font-style: normal; color: #FFB8B3; }
     .hero p { font-size: 1rem; color: rgba(255,255,255,0.85); margin-bottom: 32px; text-shadow: 0 1px 8px rgba(0,0,0,0.3); animation: fadeUp 0.8s 0.3s ease both; opacity: 0; }
+    .hero-newsletter { display: flex; gap: 8px; max-width: 460px; margin: 0 auto 20px; animation: fadeUp 0.8s 0.3s ease both; opacity: 0; }
+    .hero-newsletter-input { flex: 1; padding: 12px 16px; border: none; border-radius: 8px; font-family: inherit; font-size: 0.9rem; outline: none; }
+    .hero-newsletter-btn { background: #E85D50; color: white; border: none; border-radius: 8px; padding: 12px 18px; font-family: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background 0.15s; }
+    .hero-newsletter-btn:hover { background: #D14A3E; }
+    .hero-newsletter-msg { font-size: 0.8rem; color: #FFB8B3; min-height: 16px; margin-bottom: 8px; text-align: center; }
+    @media (max-width: 480px) { .hero-newsletter { flex-direction: column; } }
     .hero-stats { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.8s 0.45s ease both; opacity: 0; }
     .stat-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: 14px 20px; text-align: center; min-width: 100px; transition: transform 0.3s ease, background 0.3s ease; }
     .stat-box:hover { transform: translateY(-4px); background: rgba(255,255,255,0.18); }
@@ -340,7 +346,7 @@
       {% for key, name in destinos.items() %}
       <a href="/destino/{{ key }}" class="{{ 'active' if active_cat == key else '' }}">{{ name }}</a>
       {% endfor %}
-      <a href="/blog">Blog</a>
+      <a href="/blog" style="background:#E85D50;color:white;border-radius:6px;font-weight:700;">📖 Blog</a>
     </div>
     <a href="/buscar" style="display:flex;align-items:center;gap:5px;color:#666;text-decoration:none;font-size:0.82rem;font-weight:500;padding:6px 10px;border:1.5px solid #e0e4ea;border-radius:8px;transition:all 0.15s;" onmouseover="this.style.borderColor='#E85D50';this.style.color='#E85D50'" onmouseout="this.style.borderColor='#e0e4ea';this.style.color='#666'">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -375,7 +381,13 @@
   <div class="hero-content">
     <div class="hero-eyebrow"><span></span>Ofertas actualizadas cada hora</div>
     <h1>Tu próximo viaje, al <em>mejor precio</em></h1>
-    <p>Hoteles, apartamentos, actividades y más — seleccionados cada día.</p>
+    <p>Vuelos, hoteles, actividades y coches — las mejores ofertas cada hora.</p>
+    <!-- Newsletter dentro del hero -->
+    <form class="hero-newsletter" id="heroNewsletterForm">
+      <input type="email" class="hero-newsletter-input" id="heroNewsletterEmail" placeholder="tu@email.com" required autocomplete="email">
+      <button type="submit" class="hero-newsletter-btn">📩 Recibir ofertas gratis</button>
+    </form>
+    <p class="hero-newsletter-msg" id="heroNewsletterMsg"></p>
     <div class="hero-stats">
       <div class="stat-box">
         <div class="num" id="stat-hoy">{{ stats.today }}</div>
@@ -399,129 +411,6 @@
     <button class="dot" onclick="goToSlide(4)"></button>
   </div>
 </div>
-
-<!-- CIUDADES POPULARES -->
-<div class="ciudades-section">
-  <div class="ciudades-inner">
-    <div class="ciudades-header">
-      <h2 class="ciudades-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Destinos más buscados
-      </h2>
-    </div>
-    <div class="ciudades-grid">
-      <a href="/ciudad/barcelona" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Barcelona">
-        <span class="ciudad-chip-name">Barcelona</span>
-        <span class="ciudad-chip-flag">🇪🇸</span>
-      </a>
-      <a href="/ciudad/madrid" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Madrid">
-        <span class="ciudad-chip-name">Madrid</span>
-        <span class="ciudad-chip-flag">🇪🇸</span>
-      </a>
-      <a href="/ciudad/paris" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="París">
-        <span class="ciudad-chip-name">París</span>
-        <span class="ciudad-chip-flag">🇫🇷</span>
-      </a>
-      <a href="/ciudad/roma" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Roma">
-        <span class="ciudad-chip-name">Roma</span>
-        <span class="ciudad-chip-flag">🇮🇹</span>
-      </a>
-      <a href="/ciudad/lisboa" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Lisboa">
-        <span class="ciudad-chip-name">Lisboa</span>
-        <span class="ciudad-chip-flag">🇵🇹</span>
-      </a>
-      <a href="/ciudad/amsterdam" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1459679749680-18eb1eb37418?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Ámsterdam">
-        <span class="ciudad-chip-name">Ámsterdam</span>
-        <span class="ciudad-chip-flag">🇳🇱</span>
-      </a>
-      <a href="/ciudad/berlin" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Berlín">
-        <span class="ciudad-chip-name">Berlín</span>
-        <span class="ciudad-chip-flag">🇩🇪</span>
-      </a>
-      <a href="/ciudad/dubai" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Dubái">
-        <span class="ciudad-chip-name">Dubái</span>
-        <span class="ciudad-chip-flag">🇦🇪</span>
-      </a>
-      <a href="/ciudad/bangkok" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Bangkok">
-        <span class="ciudad-chip-name">Bangkok</span>
-        <span class="ciudad-chip-flag">🇹🇭</span>
-      </a>
-      <a href="/ciudad/nueva-york" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Nueva York">
-        <span class="ciudad-chip-name">Nueva York</span>
-        <span class="ciudad-chip-flag">🇺🇸</span>
-      </a>
-      <a href="/ciudad/tokio" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Tokio">
-        <span class="ciudad-chip-name">Tokio</span>
-        <span class="ciudad-chip-flag">🇯🇵</span>
-      </a>
-      <a href="/ciudad/cancun" class="ciudad-chip">
-        <img src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?fm=jpg&q=80&w=100&auto=format&fit=crop" alt="Cancún">
-        <span class="ciudad-chip-name">Cancún</span>
-        <span class="ciudad-chip-flag">🇲🇽</span>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- BLOG PREVIEW -->
-{% if recent_posts %}
-<div class="blog-preview">
-  <div class="blog-preview-inner">
-    <div class="blog-preview-header">
-      <h2 class="blog-preview-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-        Guías de viaje
-      </h2>
-      <a href="/blog" class="blog-preview-link">Ver todos los artículos →</a>
-    </div>
-    <div class="blog-preview-grid">
-      {% for post in recent_posts %}
-      <a href="/blog/{{ post.slug }}" class="blog-preview-card">
-        <div class="blog-preview-img">
-          {% if post.image_url %}
-          <img src="{{ post.image_url }}" alt="{{ post.title }}" loading="lazy">
-          {% endif %}
-        </div>
-        <div class="blog-preview-body">
-          <div class="blog-preview-cat">{{ post.category }}</div>
-          <div class="blog-preview-name">{{ post.title }}</div>
-          <div class="blog-preview-more">Leer artículo →</div>
-        </div>
-      </a>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-{% endif %}
-
-<!-- NEWSLETTER -->
-<section class="newsletter-section">
-  <div class="newsletter-inner">
-    <div class="newsletter-text">
-      <div class="newsletter-icon">🏷️</div>
-      <div>
-        <h2 class="newsletter-title">Recibe las mejores ofertas en tu email</h2>
-        <p class="newsletter-sub">Las gangas de la semana, sin spam.</p>
-      </div>
-    </div>
-    <form class="newsletter-form" id="newsletterForm">
-      <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="tu@email.com" required>
-      <button type="submit" class="newsletter-btn">Suscribirme gratis</button>
-    </form>
-    <p class="newsletter-msg" id="newsletterMsg"></p>
-  </div>
-</section>
 
 <!-- TIPO FILTER -->
 <div class="tipo-bar">
@@ -780,21 +669,23 @@
 </footer>
 
 <script>
-// Newsletter
-document.getElementById('newsletterForm')?.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const email = document.getElementById('newsletterEmail').value;
-  const msg = document.getElementById('newsletterMsg');
-  const btn = this.querySelector('button');
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
+// Newsletter (hero)
+async function submitNewsletter(emailId, msgId, btn, defaultBtnText) {
+  const email = document.getElementById(emailId)?.value;
+  const msg = document.getElementById(msgId);
+  if (!email || !btn) return;
+  btn.disabled = true; btn.textContent = 'Enviando...';
   try {
     const r = await fetch('/newsletter', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email})});
     const data = await r.json();
-    msg.textContent = data.msg;
-    if (data.ok) { this.reset(); btn.textContent = '✓ Suscrito'; }
-    else { btn.disabled = false; btn.textContent = 'Suscribirme gratis'; }
-  } catch { msg.textContent = 'Error. Inténtalo de nuevo.'; btn.disabled = false; btn.textContent = 'Suscribirme gratis'; }
+    if (msg) msg.textContent = data.msg;
+    if (data.ok) { document.getElementById(emailId).value = ''; btn.textContent = '✓ ¡Apuntado!'; }
+    else { btn.disabled = false; btn.textContent = defaultBtnText; }
+  } catch { if (msg) msg.textContent = 'Error. Inténtalo de nuevo.'; btn.disabled = false; btn.textContent = defaultBtnText; }
+}
+document.getElementById('heroNewsletterForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  submitNewsletter('heroNewsletterEmail', 'heroNewsletterMsg', this.querySelector('button'), '📩 Recibir ofertas gratis');
 });
 
 let activeTipo = 'todos';
