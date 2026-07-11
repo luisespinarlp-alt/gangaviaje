@@ -15,6 +15,10 @@ app.secret_key = config.FLASK_SECRET_KEY
 
 database.init_db()
 
+@app.context_processor
+def inject_now():
+    return {"now": datetime.utcnow()}
+
 # Cache simple para datos de homepage (TTL: 5 minutos)
 _cache: dict = {}
 _CACHE_TTL = 300  # segundos
@@ -42,7 +46,7 @@ def index():
     return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat="todos", destinos=config.DESTINOS,
                            tipo_labels=config.TIPOS, recent_posts=recent_posts,
-                           now=datetime.utcnow())
+                           )
 
 
 @app.route("/ofertas/<tipo>")
@@ -76,7 +80,8 @@ def ofertas_tipo(tipo: str):
     grouped = [(tipo_db, deals)]
     return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat="todos", destinos=config.DESTINOS,
-                           cat_title=titulo, tipo_labels=config.TIPOS)
+                           cat_title=titulo, tipo_labels=config.TIPOS,
+                           )
 
 
 @app.route("/destino/<cat>")
@@ -87,7 +92,8 @@ def destino(cat: str):
     stats = database.get_stats()
     return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat=cat, destinos=config.DESTINOS,
-                           cat_title=config.DESTINOS[cat], tipo_labels=config.TIPOS)
+                           cat_title=config.DESTINOS[cat], tipo_labels=config.TIPOS,
+                           )
 
 
 _SLUG_TO_CITY = {
