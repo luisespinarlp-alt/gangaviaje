@@ -171,8 +171,14 @@
     {% endif %}
 
     <div class="cta-box">
-      <p>¿Te ha entrado el gusanillo de viajar? Echa un vistazo a las ofertas activas ahora mismo.</p>
-      <a href="/destino/{{ post.category }}">Ver ofertas de {{ destinos.get(post.category, 'este destino') }}</a>
+      <p>¿Te ha entrado el gusanillo de viajar? Busca las mejores ofertas disponibles ahora mismo.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:4px;">
+        {% if ciudad_slug %}
+        <a href="/ciudad/{{ ciudad_slug }}" style="background:#E85D50;color:white;font-weight:700;padding:11px 22px;border-radius:8px;text-decoration:none;font-size:0.9rem;">Ver ofertas en {{ ciudad_name }}</a>
+        {% endif %}
+        <a href="/buscar?q={{ post.title.split(':')[0].replace('Qué ver en ','').replace('Guía de ','').strip() }}" style="background:rgba(255,255,255,0.2);color:white;font-weight:600;padding:11px 22px;border-radius:8px;text-decoration:none;font-size:0.9rem;border:1px solid rgba(255,255,255,0.4);">🔍 Buscar ofertas</a>
+        <a href="/ofertas/vuelos" style="background:rgba(255,255,255,0.2);color:white;font-weight:600;padding:11px 22px;border-radius:8px;text-decoration:none;font-size:0.9rem;border:1px solid rgba(255,255,255,0.4);">✈️ Vuelos baratos</a>
+      </div>
     </div>
   </div>
 </main>

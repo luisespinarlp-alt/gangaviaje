@@ -25,6 +25,33 @@ def index():
                            tipo_labels=config.TIPOS, recent_posts=recent_posts)
 
 
+@app.route("/ofertas/<tipo>")
+def ofertas_tipo(tipo: str):
+    tipo_nombres = {
+        "vuelos": ("vuelo", "Ofertas de vuelos baratos"),
+        "hoteles": ("hotel", "Ofertas de hoteles con descuento"),
+        "actividades": ("actividad", "Actividades y tours con descuento"),
+        "coches": ("coche", "Alquiler de coches baratos"),
+        "apartamentos": ("apartamento", "Apartamentos y alojamientos"),
+        "traslados": ("traslado", "Traslados aeropuerto baratos"),
+    }
+    if tipo not in tipo_nombres:
+        abort(404)
+    tipo_db, titulo = tipo_nombres[tipo]
+    conn = database.get_conn()
+    cur = conn.cursor(cursor_factory=__import__('psycopg2').extras.RealDictCursor)
+    cur.execute("SELECT * FROM deals WHERE active=1 AND tipo=%s ORDER BY discount_pct DESC, created_at DESC LIMIT 60", (tipo_db,))
+    deals = [dict(r) for r in cur.fetchall()]
+    cur.close(); conn.close()
+    if not deals:
+        abort(404)
+    grouped = [(tipo_db, deals)]
+    stats = database.get_stats()
+    return render_template("index.html", grouped=grouped, stats=stats,
+                           active_cat="todos", destinos=config.DESTINOS,
+                           cat_title=titulo, tipo_labels=config.TIPOS)
+
+
 @app.route("/destino/<cat>")
 def destino(cat: str):
     if cat not in config.DESTINOS:
@@ -197,6 +224,9 @@ def sitemap():
     urls.append(f"<url><loc>{base}/blog</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>")
     for key in config.DESTINOS:
         urls.append(f"<url><loc>{base}/destino/{key}</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>")
+    # Páginas de ofertas por tipo
+    for tipo_slug in ["vuelos", "hoteles", "actividades", "coches", "apartamentos", "traslados"]:
+        urls.append(f"<url><loc>{base}/ofertas/{tipo_slug}</loc><changefreq>hourly</changefreq><priority>0.9</priority></url>")
 
     # Páginas de ciudad (generadas dinámicamente desde locations de deals activos)
     import psycopg2
