@@ -41,7 +41,8 @@ def index():
         _cache_set("homepage", (grouped, stats, recent_posts))
     return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat="todos", destinos=config.DESTINOS,
-                           tipo_labels=config.TIPOS, recent_posts=recent_posts)
+                           tipo_labels=config.TIPOS, recent_posts=recent_posts,
+                           now=datetime.utcnow())
 
 
 @app.route("/ofertas/<tipo>")

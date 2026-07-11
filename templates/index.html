@@ -160,8 +160,9 @@
     .badge-tipo svg { width: 11px; height: 11px; }
 
     .card-body { padding: 15px; flex: 1; display: flex; flex-direction: column; }
-    .card-location { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: #666; margin-bottom: 5px; }
+    .card-location { display: flex; align-items: center; justify-content: space-between; gap: 5px; font-size: 0.78rem; color: #666; margin-bottom: 5px; }
     .card-location svg { width: 12px; height: 12px; flex-shrink: 0; color: #999; }
+    .card-freshness { font-size: 0.7rem; color: #aaa; white-space: nowrap; }
     .card-title { font-size: 0.95rem; font-weight: 600; color: #333333; margin-bottom: 10px; line-height: 1.4; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
     .card-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
@@ -573,11 +574,22 @@
         <div class="card-body">
           {% if deal.location %}
           <div class="card-location">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            {{ deal.location }}
+            <span style="display:flex;align-items:center;gap:5px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              {{ deal.location }}
+            </span>
+            {% if deal.created_at %}
+            <span class="card-freshness">
+              {% set hours = ((now - deal.created_at).total_seconds() / 3600)|int %}
+              {% if hours < 1 %}hace menos de 1h
+              {% elif hours < 24 %}hace {{ hours }}h
+              {% elif hours < 48 %}ayer
+              {% else %}hace {{ (hours/24)|int }} días{% endif %}
+            </span>
+            {% endif %}
           </div>
           {% endif %}
-          <div class="card-title">{{ deal.title }}</div>
+          <div class="card-title">{{ deal.title|replace(' — Kiwi.com','')|replace(' — Booking.com','')|replace(' — Hotels.com','')|replace(' — Tiqets','')|replace(' — KKday','')|replace(' — Go City','')|replace(' — WeGoTrip','')|replace(' — GetYourGuide','') }}</div>
           {% if deal.rating and deal.rating > 0 %}
           <div class="card-rating">
             <span class="rating-badge">{{ "%.1f"|format(deal.rating) }}</span>
@@ -591,9 +603,9 @@
           </div>
           {% endif %}
           <div class="card-price">
-            {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("trayecto" if deal.tipo == "vuelo" else "noche")) %}
+            {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("ida y vuelta" if deal.tipo == "vuelo" else "noche")) %}
             {% if deal.original_price and deal.original_price > deal.sale_price %}
-            <div class="price-original">Antes: €{{ "%.0f"|format(deal.original_price) }}/{{ unidad }}</div>
+            <div class="price-original">Antes: €{{ "%.0f"|format(deal.original_price) }}</div>
             {% endif %}
             <div class="price-row">
               <div>
