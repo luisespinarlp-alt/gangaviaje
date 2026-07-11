@@ -3,6 +3,7 @@ GangaViaje — Web Flask de ofertas de viajes
 """
 
 from datetime import datetime
+import time as _time
 from flask import Flask, render_template, abort, Response, request, jsonify
 
 import bot
@@ -14,12 +15,30 @@ app.secret_key = config.FLASK_SECRET_KEY
 
 database.init_db()
 
+# Cache simple para datos de homepage (TTL: 5 minutos)
+_cache: dict = {}
+_CACHE_TTL = 300  # segundos
+
+def _cache_get(key):
+    entry = _cache.get(key)
+    if entry and (_time.time() - entry["ts"]) < _CACHE_TTL:
+        return entry["data"]
+    return None
+
+def _cache_set(key, data):
+    _cache[key] = {"data": data, "ts": _time.time()}
+
 
 @app.route("/")
 def index():
-    grouped = database.get_deals_grouped()
-    stats = database.get_stats()
-    recent_posts = database.get_posts(limit=3)
+    cached = _cache_get("homepage")
+    if cached:
+        grouped, stats, recent_posts = cached
+    else:
+        grouped = database.get_deals_grouped()
+        stats = database.get_stats()
+        recent_posts = database.get_posts(limit=3)
+        _cache_set("homepage", (grouped, stats, recent_posts))
     return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat="todos", destinos=config.DESTINOS,
                            tipo_labels=config.TIPOS, recent_posts=recent_posts)

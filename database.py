@@ -173,26 +173,42 @@ def get_deals(category: str = None, limit: int = 60) -> list:
 
 
 def get_deals_grouped(category: str = None, per_tipo_limit: int = 40) -> list:
-    """Devuelve [(tipo, [deals...]), ...] en el orden de config.TIPO_ORDER,
-    con un cupo propio por tipo para que ningún tipo (p.ej. vuelos) desplace a los demás."""
+    """Devuelve [(tipo, [deals...]), ...] en una sola query con ROW_NUMBER."""
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    grouped = []
-    for tipo in config.TIPO_ORDER:
-        conditions = ["active = 1", "tipo = %s"]
-        params: list = [tipo]
-        if category:
-            conditions.append("category = %s")
-            params.append(category)
-        query = ("SELECT * FROM deals WHERE " + " AND ".join(conditions)
-                 + " ORDER BY discount_pct DESC, created_at DESC LIMIT %s")
-        params.append(per_tipo_limit)
-        cur.execute(query, params)
-        rows = [dict(r) for r in cur.fetchall()]
-        if rows:
-            grouped.append((tipo, rows))
+
+    cat_filter = "AND category = %s" if category else ""
+    params = [per_tipo_limit]
+    if category:
+        params = [category, per_tipo_limit]
+
+    cur.execute(f"""
+        SELECT * FROM (
+            SELECT *, ROW_NUMBER() OVER (
+                PARTITION BY tipo ORDER BY discount_pct DESC, created_at DESC
+            ) AS rn
+            FROM deals
+            WHERE active = 1 {cat_filter}
+        ) sub
+        WHERE rn <= %s
+        ORDER BY tipo, discount_pct DESC
+    """, params)
+
+    rows_by_tipo: dict = {}
+    for row in cur.fetchall():
+        t = row["tipo"]
+        if t not in rows_by_tipo:
+            rows_by_tipo[t] = []
+        rows_by_tipo[t].append(dict(row))
+
     cur.close()
     conn.close()
+
+    # Mantener el orden de config.TIPO_ORDER
+    grouped = []
+    for tipo in config.TIPO_ORDER:
+        if tipo in rows_by_tipo:
+            grouped.append((tipo, rows_by_tipo[tipo]))
     return grouped
 
 
