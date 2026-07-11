@@ -304,6 +304,7 @@
       .stat-box { padding: 9px 12px; min-width: 72px; }
       .stat-box .num { font-size: 1.1rem; }
       .card-img { height: 170px; }
+      .slider-dots { display: none; }
     }
   </style>
   <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1">
@@ -348,7 +349,7 @@
       <a href="/destino/{{ key }}" class="{{ 'active' if active_cat == key else '' }}">{{ name }}</a>
       {% endfor %}
     </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto;">
       <a href="/blog" style="display:flex;align-items:center;gap:5px;background:#E85D50;color:white;text-decoration:none;font-size:0.82rem;font-weight:700;padding:7px 14px;border-radius:8px;white-space:nowrap;">
         📖 Blog
       </a>
