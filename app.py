@@ -64,7 +64,7 @@ def index():
         guides, consejos, featured_deals, stats = cached
     else:
         guides = database.get_posts(limit=6, exclude_category="consejos")
-        consejos = database.get_posts(limit=3, category="consejos")
+        consejos = database.get_posts(limit=6, category="consejos")
         featured_deals = database.get_deals(limit=4)
         stats = database.get_stats()
         _cache_set("homepage_v2", (guides, consejos, featured_deals, stats))

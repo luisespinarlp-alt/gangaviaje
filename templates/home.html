@@ -194,7 +194,6 @@
       <a href="/guias">Guías de viaje</a>
       <a href="/consejos" class="gc">GangaConsejos</a>
       <a href="/ofertas/hoteles">Ofertas</a>
-      <a href="/blog">Blog</a>
       <a href="/sobre-nosotros">Nosotros</a>
     </div>
     <div class="nav-right">
@@ -311,51 +310,24 @@
       </div>
       <a href="/guias" class="section-link">Ver guías con GangaConsejos →</a>
     </div>
-    {% if consejos %}
     <div class="gc-grid">
       {% for post in consejos %}
       <a href="/blog/{{ post.slug }}" class="gc-card">
-        <div class="gc-icon">💡</div>
+        <div class="gc-icon">
+          {% if 'vuelo' in post.slug or 'vuelos' in post.slug %}✈️
+          {% elif 'hotel' in post.slug %}🏨
+          {% elif 'equipaje' in post.slug or 'mochila' in post.slug %}🎒
+          {% elif 'coche' in post.slug %}🚗
+          {% elif 'seguro' in post.slug %}🛡️
+          {% elif 'aeropuerto' in post.slug %}🛫
+          {% else %}💡{% endif %}
+        </div>
         <div class="gc-title">{{ post.title }}</div>
-        <p style="font-size:.84rem;color:#666;line-height:1.55;">{{ post.excerpt }}</p>
+        {% if post.excerpt %}<p style="font-size:.84rem;color:#666;line-height:1.55;">{{ post.excerpt }}</p>{% endif %}
+        <span style="font-size:.8rem;font-weight:700;color:#E85D50;margin-top:12px;display:block;">Leer consejo →</span>
       </a>
       {% endfor %}
     </div>
-    {% else %}
-    <!-- Placeholder hasta que tengamos posts de consejos propios -->
-    <div class="gc-grid">
-      <div class="gc-card">
-        <div class="gc-icon">✈️</div>
-        <div class="gc-title">Vuelos baratos: los mejores trucos</div>
-        <ul class="gc-tips">
-          <li>Reserva con 6-8 semanas de antelación para vuelos europeos</li>
-          <li>Los martes y miércoles tienen precios más bajos en promedio</li>
-          <li>Activa alertas en Google Vuelos o Skyscanner</li>
-          <li>Compara fechas alternativas (+/- 3 días) para encontrar la ganga</li>
-        </ul>
-      </div>
-      <div class="gc-card">
-        <div class="gc-icon">🏨</div>
-        <div class="gc-title">Hoteles y alojamiento sin pagar de más</div>
-        <ul class="gc-tips">
-          <li>Reserva siempre con cancelación gratuita — si baja el precio, recancela y re-reserva</li>
-          <li>Los hoteles con check-in dominical suelen ser más baratos</li>
-          <li>Compara Booking con el precio directo del hotel (a veces el directo es mejor)</li>
-          <li>Para grupos, un apartamento suele salir mucho más rentable</li>
-        </ul>
-      </div>
-      <div class="gc-card">
-        <div class="gc-icon">🎒</div>
-        <div class="gc-title">Viajar solo con equipaje de mano</div>
-        <ul class="gc-tips">
-          <li>Ahorra 30-60€ por trayecto evitando facturar maleta</li>
-          <li>La mochila de 20L cabe en casi todas las low-cost sin cargo</li>
-          <li>Regla de 5-4-3-2-1: 5 tops, 4 calcetines, 3 pantalones, 2 calzado, 1 chaqueta</li>
-          <li>Lava ropa en el destino — muchos alojamientos tienen lavadora</li>
-        </ul>
-      </div>
-    </div>
-    {% endif %}
   </div>
 </div>
 
@@ -432,7 +404,6 @@
         <h4>GangaViaje</h4>
         <a href="/consejos">GangaConsejos</a>
         <a href="/ofertas/hoteles">Ofertas activas</a>
-        <a href="/blog">Blog de viajes</a>
         <a href="/sobre-nosotros">Sobre nosotros</a>
         <a href="/privacidad">Privacidad</a>
       </div>
