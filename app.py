@@ -288,8 +288,28 @@ _CITY_MAP = {
     "lisboa": ("Lisboa", "lisboa"), "amsterdam": ("Ámsterdam", "amsterdam"),
     "mallorca": ("Mallorca", "mallorca"), "sevilla": ("Sevilla", "sevilla"),
     "canarias": ("Canarias", "canarias"), "london": ("Londres", "londres"),
-    "londres": ("Londres", "londres"), "venecia": ("Venecia", "venecia"),
+    "londres": ("Londres", "londres"), "bali": ("Bali", "bali"),
+    "maldivas": ("Maldivas", "maldivas"), "japon": ("Tokio", "tokio"),
+    "islandia": ("Islandia", "islandia"), "tailandia": ("Bangkok", "bangkok"),
+    "florencia": ("Florencia", "florencia"), "tenerife": ("Tenerife", "canarias"),
+    "nueva-york": ("Nueva York", "nueva-york"), "phuket": ("Phuket", "phuket"),
+    "koh-samui": ("Koh Samui", "tailandia"), "phi-phi": ("Tailandia", "tailandia"),
+    "granada": ("Granada", "granada"), "ibiza": ("Ibiza", "ibiza"),
+    "praga": ("Praga", "praga"), "viena": ("Viena", "viena"),
+    "atenas": ("Atenas", "atenas"), "estambul": ("Estambul", "estambul"),
+    "napoles": ("Nápoles", "napoles"), "marrakech": ("Marrakech", "marrakech"),
+    "miami": ("Miami", "miami"), "cancun": ("Cancún", "cancun"),
+    "singapur": ("Singapur", "singapur"), "bruselas": ("Bruselas", "bruselas"),
+    "dublin": ("Dublín", "dublin"), "edimburgo": ("Edimburgo", "edimburgo"),
+    "tokyo": ("Tokio", "tokio"), "mexico": ("Ciudad de México", "ciudad-de-mexico"),
+    "buenos-aires": ("Buenos Aires", "buenos-aires"),
 }
+
+_SLUG_TO_TIPO = [
+    ("vuelo", "vuelo"), ("traslado", "traslado"), ("aeropuerto", "traslado"),
+    ("hotel", "hotel"), ("alojamiento", "hotel"), ("alquiler-coche", "coche"),
+    ("coche", "coche"), ("actividad", "actividad"), ("tour", "actividad"),
+]
 
 def _detect_city(slug: str):
     for keyword, (name, url_slug) in _CITY_MAP.items():
@@ -297,16 +317,32 @@ def _detect_city(slug: str):
             return name, url_slug
     return None, None
 
+def _detect_tipo(slug: str):
+    for keyword, tipo in _SLUG_TO_TIPO:
+        if keyword in slug:
+            return tipo
+    return None
+
 
 @app.route("/blog/<slug>")
 def blog_post(slug: str):
     post = database.get_post_by_slug(slug)
     if not post:
         abort(404)
-    related_deals = database.get_deals(category=post["category"], limit=3)
     ciudad_name, ciudad_slug = _detect_city(post["slug"])
+    if ciudad_name:
+        related_deals = database.get_deals(location=ciudad_name, limit=4)
+        related_label = f"Ofertas actuales para {ciudad_name}"
+    else:
+        tipo = _detect_tipo(post["slug"])
+        if tipo:
+            related_deals = database.get_deals(tipo=tipo, limit=4)
+            related_label = f"Mejores ofertas de {config.TIPOS.get(tipo, tipo)}"
+        else:
+            related_deals = database.get_deals(limit=4)
+            related_label = "Ofertas destacadas ahora mismo"
     return render_template("blog_post.html", post=post, destinos=config.DESTINOS,
-                           related_deals=related_deals,
+                           related_deals=related_deals, related_label=related_label,
                            ciudad_name=ciudad_name, ciudad_slug=ciudad_slug)
 
 
@@ -360,6 +396,8 @@ def sitemap():
     urls.append(f"<url><loc>{base}/sobre-nosotros</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>")
     urls.append(f"<url><loc>{base}/privacidad</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>")
     urls.append(f"<url><loc>{base}/blog</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>")
+    urls.append(f"<url><loc>{base}/guias</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
+    urls.append(f"<url><loc>{base}/consejos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
     for key in config.DESTINOS:
         urls.append(f"<url><loc>{base}/destino/{key}</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>")
     # Páginas de ofertas por tipo

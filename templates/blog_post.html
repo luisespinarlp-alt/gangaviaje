@@ -146,7 +146,7 @@
 
     {% if related_deals %}
     <div class="related-deals">
-      <h3>Ofertas relacionadas con este destino</h3>
+      <h3>{{ related_label }}</h3>
       <div class="related-grid">
         {% for deal in related_deals %}
         <a href="/oferta/{{ deal.id }}" class="related-card">

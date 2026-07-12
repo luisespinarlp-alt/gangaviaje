@@ -154,7 +154,7 @@ def search(query: str, limit_deals: int = 18, limit_posts: int = 6) -> dict:
     return {"deals": deals, "posts": posts}
 
 
-def get_deals(category: str = None, limit: int = 60) -> list:
+def get_deals(category: str = None, location: str = None, tipo: str = None, limit: int = 60) -> list:
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     conditions = ["active = 1"]
@@ -162,6 +162,12 @@ def get_deals(category: str = None, limit: int = 60) -> list:
     if category:
         conditions.append("category = %s")
         params.append(category)
+    if location:
+        conditions.append("location ILIKE %s")
+        params.append(f"%{location}%")
+    if tipo:
+        conditions.append("tipo = %s")
+        params.append(tipo)
     query = ("SELECT * FROM deals WHERE " + " AND ".join(conditions)
              + " ORDER BY discount_pct DESC, created_at DESC LIMIT %s")
     params.append(limit)
