@@ -297,9 +297,15 @@ def get_stats() -> dict:
         "SELECT COUNT(*) FROM deals WHERE active = 1 AND created_at::date = CURRENT_DATE"
     )
     today = cur.fetchone()[0]
+    cur.execute(
+        "SELECT COALESCE(ROUND(AVG(discount_pct)), 30) FROM deals WHERE active = 1 AND discount_pct > 0"
+    )
+    avg_discount = int(cur.fetchone()[0] or 30)
+    cur.execute("SELECT COUNT(*) FROM posts")
+    post_count = cur.fetchone()[0]
     cur.close()
     conn.close()
-    return {"total": total, "today": today}
+    return {"total": total, "today": today, "avg_discount": avg_discount, "post_count": post_count}
 
 
 def add_post(post: dict) -> int:
@@ -322,10 +328,19 @@ def add_post(post: dict) -> int:
     return post_id
 
 
-def get_posts(limit: int = 30) -> list:
+def get_posts(limit: int = 30, category: str = None, exclude_category: str = None) -> list:
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    cur.execute("SELECT * FROM posts ORDER BY created_at DESC LIMIT %s", (limit,))
+    conditions, params = [], []
+    if category:
+        conditions.append("category = %s")
+        params.append(category)
+    if exclude_category:
+        conditions.append("category != %s")
+        params.append(exclude_category)
+    where = ("WHERE " + " AND ".join(conditions)) if conditions else ""
+    params.append(limit)
+    cur.execute(f"SELECT * FROM posts {where} ORDER BY created_at DESC LIMIT %s", params)
     rows = [dict(r) for r in cur.fetchall()]
     cur.close()
     conn.close()

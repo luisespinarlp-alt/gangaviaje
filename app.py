@@ -33,35 +33,118 @@ def _cache_set(key, data):
     _cache[key] = {"data": data, "ts": _time.time()}
 
 
+_FEATURED_DESTINATIONS = [
+    {"name": "Bali",       "guide": "que-ver-en-bali-guia-completa",
+     "img": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "Maldivas",   "guide": "maldivas-guia-viaje-economico",
+     "img": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "París",      "guide": "paris-tres-dias-itinerario",
+     "img": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "Nueva York", "guide": "que-ver-en-nueva-york-guia-completa",
+     "img": "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "Islandia",   "guide": "que-ver-en-islandia-guia-completa",
+     "img": "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "Tailandia",  "guide": "tailandia-islas-guia-koh-samui-phi-phi",
+     "img": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "Japón",      "guide": "japon-guia-viaje-completo",
+     "img": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "Roma",       "guide": "que-ver-en-roma-guia-completa",
+     "img": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "Tenerife",   "guide": "tenerife-que-hacer-guia-completa",
+     "img": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+    {"name": "Florencia",  "guide": "florencia-que-ver-en-dos-dias",
+     "img": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?fm=jpg&q=80&w=400&auto=format&fit=crop"},
+]
+
+
 @app.route("/")
 def index():
-    cached = _cache_get("homepage")
+    cached = _cache_get("homepage_v2")
     if cached:
-        grouped, stats, recent_posts = cached
+        guides, consejos, featured_deals, stats = cached
     else:
-        grouped = database.get_deals_grouped()
+        guides = database.get_posts(limit=6, exclude_category="consejos")
+        consejos = database.get_posts(limit=3, category="consejos")
+        featured_deals = database.get_deals(limit=4)
         stats = database.get_stats()
-        recent_posts = database.get_posts(limit=3)
-        _cache_set("homepage", (grouped, stats, recent_posts))
-    return render_template("index.html", grouped=grouped, stats=stats,
-                           active_cat="todos", destinos=config.DESTINOS,
-                           tipo_labels=config.TIPOS, recent_posts=recent_posts,
-                           )
+        _cache_set("homepage_v2", (guides, consejos, featured_deals, stats))
+    return render_template(
+        "home.html",
+        guides=guides,
+        consejos=consejos,
+        featured_deals=featured_deals,
+        stats=stats,
+        featured_destinations=_FEATURED_DESTINATIONS,
+    )
 
+
+_TIPO_SEO = {
+    "vuelos": {
+        "titulo": "Ofertas de vuelos baratos",
+        "desc":   "Encuentra vuelos baratos a Europa, América, Asia y más. Precios actualizados cada hora desde los principales aeropuertos españoles.",
+        "faqs": [
+            ("¿Cuándo es mejor reservar un vuelo barato?", "Lo ideal es reservar entre 6 y 8 semanas antes para vuelos europeos, y entre 2 y 4 meses antes para vuelos de larga distancia. Los martes y miércoles suelen tener precios más bajos."),
+            ("¿Cuáles son las aerolíneas más baratas desde España?", "Ryanair, Vueling, EasyJet y Transavia son las principales low-cost. Para larga distancia, Norwegian e Iberia Express suelen tener las mejores ofertas."),
+            ("¿Cómo sé si el precio del vuelo es una buena oferta?", "Compara siempre el precio con la media histórica del destino. En GangaViaje solo publicamos vuelos cuando detectamos precios significativamente por debajo de lo habitual."),
+        ],
+    },
+    "hoteles": {
+        "titulo": "Hoteles con descuento — Mejores ofertas",
+        "desc":   "Los mejores hoteles con descuento en España y todo el mundo. Reserva con cancelación gratuita y ahorra hasta un 40% en tu alojamiento.",
+        "faqs": [
+            ("¿Cómo conseguir el mejor precio en hoteles?", "Reserva con antelación en temporada alta y en el último momento en temporada baja. Activa siempre la opción de cancelación gratuita para poder cambiar si aparece un precio mejor."),
+            ("¿Es mejor reservar el hotel por la app o por la web?", "Las apps de Booking.com y Hotels.com a veces tienen descuentos exclusivos para app. Compara siempre con el precio de la web del hotel directamente."),
+            ("¿Qué significa 'precio orientativo' en las ofertas?", "El precio mostrado es el precio base en el momento en que detectamos la oferta. El precio final depende de las fechas y disponibilidad al hacer la reserva."),
+        ],
+    },
+    "actividades": {
+        "titulo": "Actividades y tours con descuento",
+        "desc":   "Tours guiados, entradas a monumentos, experiencias y actividades en los mejores destinos del mundo. Reserva online con cancelación gratuita.",
+        "faqs": [
+            ("¿Puedo cancelar una actividad reservada online?", "La mayoría de actividades ofrecen cancelación gratuita hasta 24-48 horas antes. Comprueba siempre las condiciones específicas de cada reserva."),
+            ("¿Es mejor reservar actividades antes de llegar?", "Sí, especialmente en destinos muy visitados como Roma, París o Dubái. Las entradas a monumentos populares se agotan semanas antes en temporada alta."),
+            ("¿Las actividades incluyen transporte?", "Depende de cada actividad. Muchos tours incluyen recogida en hotel. Lee la descripción completa antes de reservar."),
+        ],
+    },
+    "coches": {
+        "titulo": "Alquiler de coches baratos",
+        "desc":   "Alquila un coche barato en más de 50.000 ubicaciones en todo el mundo. Cancelación gratuita, sin cargos ocultos, comparamos los mejores precios.",
+        "faqs": [
+            ("¿Qué documentos necesito para alquilar un coche?", "Carnet de conducir válido (con al menos 1-2 años de antigüedad según la empresa), DNI o pasaporte y tarjeta de crédito a nombre del conductor principal."),
+            ("¿El seguro está incluido en el precio?", "Generalmente incluye seguro básico a terceros. El seguro a todo riesgo sin franquicia suele ser un extra. Lee bien las condiciones antes de reservar."),
+            ("¿Puedo recoger el coche en un lugar y devolverlo en otro?", "Sí, la mayoría de empresas ofrecen 'one-way'. Puede tener un coste adicional, especialmente entre países distintos."),
+        ],
+    },
+    "apartamentos": {
+        "titulo": "Apartamentos y alojamientos con descuento",
+        "desc":   "Apartamentos, villas y alojamientos únicos en todo el mundo. Más espacio, más privacidad y generalmente más económico que un hotel para estancias largas.",
+        "faqs": [
+            ("¿Cuándo es mejor un apartamento que un hotel?", "Para estancias de 3 o más días o para grupos. Tener cocina reduce el gasto en restaurantes y suele ser más barato por noche cuando se divide entre varias personas."),
+            ("¿Los apartamentos incluyen servicio de limpieza?", "Varía mucho. Algunos incluyen limpieza diaria, otros solo al finalizar la estancia. Comprueba la descripción y las reseñas de otros viajeros."),
+            ("¿Hay depósito de seguridad?", "Muchos apartamentos piden una fianza que se devuelve al finalizar la estancia sin incidencias. Se menciona siempre en la descripción de la oferta."),
+        ],
+    },
+    "traslados": {
+        "titulo": "Traslados aeropuerto baratos",
+        "desc":   "Traslados privados y compartidos desde y hasta el aeropuerto en los principales destinos del mundo. Reserva con antelación y evita sorpresas.",
+        "faqs": [
+            ("¿Es mejor reservar el traslado antes o coger un taxi al llegar?", "Reservar online suele ser más barato y más seguro, especialmente de noche o en destinos donde los taxistas suelen cobrar de más a turistas."),
+            ("¿Qué pasa si mi vuelo llega tarde?", "Los servicios de traslado monitorizan los vuelos. Si hay retraso, el conductor ajusta la hora de recogida sin coste adicional."),
+            ("¿Traslado privado o compartido?", "El compartido es más barato pero puede tardar más (otras paradas). El privado es directo. Para grupos de 3 o más personas, el privado suele compensar económicamente."),
+        ],
+    },
+}
 
 @app.route("/ofertas/<tipo>")
 def ofertas_tipo(tipo: str):
-    tipo_nombres = {
-        "vuelos":      ("vuelo",      "Ofertas de vuelos baratos"),
-        "hoteles":     ("hotel",      "Hoteles con descuento — Mejores ofertas"),
-        "actividades": ("actividad",  "Actividades y tours con descuento"),
-        "coches":      ("coche",      "Alquiler de coches baratos"),
-        "apartamentos":("apartamento","Apartamentos y alojamientos"),
-        "traslados":   ("traslado",   "Traslados aeropuerto baratos"),
-    }
-    if tipo not in tipo_nombres:
+    if tipo not in _TIPO_SEO:
         abort(404)
-    tipo_db, titulo = tipo_nombres[tipo]
+    seo = _TIPO_SEO[tipo]
+    tipo_db_map = {
+        "vuelos": "vuelo", "hoteles": "hotel", "actividades": "actividad",
+        "coches": "coche", "apartamentos": "apartamento", "traslados": "traslado",
+    }
+    tipo_db = tipo_db_map[tipo]
     cache_key = f"ofertas_{tipo}"
     cached = _cache_get(cache_key)
     if cached:
@@ -80,7 +163,8 @@ def ofertas_tipo(tipo: str):
     grouped = [(tipo_db, deals)]
     return render_template("index.html", grouped=grouped, stats=stats,
                            active_cat="todos", destinos=config.DESTINOS,
-                           cat_title=titulo, tipo_labels=config.TIPOS,
+                           cat_title=seo["titulo"], tipo_labels=config.TIPOS,
+                           seo_desc=seo["desc"], seo_faqs=seo["faqs"],
                            )
 
 
@@ -145,11 +229,18 @@ _CITY_IMAGES = {
 
 @app.route("/ciudad/<name>")
 def ciudad(name: str):
+    cache_key = f"ciudad_{name}"
+    cached = _cache_get(cache_key)
+    if cached:
+        grouped, stats = cached
+    else:
+        name_display = _SLUG_TO_CITY.get(name, name.replace("-", " ").title())
+        grouped = database.get_deals_grouped_by_location(name_display)
+        if not grouped:
+            abort(404)
+        stats = database.get_stats()
+        _cache_set(cache_key, (grouped, stats))
     name_display = _SLUG_TO_CITY.get(name, name.replace("-", " ").title())
-    grouped = database.get_deals_grouped_by_location(name_display)
-    if not grouped:
-        abort(404)
-    stats = database.get_stats()
     city_image = _CITY_IMAGES.get(name, "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=80&w=1200&auto=format&fit=crop")
     total = sum(len(items) for _, items in grouped)
     return render_template("ciudad.html", grouped=grouped, stats=stats,
@@ -172,6 +263,20 @@ def oferta(deal_id: int):
 def blog():
     posts = database.get_posts(limit=100)
     return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS)
+
+
+@app.route("/guias")
+def guias():
+    posts = database.get_posts(limit=100, exclude_category="consejos")
+    return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS,
+                           page_title="Guías de viaje", page_desc="Guías detalladas para cada destino")
+
+
+@app.route("/consejos")
+def consejos():
+    posts = database.get_posts(limit=100, category="consejos")
+    return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS,
+                           page_title="GangaConsejos", page_desc="Trucos y consejos para viajar gastando menos")
 
 
 _CITY_MAP = {
