@@ -24,33 +24,10 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif; background: #f4f6f9; color: #333; line-height: 1.5; }
 
-    /* ── NAV ── */
-    nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,.10); position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
-    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; height: 60px; gap: 0; }
-    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-    .logo img { height: 38px; width: auto; }
-    .logo-name { font-size: 1.3rem; font-weight: 800; color: #333; letter-spacing: -.5px; }
-    .logo-name span { color: #E85D50; }
-    .nav-links { display: flex; gap: 2px; margin-left: 28px; flex: 1; }
-    .nav-links a { color: #555; text-decoration: none; padding: 6px 14px; border-radius: 7px; font-size: 0.85rem; font-weight: 600; transition: all .15s; white-space: nowrap; }
-    .nav-links a:hover { background: rgba(232,93,80,.1); color: #E85D50; }
-    .nav-links a.gc { color: #E85D50; }
-    .nav-links a.gc:hover { background: rgba(232,93,80,.1); }
-    .nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
-    .nav-search-btn { display: flex; align-items: center; gap: 6px; color: #666; text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 7px 13px; border: 1.5px solid #e0e4ea; border-radius: 8px; transition: all .15s; }
-    .nav-search-btn:hover { border-color: #E85D50; color: #E85D50; }
-    .nav-search-btn svg { width: 15px; height: 15px; }
-    .nav-toggle { display: none; background: none; border: none; color: #333; padding: 8px; cursor: pointer; margin-left: 8px; }
-    .nav-toggle svg { width: 22px; height: 22px; display: block; }
-    @media (max-width: 768px) {
-      .nav-toggle { display: block; }
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: white; padding: 10px 16px 16px; box-shadow: 0 8px 16px rgba(0,0,0,.12); margin-left: 0; }
-      .nav-links.open { display: flex; }
-      .nav-links a { padding: 10px 12px; }
-    }
+    /* NAV → ver _nav.html */
 
     /* ── HERO ── */
-    .hero { position: relative; min-height: 580px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: 60px; }
+    .hero { position: relative; min-height: 580px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .hero-bg { position: absolute; inset: -8%; background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=85&w=1600&auto=format&fit=crop'); background-size: cover; background-position: center; animation: slow-zoom 20s ease-in-out infinite alternate; }
     @keyframes slow-zoom { from { transform: scale(1); } to { transform: scale(1.08); } }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(15,20,30,.52) 0%, rgba(15,20,30,.30) 40%, rgba(15,20,30,.75) 100%); }
@@ -184,35 +161,7 @@
 <body>
 
 <!-- ── NAV ── -->
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="logo">
-      <img src="/static/img/logo_icon.png" alt="GangaViaje">
-      <span class="logo-name">Ganga<span>Viaje</span></span>
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a href="/guias">Guías de viaje</a>
-      <a href="/consejos" class="gc">GangaConsejos</a>
-      <a href="/ofertas/hoteles">Ofertas</a>
-      <a href="/sobre-nosotros">Nosotros</a>
-    </div>
-    <div class="nav-right">
-      <a href="/buscar" class="nav-search-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        Buscar
-      </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menú">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-      </button>
-    </div>
-  </div>
-</nav>
-<script>
-  document.getElementById('navToggle').addEventListener('click', function() {
-    var links = document.getElementById('navLinks');
-    links.classList.toggle('open');
-  });
-</script>
+{% include '_nav.html' %}
 
 <!-- ── HERO ── -->
 <div class="hero">

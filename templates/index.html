@@ -34,17 +34,7 @@
     body { font-family: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif; background: #f4f6f9; color: #333333; line-height: 1.5; }
 
     /* ── NAV ── */
-    nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.10); position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
-    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .logo-icon { height: 40px; width: auto; }
-    .logo-name { font-size: 1.35rem; font-weight: 800; color: #333; letter-spacing: -0.5px; line-height: 1.1; }
-    .logo-name span { color: #E85D50; }
-    .nav-links { display: flex; gap: 2px; }
-    .nav-links a { color: #555; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.82rem; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
-    .nav-links a:hover, .nav-links a.active { background: rgba(232,93,80,0.1); color: #E85D50; }
-    .nav-toggle { display: none; background: none; border: none; color: #333; padding: 8px; cursor: pointer; }
-    .nav-toggle svg { width: 22px; height: 22px; display: block; }
+    /* NAV → ver _nav.html */
 
     /* ── HERO SLIDER ── */
     .hero { position: relative; height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -71,7 +61,7 @@
     .slide.active.slide-4 .slide-img { animation-name: kenburns-4; }
     .slide.active.slide-5 .slide-img { animation-name: kenburns-5; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(20,20,20,0.5) 0%, rgba(20,20,20,0.25) 40%, rgba(20,20,20,0.78) 100%); z-index: 1; }
-    .hero-content { position: relative; z-index: 2; max-width: 700px; padding: 0 20px; text-align: center; margin-top: 60px; }
+    .hero-content { position: relative; z-index: 2; max-width: 700px; padding: 0 20px; text-align: center; }
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,93,80,0.2); border: 1px solid rgba(232,93,80,0.45); color: white; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 6px 14px; border-radius: 20px; margin-bottom: 16px; }
     .hero-eyebrow span { width: 6px; height: 6px; background: #E85D50; border-radius: 50%; display: inline-block; animation: pulse-dot 2s ease-in-out infinite; }
     .hero h1 { font-size: 2.8rem; font-weight: 800; color: white; margin-bottom: 12px; line-height: 1.15; text-shadow: 0 2px 20px rgba(0,0,0,0.4); animation: fadeUp 0.8s 0.15s ease both; opacity: 0; }
@@ -335,42 +325,7 @@
 {%- endmacro %}
 
 <!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="logo">
-      <img src="/static/img/logo_icon.png" alt="GangaViaje" class="logo-icon">
-      <span class="logo-name">Ganga<span>Viaje</span></span>
-    </a>
-    <div class="nav-links" id="navLinks">
-      <a href="/" class="{{ 'active' if active_cat == 'todos' else '' }}">Todas</a>
-      {% for key, name in destinos.items() %}
-      <a href="/destino/{{ key }}" class="{{ 'active' if active_cat == key else '' }}">{{ name }}</a>
-      {% endfor %}
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto;">
-      <a href="/blog" class="nav-blog-btn">
-        📖 Blog
-      </a>
-      <a href="/buscar" style="display:flex;align-items:center;gap:5px;color:#666;text-decoration:none;font-size:0.82rem;font-weight:500;padding:6px 10px;border:1.5px solid #e0e4ea;border-radius:8px;white-space:nowrap;" onmouseover="this.style.borderColor='#E85D50';this.style.color='#E85D50'" onmouseout="this.style.borderColor='#e0e4ea';this.style.color='#666'">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        Buscar
-      </a>
-    </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-    </button>
-  </div>
-</nav>
-<script>
-  (function () {
-    var toggle = document.getElementById('navToggle');
-    var links = document.getElementById('navLinks');
-    toggle.addEventListener('click', function () {
-      var open = links.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  })();
-</script>
+{% include '_nav.html' %}
 
 <!-- HERO -->
 <div class="hero">

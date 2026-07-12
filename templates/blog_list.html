@@ -21,16 +21,7 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Raleway', -apple-system, sans-serif; background: #f4f6f9; color: #333333; line-height: 1.6; }
 
-    /* NAV */
-    nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.10); position: sticky; top: 0; z-index: 100; }
-    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .logo-icon { height: 40px; width: auto; }
-    .logo-name { font-size: 1.35rem; font-weight: 800; color: #333; letter-spacing: -0.5px; line-height: 1.1; }
-    .logo-name span { color: #E85D50; }
-    .nav-back { color: #666; text-decoration: none; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
-    .nav-back:hover { color: #E85D50; }
-    .nav-back svg { width: 15px; height: 15px; }
+    /* NAV → ver _nav.html */
 
     /* HERO */
     .page-hero { background: linear-gradient(135deg, #2D2D2D 0%, #3D3D3D 100%); padding: 52px 24px 44px; text-align: center; border-bottom: 1px solid rgba(232,93,80,0.2); }
@@ -114,19 +105,7 @@
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="logo">
-      <img src="/static/img/logo_icon.png" alt="GangaViaje" class="logo-icon">
-      <span class="logo-name">Ganga<span>Viaje</span></span>
-    </a>
-    <a href="/buscar" style="display:flex;align-items:center;gap:5px;color:#666;text-decoration:none;font-size:0.82rem;font-weight:500;padding:6px 10px;border:1.5px solid #e0e4ea;border-radius:8px;transition:all 0.15s;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Buscar</a>
-    <a href="/" class="nav-back">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Volver a ofertas
-    </a>
-  </div>
-</nav>
+{% include '_nav.html' %}
 
 <div class="page-hero">
   <div class="page-hero-inner">
@@ -152,6 +131,7 @@
   {% if posts %}
 
   {# FEATURED — primer post en grande #}
+  {% set cat_label = {"espana": "🇪🇸 España", "europa": "🏛️ Europa", "internacional": "✈️ Internacional", "consejos": "💡 GangaConsejos"} %}
   {% set featured = posts[0] %}
   <a href="/blog/{{ featured.slug }}" class="featured-post" data-cat="{{ featured.category }}">
     <div class="featured-img">
@@ -161,7 +141,7 @@
       <span class="featured-badge">⭐ Destacado</span>
     </div>
     <div class="featured-body">
-      <div class="featured-cat">{{ featured.category }}</div>
+      <div class="featured-cat">{{ cat_label.get(featured.category, featured.category) }}</div>
       <h2 class="featured-title">{{ featured.title }}</h2>
       <p class="featured-excerpt">{{ featured.excerpt }}</p>
       <span class="featured-cta">
@@ -182,7 +162,7 @@
       </div>
       <div class="post-body">
         <div class="post-meta">
-          <span class="post-cat">{{ post.category }}</span>
+          <span class="post-cat">{{ cat_label.get(post.category, post.category) }}</span>
           <span class="post-read">5 min lectura</span>
         </div>
         <div class="post-title">{{ post.title }}</div>

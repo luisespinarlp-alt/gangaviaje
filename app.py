@@ -267,9 +267,17 @@ def blog():
 
 @app.route("/guias")
 def guias():
-    posts = database.get_posts(limit=100, exclude_category="consejos")
+    cat = request.args.get("cat")
+    _titles = {"espana": "Guías de España", "europa": "Guías de Europa", "internacional": "Guías internacionales"}
+    if cat and cat in _titles:
+        posts = database.get_posts(limit=100, category=cat)
+        page_title = _titles[cat]
+    else:
+        posts = database.get_posts(limit=100, exclude_category="consejos")
+        page_title = "Guías de viaje"
     return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS,
-                           page_title="Guías de viaje", page_desc="Guías detalladas para cada destino")
+                           page_title=page_title, page_desc="Guías detalladas para cada destino",
+                           active_cat=cat or "todos")
 
 
 @app.route("/consejos")
@@ -294,6 +302,11 @@ _CITY_MAP = {
     "florencia": ("Florencia", "florencia"), "tenerife": ("Tenerife", "canarias"),
     "nueva-york": ("Nueva York", "nueva-york"), "phuket": ("Phuket", "phuket"),
     "koh-samui": ("Koh Samui", "tailandia"), "phi-phi": ("Tailandia", "tailandia"),
+    "toledo": ("Toledo", "toledo"), "salamanca": ("Salamanca", "salamanca"),
+    "asturias": ("Asturias", "asturias"), "croacia": ("Dubrovnik", "croacia"),
+    "dubrovnik": ("Dubrovnik", "croacia"), "sicilia": ("Sicilia", "sicilia"),
+    "palermo": ("Palermo", "sicilia"), "georgia": ("Tbilisi", "georgia"),
+    "tbilisi": ("Tbilisi", "georgia"), "ciudad-real": ("Ciudad Real", "ciudad-real"),
     "granada": ("Granada", "granada"), "ibiza": ("Ibiza", "ibiza"),
     "praga": ("Praga", "praga"), "viena": ("Viena", "viena"),
     "atenas": ("Atenas", "atenas"), "estambul": ("Estambul", "estambul"),
