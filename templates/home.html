@@ -348,7 +348,7 @@
         <div class="oferta-body">
           {% if deal.location %}<div class="oferta-loc">📍 {{ deal.location }}</div>{% endif %}
           <div class="oferta-title">{{ deal.title | replace(' — Kiwi.com','') | replace(' — Booking.com','') | replace(' — Hotels.com','') }}</div>
-          <div class="oferta-price">€{{ "%.0f"|format(deal.sale_price) }}<span style="font-size:.75rem;font-weight:400;color:#888;"> / noche</span></div>
+          <div class="oferta-price">€{{ "%.0f"|format(deal.sale_price) }}<span style="font-size:.75rem;font-weight:400;color:#888;">{% if precio_unidad.get(deal.tipo) %} / {{ precio_unidad.get(deal.tipo) }}{% endif %}</span></div>
           <span class="oferta-cta">Ver oferta</span>
         </div>
       </a>

@@ -185,7 +185,7 @@
           </div>
           {% endif %}
           <div class="card-price">
-            {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("trayecto" if deal.tipo == "vuelo" else "noche")) %}
+            {% set unidad = precio_unidad.get(deal.tipo, '') %}
             {% if deal.original_price and deal.original_price > deal.sale_price %}
             <div class="price-original">Antes: €{{ "%.0f"|format(deal.original_price) }}</div>
             {% endif %}

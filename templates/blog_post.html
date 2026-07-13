@@ -203,7 +203,7 @@
           </div>
           <div class="related-body">
             <div class="related-title">{{ deal.title }}</div>
-            <div class="related-price">€{{ "%.0f"|format(deal.sale_price) }}</div>
+            <div class="related-price">€{{ "%.0f"|format(deal.sale_price) }}{% if precio_unidad.get(deal.tipo) %}<span style="font-size:.72rem;font-weight:400;color:#aaa;"> /{{ precio_unidad.get(deal.tipo) }}</span>{% endif %}</div>
           </div>
         </a>
         {% endfor %}

@@ -288,7 +288,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       Reserva asegurada
     </div>
-    {% set unidad = "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("vuelo" if deal.tipo == "vuelo" else "noche")) %}
+    {% set unidad = precio_unidad.get(deal.tipo, '') %}
     {% if deal.original_price and deal.original_price > deal.sale_price %}
     <div class="booking-price-original">€{{ "%.0f"|format(deal.original_price) }} / {{ unidad }}</div>
     {% endif %}
@@ -337,7 +337,7 @@
         <div class="related-body">
           {% if d.location %}<div class="related-location">📍 {{ d.location }}</div>{% endif %}
           <div class="related-name">{{ d.title }}</div>
-          <div class="related-price">€{{ "%.0f"|format(d.sale_price) }}</div>
+          <div class="related-price">€{{ "%.0f"|format(d.sale_price) }}{% if precio_unidad.get(d.tipo) %}<span style="font-size:.72rem;font-weight:400;color:#aaa;"> /{{ precio_unidad.get(d.tipo) }}</span>{% endif %}</div>
         </div>
       </a>
       {% endfor %}

@@ -104,7 +104,7 @@
         </div>
         <div class="deal-mini-body">
           <div class="deal-mini-name">{{ deal.title }}</div>
-          <div class="deal-mini-price">€{{ "%.0f"|format(deal.sale_price) }}</div>
+          <div class="deal-mini-price">€{{ "%.0f"|format(deal.sale_price) }}{% if precio_unidad.get(deal.tipo) %}<span style="font-size:.7rem;font-weight:400;color:#aaa;"> /{{ precio_unidad.get(deal.tipo) }}</span>{% endif %}</div>
         </div>
       </a>
       {% endfor %}

@@ -85,5 +85,15 @@ TIPOS = {
     "vuelo":       "Vuelos",
 }
 
+PRECIO_UNIDAD = {
+    "hotel":       "noche",
+    "apartamento": "noche",
+    "villa":       "noche",
+    "coche":       "día",
+    "actividad":   "persona",
+    "vuelo":       "persona",
+    "traslado":    "persona",
+}
+
 # Orden en el que se agrupan las secciones automáticas de la web (solo se muestran las que tengan ofertas)
 TIPO_ORDER = ["vuelo", "hotel", "apartamento", "villa", "actividad", "traslado", "coche"]

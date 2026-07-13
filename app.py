@@ -17,8 +17,8 @@ app.secret_key = config.FLASK_SECRET_KEY
 database.init_db()
 
 @app.context_processor
-def inject_now():
-    return {"now": datetime.utcnow()}
+def inject_globals():
+    return {"now": datetime.utcnow(), "precio_unidad": config.PRECIO_UNIDAD}
 
 # Cache simple para datos de homepage (TTL: 5 minutos)
 _cache: dict = {}

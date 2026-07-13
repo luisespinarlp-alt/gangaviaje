@@ -162,7 +162,7 @@
         <div class="card-price">
           <div>
             <div class="price-current">€{{ "%.0f"|format(deal.sale_price) }}</div>
-            <div class="price-unit">por {{ "persona" if deal.tipo == "actividad" else ("día" if deal.tipo == "coche" else ("trayecto" if deal.tipo == "vuelo" else "noche")) }}</div>
+            <div class="price-unit">por {{ precio_unidad.get(deal.tipo, '') }}</div>
           </div>
         </div>
         <span class="card-cta">Ver oferta →</span>
