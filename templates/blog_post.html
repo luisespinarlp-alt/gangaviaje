@@ -5,25 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ post.title }} — GangaViaje</title>
   <meta name="description" content="{{ post.excerpt }}">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="{{ post.title }}">
+  <meta property="og:type"        content="article">
+  <meta property="og:title"       content="{{ post.title }}">
   <meta property="og:description" content="{{ post.excerpt }}">
-  {% if post.image_url %}<meta property="og:image" content="{{ post.image_url }}">{% endif %}
+  <meta property="og:url"         content="https://www.gangaviaje.es/blog/{{ post.slug }}">
+  <meta property="og:site_name"   content="GangaViaje">
+  {% if post.image_url %}
+  <meta property="og:image"       content="{{ post.image_url }}">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:image"      content="{{ post.image_url }}">
+  {% else %}
+  <meta name="twitter:card"       content="summary">
+  {% endif %}
+  <meta name="twitter:title"       content="{{ post.title }}">
+  <meta name="twitter:description" content="{{ post.excerpt }}">
   <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
   <link rel="canonical" href="https://www.gangaviaje.es/blog/{{ post.slug }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-05YGXD7GX7"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-05YGXD7GX7");</script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Raleway', -apple-system, sans-serif; background: #f4f6f9; color: #333333; line-height: 1.6; }
+    body { font-family: 'Raleway', -apple-system, sans-serif; background: #F9F7F3; color: #333333; line-height: 1.6; }
 
     /* NAV → ver _nav.html */
 
     /* ── POST HERO — imagen a pantalla completa con título sobreimpreso ── */
-    .post-hero { position: relative; min-height: 520px; display: flex; align-items: flex-end; overflow: hidden; background: #1a1a2e; }
+    .post-hero { position: relative; min-height: 520px; display: flex; align-items: flex-end; overflow: hidden; background: #1C1610; }
     .post-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; animation: subtle-zoom 14s ease-out both; }
     @keyframes subtle-zoom { from { transform: scale(1.06); } to { transform: scale(1); } }
     .post-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,.5) 45%, rgba(0,0,0,.12) 100%); }
@@ -32,8 +42,8 @@
     .post-breadcrumb a { color: rgba(255,255,255,.52); text-decoration: none; transition: color .15s; }
     .post-breadcrumb a:hover { color: white; }
     .post-breadcrumb .sep { color: rgba(255,255,255,.28); }
-    .post-cat { display: inline-flex; align-items: center; background: #E85D50; color: white; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; }
-    .post-hero h1 { font-size: 2.75rem; font-weight: 800; color: white; line-height: 1.17; text-shadow: 0 2px 24px rgba(0,0,0,.5); margin-bottom: 20px; }
+    .post-cat { display: inline-flex; align-items: center; background: #C85A2A; color: white; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px; }
+    .post-hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.75rem; font-weight: 800; color: white; line-height: 1.17; text-shadow: 0 2px 24px rgba(0,0,0,.5); margin-bottom: 20px; }
     .post-hero-meta { display: flex; align-items: center; gap: 20px; color: rgba(255,255,255,.55); font-size: 0.8rem; flex-wrap: wrap; }
     .post-hero-meta span { display: flex; align-items: center; gap: 5px; }
 
@@ -43,43 +53,57 @@
     /* ── CONTENT TYPOGRAPHY ── */
     .post-content { background: white; border-radius: 18px; padding: 48px 52px; box-shadow: 0 2px 14px rgba(0,0,0,.07); }
     .post-content p { font-size: 1.06rem; color: #3a3a3a; line-height: 1.85; margin-bottom: 22px; }
-    .post-content h2 { font-size: 1.55rem; font-weight: 800; color: #1a1a2e; margin: 40px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #f0f2f5; }
+    .post-content h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.55rem; font-weight: 700; color: #1C1610; margin: 40px 0 16px; padding-bottom: 10px; border-bottom: 2px solid #f0f2f5; }
     .post-content h3 { font-size: 1.15rem; font-weight: 700; color: #2d2d2d; margin: 30px 0 12px; }
     .post-content h4 { font-size: 1rem; font-weight: 700; color: #333; margin: 20px 0 10px; }
     .post-content ul, .post-content ol { margin: 0 0 22px 24px; }
     .post-content li { font-size: 1.03rem; color: #3a3a3a; margin-bottom: 10px; line-height: 1.72; }
-    .post-content strong { color: #1a1a2e; font-weight: 700; }
-    .post-content blockquote { background: #fff8f7; border-left: 4px solid #E85D50; border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 24px 0; color: #555; font-size: 1.02rem; }
+    .post-content strong { color: #1C1610; font-weight: 700; }
+    .post-content blockquote { background: #FDF6F0; border-left: 4px solid #C85A2A; border-radius: 0 10px 10px 0; padding: 18px 22px; margin: 24px 0; color: #555; font-size: 1.02rem; }
     .post-content blockquote p { margin: 0; }
     .post-content table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 0.92rem; }
-    .post-content th { background: #f4f6f9; padding: 10px 14px; text-align: left; font-weight: 700; color: #333; border-bottom: 2px solid #e0e4ea; }
+    .post-content th { background: #F9F7F3; padding: 10px 14px; text-align: left; font-weight: 700; color: #333; border-bottom: 2px solid #e0e4ea; }
     .post-content td { padding: 10px 14px; border-bottom: 1px solid #f0f2f5; color: #444; }
-    .post-content tr:hover td { background: #fff8f7; }
+    .post-content tr:hover td { background: #FDF6F0; }
 
     /* ── RELATED DEALS ── */
     .related-deals { margin-top: 44px; padding-top: 36px; border-top: 2px solid #f0f2f5; }
-    .related-deals-title { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; margin-bottom: 18px; }
+    .related-deals-title { font-size: 1.05rem; font-weight: 700; color: #1C1610; margin-bottom: 18px; }
     .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 14px; }
     .related-card { display: block; text-decoration: none; color: inherit; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,.09); background: #f8fafc; transition: transform .2s ease, box-shadow .2s; border: 1px solid #eceef2; }
     .related-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
-    .related-img { height: 105px; background: #fde8e6; overflow: hidden; }
+    .related-img { height: 105px; background: #FAF0E8; overflow: hidden; }
     .related-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
     .related-card:hover .related-img img { transform: scale(1.05); }
     .related-body { padding: 10px 12px; }
     .related-title { font-size: 0.8rem; font-weight: 600; color: #333333; line-height: 1.3; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .related-price { font-size: 0.88rem; font-weight: 700; color: #E85D50; }
+    .related-price { font-size: 0.88rem; font-weight: 700; color: #C85A2A; }
 
     /* ── CTA CIUDAD ── */
-    .ciudad-cta { background: #fff5f4; border: 1px solid #fcd0cc; border-radius: 12px; padding: 18px 24px; margin-top: 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .ciudad-cta { background: #FDF6F0; border: 1px solid #EDCBB8; border-radius: 12px; padding: 18px 24px; margin-top: 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
     .ciudad-cta p { font-size: 0.93rem; color: #333; margin: 0; }
-    .ciudad-cta a { display: inline-block; background: #E85D50; color: white; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.88rem; white-space: nowrap; }
+    .ciudad-cta a { display: inline-block; background: #C85A2A; color: white; font-weight: 700; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.88rem; white-space: nowrap; }
+
+    /* ── POSTS RELACIONADOS ── */
+    .related-posts { margin-top: 44px; padding-top: 36px; border-top: 2px solid #f0f2f5; }
+    .related-posts-title { font-size: 1.05rem; font-weight: 700; color: #1C1610; margin-bottom: 18px; }
+    .related-posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .rp-card { display: block; text-decoration: none; color: inherit; border-radius: 12px; overflow: hidden; border: 1px solid #eceef2; background: #f8fafc; transition: transform .2s, box-shadow .2s; }
+    .rp-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+    .rp-img { height: 120px; overflow: hidden; background: #FAF0E8; }
+    .rp-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+    .rp-card:hover .rp-img img { transform: scale(1.06); }
+    .rp-body { padding: 12px 14px; }
+    .rp-cat { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #C85A2A; margin-bottom: 5px; }
+    .rp-title { font-size: .88rem; font-weight: 700; color: #222; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    @media (max-width: 560px) { .related-posts-grid { grid-template-columns: 1fr; } }
 
     /* ── CTA FINAL ── */
-    .cta-box { background: linear-gradient(135deg, #1a1a2e 0%, #2d2d2d 100%); border-radius: 16px; padding: 36px 40px; margin-top: 36px; text-align: center; }
+    .cta-box { background: linear-gradient(135deg, #1C1610 0%, #2D2520 100%); border-radius: 16px; padding: 36px 40px; margin-top: 36px; text-align: center; }
     .cta-box p { color: rgba(255,255,255,.8); font-size: 0.97rem; margin-bottom: 22px; line-height: 1.7; }
     .cta-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .cta-btn-primary { display: inline-block; background: #E85D50; color: white; font-weight: 700; padding: 12px 26px; border-radius: 9px; text-decoration: none; font-size: 0.9rem; transition: background .15s; }
-    .cta-btn-primary:hover { background: #D14A3E; }
+    .cta-btn-primary { display: inline-block; background: #C85A2A; color: white; font-weight: 700; padding: 12px 26px; border-radius: 9px; text-decoration: none; font-size: 0.9rem; transition: background .15s; }
+    .cta-btn-primary:hover { background: #A84A22; }
     .cta-btn-ghost { display: inline-block; background: rgba(255,255,255,.1); color: white; font-weight: 600; padding: 12px 24px; border-radius: 9px; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255,255,255,.2); transition: background .15s; }
     .cta-btn-ghost:hover { background: rgba(255,255,255,.18); }
 
@@ -88,14 +112,14 @@
     .footer-inner { max-width: 1200px; margin: 0 auto; }
     .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 36px; }
     .footer-brand .name { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 10px; }
-    .footer-brand .name span { color: #E85D50; }
+    .footer-brand .name span { color: #C85A2A; }
     .footer-brand p { font-size: .82rem; line-height: 1.7; max-width: 260px; }
     .footer-col h4 { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #666; margin-bottom: 14px; }
     .footer-col a { display: block; font-size: .82rem; color: #888; text-decoration: none; margin-bottom: 8px; transition: color .15s; }
-    .footer-col a:hover { color: #E85D50; }
+    .footer-col a:hover { color: #C85A2A; }
     .footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
     .footer-bottom p { font-size: .75rem; }
-    .footer-bottom a { color: #E85D50; text-decoration: none; }
+    .footer-bottom a { color: #C85A2A; text-decoration: none; }
     @media (max-width: 768px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 24px; } }
     @media (max-width: 480px) { .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; align-items: flex-start; } }
 
@@ -120,8 +144,17 @@
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"GangaViaje","item":"https://www.gangaviaje.es/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.gangaviaje.es/blog"},{"@type":"ListItem","position":3,"name":{{ post.title | tojson }},"item":"https://www.gangaviaje.es/blog/{{ post.slug }}"}]}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Article","headline":{{ post.title | tojson }},"description":{{ post.excerpt | tojson }},"image":{{ (post.image_url or '') | tojson }},"datePublished":{{ post.created_at.isoformat() | tojson }},"author":{"@type":"Organization","name":"GangaViaje"},"publisher":{"@type":"Organization","name":"GangaViaje"},"mainEntityOfPage":{{ request.url | tojson }}}
+  {"@context":"https://schema.org","@type":"Article","headline":{{ post.title | tojson }},"description":{{ post.excerpt | tojson }},"image":{{ (post.image_url or '') | tojson }},"datePublished":{{ post.created_at.isoformat() | tojson }},"dateModified":{{ post.created_at.isoformat() | tojson }},"author":{"@type":"Organization","name":"GangaViaje","url":"https://www.gangaviaje.es"},"publisher":{"@type":"Organization","name":"GangaViaje","logo":{"@type":"ImageObject","url":"https://www.gangaviaje.es/static/img/logo.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.gangaviaje.es/blog/{{ post.slug }}"}}
   </script>
+  {% if faq_items %}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {% for item in faq_items %}
+    {"@type":"Question","name":{{ item.q | tojson }},"acceptedAnswer":{"@type":"Answer","text":{{ item.a | tojson }}}}{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]}
+  </script>
+  {% endif %}
 </head>
 <body>
 
@@ -185,6 +218,29 @@
     </div>
     {% endif %}
 
+    {% if related_posts %}
+    {% set cat_lbl2 = {"espana": "España", "europa": "Europa", "internacional": "Internacional", "consejos": "GangaConsejos"} %}
+    <div class="related-posts">
+      <div class="related-posts-title">Guías que también te pueden interesar</div>
+      <div class="related-posts-grid">
+        {% for rp in related_posts %}
+        <a href="/blog/{{ rp.slug }}" class="rp-card">
+          <div class="rp-img">
+            {% if rp.image_url %}
+            <img src="{{ rp.image_url }}" alt="{{ rp.title }}" loading="lazy"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,#FAF0E8,#ffc4bc)';this.remove()">
+            {% endif %}
+          </div>
+          <div class="rp-body">
+            <div class="rp-cat">{{ cat_lbl2.get(rp.category, rp.category | capitalize) }}</div>
+            <div class="rp-title">{{ rp.title }}</div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
     <div class="cta-box">
       <p>¿Te ha entrado el gusanillo de viajar? Busca las mejores ofertas disponibles ahora mismo.</p>
       <div class="cta-btns">
@@ -229,7 +285,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 GangaViaje.es — Las mejores guías de viaje y GangaConsejos para viajeros.</p>
+      <p>© 2026 GangaViaje.es — Las mejores guías de viaje y GangaConsejos para viajeros.</p>
       <p style="font-size:.72rem;">GangaViaje participa en programas de afiliación. <a href="/privacidad">Privacidad</a></p>
     </div>
   </div>

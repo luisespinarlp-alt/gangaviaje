@@ -3,6 +3,7 @@ GangaViaje — Web Flask de ofertas de viajes
 """
 
 from datetime import datetime
+import re
 import time as _time
 from flask import Flask, render_template, abort, Response, request, jsonify
 
@@ -324,6 +325,29 @@ _SLUG_TO_TIPO = [
     ("coche", "coche"), ("actividad", "actividad"), ("tour", "actividad"),
 ]
 
+def _extract_faq(html: str) -> list:
+    """Extrae pares pregunta/respuesta de los H2 y el primer párrafo que les sigue."""
+    if not html:
+        return []
+    blocks = re.split(r'<h2[^>]*>', html, flags=re.IGNORECASE)
+    faq = []
+    for block in blocks[1:]:  # El primer trozo es el texto antes del primer H2
+        h2_match = re.match(r'(.*?)</h2>(.*)', block, re.DOTALL | re.IGNORECASE)
+        if not h2_match:
+            continue
+        question = re.sub(r'<[^>]+>', '', h2_match.group(1)).strip()
+        rest = h2_match.group(2)
+        p_match = re.search(r'<p[^>]*>(.*?)</p>', rest, re.DOTALL | re.IGNORECASE)
+        if not p_match:
+            continue
+        answer = re.sub(r'<[^>]+>', '', p_match.group(1)).strip()
+        if len(question) > 8 and len(answer) > 25:
+            faq.append({"q": question, "a": answer[:350]})
+        if len(faq) == 5:
+            break
+    return faq
+
+
 def _detect_city(slug: str):
     for keyword, (name, url_slug) in _CITY_MAP.items():
         if keyword in slug:
@@ -354,9 +378,13 @@ def blog_post(slug: str):
         else:
             related_deals = database.get_deals(limit=4)
             related_label = "Ofertas destacadas ahora mismo"
+    faq_items = _extract_faq(post.get("content", ""))
+    all_related = database.get_posts(limit=12, category=post["category"])
+    related_posts = [p for p in all_related if p["slug"] != slug][:3]
     return render_template("blog_post.html", post=post, destinos=config.DESTINOS,
                            related_deals=related_deals, related_label=related_label,
-                           ciudad_name=ciudad_name, ciudad_slug=ciudad_slug)
+                           ciudad_name=ciudad_name, ciudad_slug=ciudad_slug,
+                           faq_items=faq_items, related_posts=related_posts)
 
 
 @app.route("/newsletter", methods=["POST"])
@@ -428,11 +456,22 @@ def sitemap():
         slug = ciudad_name.lower().replace(" ", "-").replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u")
         urls.append(f"<url><loc>{base}/ciudad/{slug}</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>")
 
-    # Artículos del blog
-    for post in database.get_posts(limit=100):
+    # Artículos del blog (con imagen y lastmod)
+    for post in database.get_posts(limit=200):
+        lastmod = post["created_at"].strftime("%Y-%m-%d") if post.get("created_at") else today
+        img_tag = ""
+        if post.get("image_url"):
+            img_tag = (
+                f'<image:image>'
+                f'<image:loc>{post["image_url"]}</image:loc>'
+                f'<image:title>{post["title"].replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")}</image:title>'
+                f'</image:image>'
+            )
         urls.append(
             f"<url><loc>{base}/blog/{post['slug']}</loc>"
-            f"<changefreq>monthly</changefreq><priority>0.5</priority></url>"
+            f"<lastmod>{lastmod}</lastmod>"
+            f"<changefreq>monthly</changefreq><priority>0.8</priority>"
+            f"{img_tag}</url>"
         )
 
     # Deals activos
@@ -444,7 +483,8 @@ def sitemap():
         )
 
     xml = ('<?xml version="1.0" encoding="UTF-8"?>'
-           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+           ' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'
            + "".join(urls) + "</urlset>")
     return Response(xml, mimetype="application/xml")
 
