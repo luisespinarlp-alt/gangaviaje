@@ -132,7 +132,7 @@ _HOTELES_CIUDAD = [
         "tipo":           "hotel",
     },
     {
-        "dest":           "Paris",
+        "dest":           "París",
         "title":          "Hoteles en París",
         "sale_price":     110.0,
         "original_price": 140.0,
@@ -142,7 +142,7 @@ _HOTELES_CIUDAD = [
         "tipo":           "hotel",
     },
     {
-        "dest":           "Rome",
+        "dest":           "Roma",
         "title":          "Hoteles en Roma",
         "sale_price":     95.0,
         "original_price": 120.0,
@@ -152,7 +152,7 @@ _HOTELES_CIUDAD = [
         "tipo":           "hotel",
     },
     {
-        "dest":           "Lisbon",
+        "dest":           "Lisboa",
         "title":          "Hoteles en Lisboa",
         "sale_price":     70.0,
         "original_price": 90.0,
@@ -162,7 +162,7 @@ _HOTELES_CIUDAD = [
         "tipo":           "hotel",
     },
     {
-        "dest":           "Amsterdam",
+        "dest":           "Ámsterdam",
         "title":          "Hoteles en Ámsterdam",
         "sale_price":     105.0,
         "original_price": 135.0,
@@ -172,7 +172,7 @@ _HOTELES_CIUDAD = [
         "tipo":           "hotel",
     },
     {
-        "dest":           "Berlin",
+        "dest":           "Berlín",
         "title":          "Hoteles en Berlín",
         "sale_price":     80.0,
         "original_price": 100.0,
@@ -182,7 +182,7 @@ _HOTELES_CIUDAD = [
         "tipo":           "hotel",
     },
     {
-        "dest":           "Dubai",
+        "dest":           "Dubái",
         "title":          "Hoteles en Dubái",
         "sale_price":     120.0,
         "original_price": 155.0,
@@ -192,7 +192,7 @@ _HOTELES_CIUDAD = [
         "tipo":           "hotel",
     },
     {
-        "dest":           "Malaga",
+        "dest":           "Málaga",
         "title":          "Hoteles en Málaga",
         "sale_price":     65.0,
         "original_price": 85.0,
@@ -222,7 +222,7 @@ _HOTELES_CIUDAD = [
         "tipo":           "hotel",
     },
     {
-        "dest":           "Prague",
+        "dest":           "Praga",
         "title":          "Hoteles en Praga",
         "sale_price":     65.0,
         "original_price": 85.0,

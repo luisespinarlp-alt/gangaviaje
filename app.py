@@ -317,6 +317,9 @@ _CITY_MAP = {
     "dublin": ("Dublín", "dublin"), "edimburgo": ("Edimburgo", "edimburgo"),
     "tokyo": ("Tokio", "tokio"), "mexico": ("Ciudad de México", "ciudad-de-mexico"),
     "buenos-aires": ("Buenos Aires", "buenos-aires"),
+    "seul": ("Seúl", "seul"), "corea-del-sur": ("Seúl", "seul"),
+    "oporto": ("Lisboa", "lisboa"), "algarve": ("Lisboa", "lisboa"),
+    "budva": ("Budva, Montenegro", "budva"), "montenegro": ("Budva, Montenegro", "budva"),
 }
 
 _SLUG_TO_TIPO = [
