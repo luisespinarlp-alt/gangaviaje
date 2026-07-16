@@ -320,6 +320,11 @@ _CITY_MAP = {
     "seul": ("Seúl", "seul"), "corea-del-sur": ("Seúl", "seul"),
     "oporto": ("Lisboa", "lisboa"), "algarve": ("Lisboa", "lisboa"),
     "budva": ("Budva, Montenegro", "budva"), "montenegro": ("Budva, Montenegro", "budva"),
+    "valencia": ("Valencia", "valencia"),
+    "malaga": ("Málaga", "malaga"), "marbella": ("Málaga", "malaga"),
+    "san-sebastian": ("San Sebastián", "san-sebastian"), "donostia": ("San Sebastián", "san-sebastian"),
+    "cordoba": ("Córdoba", "cordoba"),
+    "bilbao": ("Bilbao", "bilbao"), "pais-vasco": ("Bilbao", "bilbao"),
 }
 
 _SLUG_TO_TIPO = [
