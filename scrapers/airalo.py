@@ -19,8 +19,8 @@ _ESIMS = [
         "category":    "europa",
         "tipo":        "actividad",
         "discount_pct": 0,
-        "rating":      9.2,
-        "reviews_count": 340000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "eSIM Global — datos en más de 190 países",
@@ -32,8 +32,8 @@ _ESIMS = [
         "category":    "internacional",
         "tipo":        "actividad",
         "discount_pct": 0,
-        "rating":      9.2,
-        "reviews_count": 340000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "eSIM España — datos 4G/5G sin contrato",
@@ -45,8 +45,8 @@ _ESIMS = [
         "category":    "espana",
         "tipo":        "actividad",
         "discount_pct": 0,
-        "rating":      9.2,
-        "reviews_count": 340000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "eSIM Japón — conectividad 5G para tu viaje",
@@ -58,8 +58,8 @@ _ESIMS = [
         "category":    "internacional",
         "tipo":        "actividad",
         "discount_pct": 0,
-        "rating":      9.2,
-        "reviews_count": 340000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "eSIM Asia — datos en 13 países asiáticos",
@@ -71,8 +71,8 @@ _ESIMS = [
         "category":    "internacional",
         "tipo":        "actividad",
         "discount_pct": 0,
-        "rating":      9.2,
-        "reviews_count": 340000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "eSIM América — datos en EEUU, México y Latinoamérica",
@@ -84,8 +84,8 @@ _ESIMS = [
         "category":    "internacional",
         "tipo":        "actividad",
         "discount_pct": 0,
-        "rating":      9.2,
-        "reviews_count": 340000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

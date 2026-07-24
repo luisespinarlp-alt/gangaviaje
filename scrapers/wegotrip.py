@@ -19,8 +19,8 @@ _TOURS = [
         "image_url":      "https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://wegotrip.com/en/italy/rome/",
         "category":       "europa",
-        "rating":         9.1,
-        "reviews_count":  1240,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Tour autoguiado por Barcelona — WeGoTrip",
@@ -30,8 +30,8 @@ _TOURS = [
         "image_url":      "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://wegotrip.com/en/spain/barcelona/",
         "category":       "ciudad",
-        "rating":         8.9,
-        "reviews_count":  870,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Audioguía del Louvre de París — WeGoTrip",
@@ -41,8 +41,8 @@ _TOURS = [
         "image_url":      "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://wegotrip.com/en/france/paris/",
         "category":       "europa",
-        "rating":         9.0,
-        "reviews_count":  2100,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Tour autoguiado por Madrid — WeGoTrip",
@@ -52,8 +52,8 @@ _TOURS = [
         "image_url":      "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://wegotrip.com/en/spain/madrid/",
         "category":       "ciudad",
-        "rating":         8.8,
-        "reviews_count":  560,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Audioguía del British Museum — WeGoTrip",
@@ -63,8 +63,8 @@ _TOURS = [
         "image_url":      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://wegotrip.com/en/united-kingdom/london/",
         "category":       "europa",
-        "rating":         8.9,
-        "reviews_count":  980,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Tour autoguiado por Ámsterdam — WeGoTrip",
@@ -74,8 +74,8 @@ _TOURS = [
         "image_url":      "https://images.unsplash.com/photo-1459679749680-18eb1eb37418?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://wegotrip.com/en/netherlands/amsterdam/",
         "category":       "europa",
-        "rating":         8.7,
-        "reviews_count":  430,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

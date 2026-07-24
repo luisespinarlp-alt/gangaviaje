@@ -197,6 +197,7 @@ _SLUG_TO_CITY = {
     "mallorca": "Mallorca", "ibiza": "Ibiza", "sevilla": "Sevilla",
     "granada": "Granada", "atenas": "Atenas", "estambul": "Estambul",
     "venecia": "Venecia", "florencia": "Florencia", "napoles": "Nápoles",
+    "seul": "Seúl", "ciudad-de-mexico": "Ciudad de México",
 }
 
 _CITY_IMAGES = {
@@ -462,6 +463,12 @@ def sitemap():
     cur.close(); conn.close()
     for ciudad_name in ciudades:
         slug = ciudad_name.lower().replace(" ", "-").replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u")
+        # Solo se incluye si /ciudad/<slug> realmente resuelve de vuelta a este mismo
+        # nombre (evita listar en el sitemap "ciudades" rotas o frases genéricas
+        # que un scraper haya puesto en location, p.ej. "España y resto del mundo").
+        reconstructed = _SLUG_TO_CITY.get(slug, slug.replace("-", " ").title())
+        if reconstructed != ciudad_name:
+            continue
         urls.append(f"<url><loc>{base}/ciudad/{slug}</loc><changefreq>hourly</changefreq><priority>0.7</priority></url>")
 
     # Artículos del blog (con imagen y lastmod)

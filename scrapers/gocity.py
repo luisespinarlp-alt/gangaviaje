@@ -19,8 +19,8 @@ _PASES = [
         "image_url":      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://gocity.com/london/en-us",
         "category":       "europa",
-        "rating":         8.8,
-        "reviews_count":  12400,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Go City Nueva York — Explorer Pass atracciones",
@@ -30,8 +30,8 @@ _PASES = [
         "image_url":      "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://gocity.com/new-york/en-us",
         "category":       "internacional",
-        "rating":         9.0,
-        "reviews_count":  18600,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Go City París — Pase de atracciones todo incluido",
@@ -41,8 +41,8 @@ _PASES = [
         "image_url":      "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://gocity.com/paris/en-us",
         "category":       "europa",
-        "rating":         8.9,
-        "reviews_count":  9800,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Go City Barcelona — Explorer Pass atracciones",
@@ -52,8 +52,8 @@ _PASES = [
         "image_url":      "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://gocity.com/barcelona/en-us",
         "category":       "ciudad",
-        "rating":         8.7,
-        "reviews_count":  5200,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Go City Dubái — Pase todo incluido atracciones",
@@ -63,8 +63,8 @@ _PASES = [
         "image_url":      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://gocity.com/dubai/en-us",
         "category":       "internacional",
-        "rating":         9.1,
-        "reviews_count":  7300,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Go City Roma — Explorer Pass atracciones",
@@ -74,8 +74,8 @@ _PASES = [
         "image_url":      "https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://gocity.com/rome/en-us",
         "category":       "europa",
-        "rating":         8.9,
-        "reviews_count":  6100,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

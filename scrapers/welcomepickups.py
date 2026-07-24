@@ -20,8 +20,8 @@ _TRANSFERS = [
         "category":    "espana",
         "tipo":        "traslado",
         "discount_pct": 0,
-        "rating":      9.3,
-        "reviews_count": 85000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Traslado aeropuerto Barcelona — sin taxímetro ni sorpresas",
@@ -33,8 +33,8 @@ _TRANSFERS = [
         "category":    "espana",
         "tipo":        "traslado",
         "discount_pct": 0,
-        "rating":      9.3,
-        "reviews_count": 85000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Traslado aeropuerto Lisboa — conductor privado desde 18€",
@@ -46,8 +46,8 @@ _TRANSFERS = [
         "category":    "europa",
         "tipo":        "traslado",
         "discount_pct": 0,
-        "rating":      9.3,
-        "reviews_count": 85000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Traslado aeropuerto Atenas — sin negociar con taxistas",
@@ -59,8 +59,8 @@ _TRANSFERS = [
         "category":    "europa",
         "tipo":        "traslado",
         "discount_pct": 0,
-        "rating":      9.3,
-        "reviews_count": 85000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Traslado aeropuerto Roma — Fiumicino o Ciampino al centro",
@@ -72,8 +72,8 @@ _TRANSFERS = [
         "category":    "europa",
         "tipo":        "traslado",
         "discount_pct": 0,
-        "rating":      9.3,
-        "reviews_count": 85000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Traslado aeropuerto Marrakech — desde el Menara al riad",
@@ -85,8 +85,8 @@ _TRANSFERS = [
         "category":    "internacional",
         "tipo":        "traslado",
         "discount_pct": 0,
-        "rating":      9.3,
-        "reviews_count": 85000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

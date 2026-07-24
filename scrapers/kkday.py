@@ -19,8 +19,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kkday.com/es/city/tokyo",
         "category":       "internacional",
-        "rating":         9.0,
-        "reviews_count":  3400,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Tours y actividades en Bangkok — KKday",
@@ -30,8 +30,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1563492065599-3520f775eeed?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kkday.com/es/city/bangkok",
         "category":       "internacional",
-        "rating":         8.9,
-        "reviews_count":  2800,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Tours y actividades en Dubái — KKday",
@@ -41,8 +41,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kkday.com/es/city/dubai",
         "category":       "internacional",
-        "rating":         9.1,
-        "reviews_count":  1900,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Tours y actividades en Singapur — KKday",
@@ -52,8 +52,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kkday.com/es/city/singapore",
         "category":       "internacional",
-        "rating":         9.0,
-        "reviews_count":  2200,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Tours y actividades en Seúl — KKday",
@@ -63,8 +63,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kkday.com/es/city/seoul",
         "category":       "internacional",
-        "rating":         8.8,
-        "reviews_count":  1600,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Tours y actividades en Bali — KKday",
@@ -74,8 +74,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kkday.com/es/city/bali",
         "category":       "internacional",
-        "rating":         9.2,
-        "reviews_count":  4100,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

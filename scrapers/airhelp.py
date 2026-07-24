@@ -20,8 +20,8 @@ _DEALS = [
         "category":    "internacional",
         "tipo":        "vuelo",
         "discount_pct": 0,
-        "rating":      8.9,
-        "reviews_count": 183000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Compensación por vuelo cancelado — hasta 600€",
@@ -33,8 +33,8 @@ _DEALS = [
         "category":    "internacional",
         "tipo":        "vuelo",
         "discount_pct": 0,
-        "rating":      8.9,
-        "reviews_count": 183000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Retraso de vuelo — comprueba si tienes derecho a 250–600€",
@@ -46,8 +46,8 @@ _DEALS = [
         "category":    "internacional",
         "tipo":        "vuelo",
         "discount_pct": 0,
-        "rating":      8.9,
-        "reviews_count": 183000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

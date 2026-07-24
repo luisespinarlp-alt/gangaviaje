@@ -19,8 +19,8 @@ _SEGUROS = [
         "category":    "europa",
         "tipo":        "actividad",
         "discount_pct": 0,
-        "rating":      8.7,
-        "reviews_count": 12000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Seguro de viaje Mundial — cobertura en 180 países",
@@ -32,8 +32,8 @@ _SEGUROS = [
         "category":    "internacional",
         "tipo":        "actividad",
         "discount_pct": 0,
-        "rating":      8.7,
-        "reviews_count": 12000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Seguro multivïaje anual — todos tus viajes del año",
@@ -46,8 +46,8 @@ _SEGUROS = [
         "category":    "internacional",
         "tipo":        "actividad",
         "discount_pct": 36,
-        "rating":      8.7,
-        "reviews_count": 12000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

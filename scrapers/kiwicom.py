@@ -19,7 +19,7 @@ _VUELOS = [
         "image_url":      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kiwi.com/es/search/results/madrid-espana/cualquier-lugar/anytime/anytime",
         "category":       "espana",
-        "rating":         8.3,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -30,7 +30,7 @@ _VUELOS = [
         "image_url":      "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kiwi.com/es/search/results/barcelona-espana/cualquier-lugar/anytime/anytime",
         "category":       "espana",
-        "rating":         8.3,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -41,7 +41,7 @@ _VUELOS = [
         "image_url":      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kiwi.com/es/search/results/espana/europa/anytime/anytime",
         "category":       "europa",
-        "rating":         8.3,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -52,7 +52,7 @@ _VUELOS = [
         "image_url":      "https://images.unsplash.com/photo-1559827260-dc66d52bef19?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kiwi.com/es/search/results/espana/islas-canarias-espana/anytime/anytime",
         "category":       "playa",
-        "rating":         8.4,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -63,7 +63,7 @@ _VUELOS = [
         "image_url":      "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kiwi.com/es/search/results/espana/norteamerica/anytime/anytime",
         "category":       "internacional",
-        "rating":         8.2,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -74,7 +74,7 @@ _VUELOS = [
         "image_url":      "https://images.unsplash.com/photo-1480796927426-f609979314bd?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.kiwi.com/es/search/results/espana/asia/anytime/anytime",
         "category":       "internacional",
-        "rating":         8.2,
+        "rating":         0.0,
         "reviews_count":  0,
     },
 ]

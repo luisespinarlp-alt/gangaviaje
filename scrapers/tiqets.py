@@ -21,8 +21,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-barcelona-c66342/",
         "category":       "ciudad",
-        "rating":         8.9,
-        "reviews_count":  1850,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Entradas y atracciones en Madrid",
@@ -32,8 +32,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-madrid-c66254/",
         "category":       "ciudad",
-        "rating":         8.7,
-        "reviews_count":  720,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Entradas y atracciones en Roma",
@@ -43,8 +43,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-roma-c71631/",
         "category":       "europa",
-        "rating":         9.0,
-        "reviews_count":  2300,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Entradas y atracciones en París",
@@ -54,8 +54,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-paris-c66746/",
         "category":       "europa",
-        "rating":         8.8,
-        "reviews_count":  1920,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Entradas y atracciones en Londres",
@@ -65,8 +65,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-londres-c67458/",
         "category":       "europa",
-        "rating":         8.6,
-        "reviews_count":  1340,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Entradas y atracciones en Ámsterdam",
@@ -76,8 +76,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1459679749680-18eb1eb37418?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-amsterdam-c75061/",
         "category":       "europa",
-        "rating":         8.7,
-        "reviews_count":  980,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Entradas y atracciones en Berlín",
@@ -87,8 +87,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1560969184-10fe8719e047?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-berlin-c65144/",
         "category":       "europa",
-        "rating":         8.5,
-        "reviews_count":  610,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Entradas y atracciones en Lisboa",
@@ -98,8 +98,8 @@ _ACTIVIDADES = [
         "image_url":      "https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://www.tiqets.com/es/atracciones-lisboa-c76528/",
         "category":       "europa",
-        "rating":         8.6,
-        "reviews_count":  540,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

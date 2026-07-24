@@ -33,7 +33,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "centauro",
             "category":       "espana",
             "tipo":           "coche",
-            "rating":         8.4,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -48,7 +48,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "centauro",
             "category":       "europa",
             "tipo":           "coche",
-            "rating":         8.2,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -63,7 +63,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "centauro",
             "category":       "europa",
             "tipo":           "coche",
-            "rating":         8.1,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -78,7 +78,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "centauro",
             "category":       "europa",
             "tipo":           "coche",
-            "rating":         8.0,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -93,7 +93,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "centauro",
             "category":       "europa",
             "tipo":           "coche",
-            "rating":         8.3,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -108,7 +108,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "centauro",
             "category":       "europa",
             "tipo":           "coche",
-            "rating":         8.3,
+            "rating":         0.0,
             "reviews_count":  0,
         },
     ]

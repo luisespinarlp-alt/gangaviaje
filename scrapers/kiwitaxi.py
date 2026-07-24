@@ -19,8 +19,8 @@ _TRASLADOS = [
         "image_url":      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://kiwitaxi.com/Spain/Barcelona",
         "category":       "ciudad",
-        "rating":         9.2,
-        "reviews_count":  4200,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Traslado aeropuerto Madrid — Taxi privado al centro",
@@ -30,8 +30,8 @@ _TRASLADOS = [
         "image_url":      "https://images.unsplash.com/photo-1464219789935-c2d9d9aba644?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://kiwitaxi.com/Spain/Madrid",
         "category":       "ciudad",
-        "rating":         9.1,
-        "reviews_count":  3800,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Traslado aeropuerto Roma — Transfer privado Fiumicino",
@@ -41,8 +41,8 @@ _TRASLADOS = [
         "image_url":      "https://images.unsplash.com/photo-1552832230-c0197dd311b5?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://kiwitaxi.com/Italy/Rome",
         "category":       "europa",
-        "rating":         9.0,
-        "reviews_count":  5100,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Traslado aeropuerto París — Transfer privado CDG",
@@ -52,8 +52,8 @@ _TRASLADOS = [
         "image_url":      "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://kiwitaxi.com/France/Paris",
         "category":       "europa",
-        "rating":         9.0,
-        "reviews_count":  6300,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Traslado aeropuerto Londres — Transfer privado Heathrow",
@@ -63,8 +63,8 @@ _TRASLADOS = [
         "image_url":      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://kiwitaxi.com/United-Kingdom/London",
         "category":       "europa",
-        "rating":         9.1,
-        "reviews_count":  7200,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":          "Traslado aeropuerto Lisboa — Taxi privado sin taxímetro",
@@ -74,8 +74,8 @@ _TRASLADOS = [
         "image_url":      "https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://kiwitaxi.com/Portugal/Lisbon",
         "category":       "europa",
-        "rating":         9.2,
-        "reviews_count":  2900,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

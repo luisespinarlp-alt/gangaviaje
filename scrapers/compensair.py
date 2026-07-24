@@ -20,8 +20,8 @@ _DEALS = [
         "category":    "internacional",
         "tipo":        "vuelo",
         "discount_pct": 0,
-        "rating":      8.7,
-        "reviews_count": 45000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
     {
         "title":       "Vuelo cancelado — reclama tu compensación en 3 minutos",
@@ -33,8 +33,8 @@ _DEALS = [
         "category":    "internacional",
         "tipo":        "vuelo",
         "discount_pct": 0,
-        "rating":      8.7,
-        "reviews_count": 45000,
+        "rating":         0.0,
+        "reviews_count":  0,
     },
 ]
 

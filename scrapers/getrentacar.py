@@ -19,7 +19,7 @@ _COCHES = [
         "image_url":      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://getrentacar.com/en/spain/",
         "category":       "espana",
-        "rating":         8.5,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -30,7 +30,7 @@ _COCHES = [
         "image_url":      "https://images.unsplash.com/photo-1548707309-dcebeab9ea9b?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://getrentacar.com/en/portugal/",
         "category":       "europa",
-        "rating":         8.4,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -41,7 +41,7 @@ _COCHES = [
         "image_url":      "https://images.unsplash.com/photo-1529260830199-42c24126f198?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://getrentacar.com/en/italy/",
         "category":       "europa",
-        "rating":         8.3,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -52,7 +52,7 @@ _COCHES = [
         "image_url":      "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://getrentacar.com/en/france/",
         "category":       "europa",
-        "rating":         8.4,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -63,7 +63,7 @@ _COCHES = [
         "image_url":      "https://images.unsplash.com/photo-1555993539-1732b0258235?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://getrentacar.com/en/greece/",
         "category":       "europa",
-        "rating":         8.5,
+        "rating":         0.0,
         "reviews_count":  0,
     },
     {
@@ -74,7 +74,7 @@ _COCHES = [
         "image_url":      "https://images.unsplash.com/photo-1555990793-da11153b2473?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "search_url":     "https://getrentacar.com/en/croatia/",
         "category":       "europa",
-        "rating":         8.6,
+        "rating":         0.0,
         "reviews_count":  0,
     },
 ]

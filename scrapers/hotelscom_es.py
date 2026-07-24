@@ -34,7 +34,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "hotelscom_es",
             "category":       "internacional",
             "tipo":           "hotel",
-            "rating":         8.8,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -49,7 +49,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "hotelscom_es",
             "category":       "europa",
             "tipo":           "apartamento",
-            "rating":         8.6,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -64,7 +64,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "hotelscom_es",
             "category":       "espana",
             "tipo":           "hotel",
-            "rating":         8.7,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -79,7 +79,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "hotelscom_es",
             "category":       "europa",
             "tipo":           "villa",
-            "rating":         9.1,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -94,7 +94,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "hotelscom_es",
             "category":       "espana",
             "tipo":           "apartamento",
-            "rating":         8.5,
+            "rating":         0.0,
             "reviews_count":  0,
         },
         {
@@ -109,7 +109,7 @@ def fetch_deals(min_discount: int = 20, max_results: int = 10) -> list[dict]:
             "source":         "hotelscom_es",
             "category":       "internacional",
             "tipo":           "hotel",
-            "rating":         8.9,
+            "rating":         0.0,
             "reviews_count":  0,
         },
     ]
