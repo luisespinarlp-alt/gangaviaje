@@ -363,13 +363,13 @@
 <div class="nl-section">
   <div class="nl-inner">
     <div class="nl-text">
-      <div class="t">✈️ Recibe guías y GangaConsejos gratis</div>
-      <div class="s">Nuevas guías de destino y trucos para ahorrar, en tu correo</div>
+      <div class="t">🔥 Los mejores chollos, cada semana en tu correo</div>
+      <div class="s">Vuelos, hoteles y actividades con descuento seleccionados a mano. Sin spam, cancela cuando quieras.</div>
     </div>
     <form class="nl-form" id="nlForm" style="flex-direction:column;gap:8px;">
       <div style="display:flex;gap:8px;">
         <input class="nl-input" type="email" id="nlEmail" placeholder="tu@email.com" required>
-        <button class="nl-btn" type="submit">Suscribirme</button>
+        <button class="nl-btn" type="submit">Quiero ofertas →</button>
       </div>
       <p class="nl-msg" id="nlMsg"></p>
     </form>
@@ -426,8 +426,8 @@ document.getElementById('nlForm').addEventListener('submit', async function(e) {
     const d = await r.json();
     msg.textContent = d.msg;
     if (d.ok) { document.getElementById('nlEmail').value = ''; btn.textContent = '✓ ¡Apuntado!'; }
-    else { btn.disabled = false; btn.textContent = 'Suscribirme'; }
-  } catch { msg.textContent = 'Error. Inténtalo de nuevo.'; btn.disabled = false; btn.textContent = 'Suscribirme'; }
+    else { btn.disabled = false; btn.textContent = 'Quiero ofertas →'; }
+  } catch { msg.textContent = 'Error. Inténtalo de nuevo.'; btn.disabled = false; btn.textContent = 'Quiero ofertas →'; }
 });
 </script>
 </body>
