@@ -1,16 +1,21 @@
 """
 Civitatis scraper para GangaViaje.
 Actividades, tours y excursiones en español con comisión del 6-8%.
-Cuando CIVITATIS_AFFILIATE_ID está en .env, los links generan comisión.
+Actualmente INACTIVO (falta CIVITATIS_AFFILIATE_ID en .env).
+
+IMPORTANTE (2026-07-24): igual que se detectó en getyourguide.py, el
+endpoint "api.civitatis.com/api/activities" que usaba esta fuente
+devolvía 404 — no era un endpoint real. El acceso a datos en vivo de
+Civitatis requiere pasar por su Portal de Partners
+(connectivity.civitatis.com) y contacto directo
+(partnerships@civitatis.com), no un endpoint público adivinado. Se ha
+quitado ese intento de API rota; _demo_deals() ya no rellena
+rating/reviews_count con cifras inventadas — son ejemplos curados con
+enlace de afiliado real, no datos de reseñas en vivo de Civitatis.
 """
 
 import logging
-import ssl
-import json
-import urllib.request
-import urllib.parse
 
-import certifi
 import config
 
 log = logging.getLogger(__name__)
@@ -38,8 +43,8 @@ def _demo_deals() -> list[dict]:
             "source":         "civitatis",
             "category":       "ciudad",
             "tipo":           "actividad",
-            "rating":         9.6,
-            "reviews_count":  18420,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Espectáculo de flamenco en Sevilla con bebida incluida",
@@ -53,8 +58,8 @@ def _demo_deals() -> list[dict]:
             "source":         "civitatis",
             "category":       "ciudad",
             "tipo":           "actividad",
-            "rating":         9.4,
-            "reviews_count":  7230,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Visita guiada a la Alhambra con Palacios Nazaríes",
@@ -68,8 +73,8 @@ def _demo_deals() -> list[dict]:
             "source":         "civitatis",
             "category":       "ciudad",
             "tipo":           "actividad",
-            "rating":         9.7,
-            "reviews_count":  14800,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Tour por el Madrid de los Austrias y el Madrid de los Borbones",
@@ -83,8 +88,8 @@ def _demo_deals() -> list[dict]:
             "source":         "civitatis",
             "category":       "ciudad",
             "tipo":           "actividad",
-            "rating":         9.3,
-            "reviews_count":  9650,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Excursión en catamarán por la costa de Mallorca con snorkel",
@@ -98,8 +103,8 @@ def _demo_deals() -> list[dict]:
             "source":         "civitatis",
             "category":       "playa",
             "tipo":           "actividad",
-            "rating":         9.5,
-            "reviews_count":  4310,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Ticket Museu Picasso Barcelona — Sin colas",
@@ -113,8 +118,8 @@ def _demo_deals() -> list[dict]:
             "source":         "civitatis",
             "category":       "ciudad",
             "tipo":           "actividad",
-            "rating":         9.2,
-            "reviews_count":  6780,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Paseo en barco al atardecer por Ibiza",
@@ -128,8 +133,8 @@ def _demo_deals() -> list[dict]:
             "source":         "civitatis",
             "category":       "playa",
             "tipo":           "actividad",
-            "rating":         9.4,
-            "reviews_count":  2890,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Tour nocturno por el Barrio Gótico de Barcelona",
@@ -143,51 +148,16 @@ def _demo_deals() -> list[dict]:
             "source":         "civitatis",
             "category":       "ciudad",
             "tipo":           "actividad",
-            "rating":         9.1,
-            "reviews_count":  5120,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
     ]
 
 
 def fetch_deals(min_discount: int = 25, max_results: int = 10) -> list[dict]:
-    """Devuelve deals de Civitatis. Con API key usa la API real, si no usa demo."""
     if not config.CIVITATIS_AFFILIATE_ID:
-        log.info("Civitatis: modo demo (sin CIVITATIS_AFFILIATE_ID)")
-        return _demo_deals()[:max_results]
-
-    # Con affiliate ID: API real de Civitatis
-    try:
-        ctx = ssl.create_default_context(cafile=certifi.where())
-        url = (f"https://api.civitatis.com/api/activities"
-               f"?lang=es&countryId=5&page=1&affiliateId={config.CIVITATIS_AFFILIATE_ID}")
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=10, context=ctx) as r:
-            data = json.loads(r.read())
-
-        deals = []
-        for item in data.get("rows", [])[:max_results]:
-            price      = float(item.get("price", 0))
-            orig_price = float(item.get("originalPrice", price))
-            discount   = int((orig_price - price) / orig_price * 100) if orig_price > price else 0
-            if discount < min_discount:
-                continue
-            deals.append({
-                "title":          item.get("name", ""),
-                "description":    item.get("description", "")[:200],
-                "location":       item.get("city", {}).get("name", ""),
-                "original_price": orig_price,
-                "sale_price":     price,
-                "discount_pct":   discount,
-                "image_url":      item.get("image", ""),
-                "affiliate_url":  _affiliate_url(item.get("url", "/")),
-                "source":         "civitatis",
-                "category":       "ciudad",
-                "tipo":           "actividad",
-                "rating":         float(item.get("rating", 0)),
-                "reviews_count":  int(item.get("numComments", 0)),
-            })
-        log.info(f"Civitatis API: {len(deals)} actividades encontradas")
-        return deals
-    except Exception as e:
-        log.warning(f"Civitatis API error: {e} — usando demo")
-        return _demo_deals()[:max_results]
+        log.info("Civitatis: sin CIVITATIS_AFFILIATE_ID, omitiendo")
+        return []
+    deals = [d for d in _demo_deals() if d["discount_pct"] >= min_discount]
+    log.info(f"Civitatis: {len(deals)} actividades curadas con enlace de afiliado real")
+    return deals[:max_results]

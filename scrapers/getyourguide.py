@@ -1,16 +1,23 @@
 """
 GetYourGuide scraper para GangaViaje.
-Actividades y tours internacionales con comisión del 8%.
-Cuando GETYOURGUIDE_PARTNER_ID está en .env, los links generan comisión.
+Actividades y tours internacionales. El enlace de afiliado (partner_id
+FF9KKD8, comisión 8%) es real y genera comisión real al reservar.
+
+IMPORTANTE (2026-07-24): esto es una lista curada a mano, NO datos en vivo.
+El código anterior intentaba llamar a "api.getyourguide.com/1/activities"
+como si fuera la API real del partner, pero ese endpoint no existe (404
+confirmado) — el Partner API real de GetYourGuide es una integración de
+marketplace que requiere credenciales propias, no solo el partner_id de
+afiliado. Al fallar, el código caía en un fallback silencioso con rating
+y número de reseñas inventados (ej. "9.4 · 28.400 reseñas") presentados
+como si fueran datos reales de GetYourGuide. Se ha quitado esa falsa
+precisión: rating/reviews_count van a 0 hasta que haya una integración
+real con el Partner API (ver https://integrator.getyourguide.com).
 """
 
 import logging
-import ssl
-import json
-import urllib.request
 import urllib.parse
 
-import certifi
 import config
 
 log = logging.getLogger(__name__)
@@ -26,7 +33,7 @@ def _affiliate_url(search: str = "", activity_url: str = "") -> str:
     return f"{base}&partner_id={pid}" if pid else base
 
 
-def _demo_deals() -> list[dict]:
+def _actividades() -> list[dict]:
     return [
         {
             "title":          "Coliseo de Roma: entrada sin colas con acceso al Foro Romano",
@@ -40,8 +47,8 @@ def _demo_deals() -> list[dict]:
             "source":         "getyourguide",
             "category":       "internacional",
             "tipo":           "actividad",
-            "rating":         9.4,
-            "reviews_count":  28400,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "París: crucero por el Sena con cena y música en vivo",
@@ -55,8 +62,8 @@ def _demo_deals() -> list[dict]:
             "source":         "getyourguide",
             "category":       "internacional",
             "tipo":           "actividad",
-            "rating":         9.2,
-            "reviews_count":  15600,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Ámsterdam: tour en barco por los canales",
@@ -70,8 +77,8 @@ def _demo_deals() -> list[dict]:
             "source":         "getyourguide",
             "category":       "internacional",
             "tipo":           "actividad",
-            "rating":         9.1,
-            "reviews_count":  22300,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Londres: tour en autobús hop-on hop-off 24h",
@@ -85,8 +92,8 @@ def _demo_deals() -> list[dict]:
             "source":         "getyourguide",
             "category":       "europa",
             "tipo":           "actividad",
-            "rating":         8.8,
-            "reviews_count":  31200,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Dubái: vuelo en globo aerostático al amanecer",
@@ -100,8 +107,8 @@ def _demo_deals() -> list[dict]:
             "source":         "getyourguide",
             "category":       "internacional",
             "tipo":           "actividad",
-            "rating":         9.6,
-            "reviews_count":  8900,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Lisboa: tour por el barrio de Alfama y degustación de fado",
@@ -115,8 +122,8 @@ def _demo_deals() -> list[dict]:
             "source":         "getyourguide",
             "category":       "europa",
             "tipo":           "actividad",
-            "rating":         9.3,
-            "reviews_count":  11400,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Marrakech: excursión de un día al desierto del Sáhara",
@@ -130,8 +137,8 @@ def _demo_deals() -> list[dict]:
             "source":         "getyourguide",
             "category":       "internacional",
             "tipo":           "actividad",
-            "rating":         9.5,
-            "reviews_count":  6700,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
         {
             "title":          "Praga: crucero al atardecer con cena y música clásica",
@@ -145,53 +152,16 @@ def _demo_deals() -> list[dict]:
             "source":         "getyourguide",
             "category":       "europa",
             "tipo":           "actividad",
-            "rating":         9.0,
-            "reviews_count":  9200,
+            "rating":         0.0,
+            "reviews_count":  0,
         },
     ]
 
 
 def fetch_deals(min_discount: int = 25, max_results: int = 10) -> list[dict]:
     if not config.GETYOURGUIDE_PARTNER_ID:
-        log.info("GetYourGuide: modo demo (sin GETYOURGUIDE_PARTNER_ID)")
-        return _demo_deals()[:max_results]
-
-    try:
-        ctx = ssl.create_default_context(cafile=certifi.where())
-        url = (f"https://api.getyourguide.com/1/activities"
-               f"?currency=EUR&language=es&limit={max_results}"
-               f"&partner_id={config.GETYOURGUIDE_PARTNER_ID}")
-        req = urllib.request.Request(url, headers={
-            "User-Agent": "Mozilla/5.0",
-            "Accept": "application/json",
-        })
-        with urllib.request.urlopen(req, timeout=10, context=ctx) as r:
-            data = json.loads(r.read())
-
-        deals = []
-        for item in data.get("data", {}).get("activities", []):
-            price      = float(item.get("price", {}).get("values", {}).get("amount", 0))
-            orig_price = float(item.get("original_price", {}).get("values", {}).get("amount", price))
-            discount   = int((orig_price - price) / orig_price * 100) if orig_price > price else 0
-            if discount < min_discount or not price:
-                continue
-            deals.append({
-                "title":          item.get("title", ""),
-                "description":    item.get("abstract", "")[:200],
-                "location":       item.get("location", {}).get("city", ""),
-                "original_price": orig_price,
-                "sale_price":     price,
-                "discount_pct":   discount,
-                "image_url":      (item.get("pictures") or [{}])[0].get("url", ""),
-                "affiliate_url":  _affiliate_url(activity_url=item.get("url", "")),
-                "source":         "getyourguide",
-                "category":       "internacional",
-                "tipo":           "actividad",
-                "rating":         float(item.get("overall_rating", {}).get("average", 0)),
-                "reviews_count":  int(item.get("number_of_ratings", 0)),
-            })
-        log.info(f"GetYourGuide API: {len(deals)} actividades encontradas")
-        return deals
-    except Exception as e:
-        log.warning(f"GetYourGuide API error: {e} — usando demo")
-        return _demo_deals()[:max_results]
+        log.info("GetYourGuide: sin GETYOURGUIDE_PARTNER_ID, omitiendo")
+        return []
+    deals = [d for d in _actividades() if d["discount_pct"] >= min_discount]
+    log.info(f"GetYourGuide: {len(deals)} actividades curadas con enlace de afiliado real")
+    return deals[:max_results]
