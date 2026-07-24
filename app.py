@@ -13,6 +13,11 @@ import database
 
 app = Flask(__name__)
 app.secret_key = config.FLASK_SECRET_KEY
+# vercel.json enruta /static/* a esta misma función Python (no hay CDN estático
+# aparte), así que sin esto cada visita repetida re-descarga logo/CSS/JS con
+# Cache-Control: no-cache. Un año de caché es seguro porque los assets no
+# cambian de nombre; si se reemplaza un archivo hay que renombrarlo.
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 31536000
 
 database.init_db()
 
