@@ -57,6 +57,7 @@
     .deal-hero-title { font-size: 2rem; font-weight: 800; color: white; text-shadow: 0 2px 16px rgba(0,0,0,0.4); line-height: 1.2; margin-bottom: 8px; }
     .deal-hero-location { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.8); font-size: 0.95rem; }
     .deal-hero-location svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .deal-hero-freshness { margin-left: 4px; padding-left: 10px; border-left: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.65); font-size: 0.85rem; }
     .discount-badge { position: absolute; top: 24px; right: 24px; background: #cc0000; color: white; font-size: 1.2rem; font-weight: 800; padding: 10px 16px; border-radius: 10px; }
 
     /* MAIN LAYOUT */
@@ -236,11 +237,25 @@
         {% elif deal.tipo == 'coche' %}Alquiler de coche
         {% else %}Oferta{% endif %}
       </div>
+      {% if deal.source == 'travelpayouts' %}
+      <div class="deal-tipo-badge" style="background:rgba(74,222,128,0.18); border-color:rgba(74,222,128,0.5); margin-left:8px;">
+        <span class="pulse" style="background:#4ade80;"></span>Precio en vivo
+      </div>
+      {% endif %}
       <h1 class="deal-hero-title">{{ deal.title }}</h1>
       {% if deal.location %}
       <div class="deal-hero-location">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         {{ deal.location }}
+        {% if deal.created_at %}
+        <span class="deal-hero-freshness">
+          {% set hours = ((now - deal.created_at).total_seconds() / 3600)|int %}
+          {% if hours < 1 %}hace menos de 1h
+          {% elif hours < 24 %}hace {{ hours }}h
+          {% elif hours < 48 %}ayer
+          {% else %}hace {{ (hours/24)|int }} días{% endif %}
+        </span>
+        {% endif %}
       </div>
       {% endif %}
     </div>
