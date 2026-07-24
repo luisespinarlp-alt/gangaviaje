@@ -54,6 +54,11 @@ PINTEREST_BOARD_OFERTAS = os.getenv("PINTEREST_BOARD_OFERTAS", "")
 TELEGRAM_BOT_TOKEN  = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID", "@gangaviaje")
 
+# Newsletter (Resend)
+RESEND_API_KEY    = os.getenv("RESEND_API_KEY", "")
+RESEND_SEGMENT_ID = os.getenv("RESEND_SEGMENT_ID", "")
+RESEND_FROM       = os.getenv("RESEND_FROM", "GangaViaje <ofertas@gangaviaje.es>")
+
 # Web
 FLASK_SECRET_KEY = os.getenv("FLASK_SECRET_KEY", "dev-secret-key")
 _vercel_url = os.getenv("VERCEL_URL", "")

@@ -10,6 +10,7 @@ from flask import Flask, render_template, abort, Response, request, jsonify
 import bot
 import config
 import database
+import resend_newsletter
 
 app = Flask(__name__)
 app.secret_key = config.FLASK_SECRET_KEY
@@ -414,6 +415,8 @@ def newsletter():
         new = cur.rowcount > 0
         conn.commit()
         conn.close()
+        if new:
+            resend_newsletter.add_contact(email)
         msg = "¡Apuntado! Te enviaremos las mejores ofertas." if new else "Ya estás suscrito."
         return jsonify({"ok": True, "msg": msg})
     except Exception as e:
@@ -515,6 +518,13 @@ def cron():
         abort(401)
     bot.run_once()
     return {"ok": True, "stats": database.get_stats()}
+
+
+@app.route("/api/newsletter-send")
+def newsletter_send():
+    if not config.CRON_SECRET or request.headers.get("Authorization") != f"Bearer {config.CRON_SECRET}":
+        abort(401)
+    return resend_newsletter.send_weekly()
 
 
 @app.route("/robots.txt")

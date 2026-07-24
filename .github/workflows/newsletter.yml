@@ -1,0 +1,15 @@
+name: Send weekly newsletter
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch: {}
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call /api/newsletter-send
+        run: |
+          curl -sf -X GET "https://www.gangaviaje.es/api/newsletter-send" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
