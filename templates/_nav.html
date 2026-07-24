@@ -46,6 +46,14 @@ nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,.10); position: sticky
   .nav-dd .dd-sep { padding: 8px 36px 2px; }
   .nav-dd .dd-all { border-bottom: none; }
 }
+/* ── Botón flotante Telegram ── */
+.tg-float { position: fixed; bottom: 24px; right: 20px; z-index: 950; width: 56px; height: 56px; border-radius: 50%; background: #26A5E4; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,.25); transition: transform .2s ease; }
+.tg-float:hover { transform: scale(1.08); }
+.tg-float svg { width: 26px; height: 26px; }
+@media (max-width: 480px) {
+  .tg-float { width: 50px; height: 50px; bottom: 88px; right: 16px; }
+  .tg-float svg { width: 23px; height: 23px; }
+}
 </style>
 
 <nav>
@@ -132,6 +140,11 @@ nav { background: white; box-shadow: 0 1px 4px rgba(0,0,0,.10); position: sticky
     </div>
   </div>
 </nav>
+
+<a href="https://t.me/gangaviaje" target="_blank" rel="noopener" class="tg-float" title="Únete a nuestro canal de Telegram — ofertas al instante">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M9.417 15.181l-.397 5.584c.568 0 .814-.244 1.109-.537l2.663-2.545 5.518 4.041c1.012.564 1.725.267 1.998-.931L23.93 4.11c.328-1.489-.523-2.078-1.514-1.716L1.114 10.446c-1.451.564-1.43 1.375-.247 1.741l5.518 1.722L18.25 6.75c.539-.334 1.03-.15.626.185L9.417 15.181z"/></svg>
+</a>
+
 <script>
 (function(){
   var toggle = document.getElementById('navToggle');
