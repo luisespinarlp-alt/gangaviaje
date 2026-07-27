@@ -17,6 +17,7 @@ import certifi
 import config
 import database
 import pinterest as pinterest_publisher
+import resend_newsletter
 from scrapers import airalo, airhelp, autoeurope, booking, booking_cee, booking_es, centauro, civitatis, compensair, economybookings, ekta, expedia, getyourguide, getrentacar, gocity, hotelscom, hotelscom_es, iberia, iberostar, kiwicom, kiwitaxi, kkday, klook, radicalstorage, tiqets, travelpayouts, wegotrip, welcomepickups
 
 _handlers = [logging.StreamHandler()]
@@ -230,6 +231,12 @@ def run_once():
         log.info(f"Pinterest: {pinned} pins publicados")
     else:
         log.info("Pinterest: sin token configurado, omitiendo")
+
+    # 5. Revisar alertas de precio activas
+    try:
+        resend_newsletter.check_price_alerts()
+    except Exception as e:
+        log.error(f"Alertas de precio error: {e}")
 
     stats = database.get_stats()
     log.info(f"BD: {stats['total']} deals activos, {stats['today']} de hoy")

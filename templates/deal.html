@@ -116,6 +116,12 @@
     .booking-saving { background: #e8f5e9; color: #2e7d32; font-size: 0.85rem; font-weight: 700; padding: 8px 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
     .booking-cta { display: block; background: #C85A2A; color: white; text-align: center; padding: 14px; font-size: 1rem; font-weight: 700; text-decoration: none; border-radius: 10px; transition: background 0.15s; margin-bottom: 12px; }
     .booking-cta:hover { background: #A84A22; }
+    .price-alert-box { background: #EAF6FD; border: 1px solid #B8DDF0; border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+    .price-alert-title { font-size: 0.85rem; font-weight: 700; color: #1C1610; margin-bottom: 10px; }
+    .price-alert-input { flex: 1; min-width: 0; padding: 10px 12px; border: 1.5px solid #cfe4f0; border-radius: 8px; font-size: 0.85rem; font-family: inherit; }
+    .price-alert-btn { background: #26A5E4; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; white-space: nowrap; }
+    .price-alert-btn:hover { background: #1e8fc9; }
+    .price-alert-msg { font-size: 0.8rem; margin: 8px 0 0; }
     .booking-note { font-size: 0.75rem; color: #aaa; text-align: center; line-height: 1.5; }
     .booking-divider { border: none; border-top: 1px solid #f0f2f5; margin: 16px 0; }
 
@@ -256,6 +262,9 @@
           {% else %}hace {{ (hours/24)|int }} días{% endif %}
         </span>
         {% endif %}
+        {% if deal.views and deal.views >= 5 %}
+        <span class="deal-hero-freshness">👁 {{ deal.views }} vistas</span>
+        {% endif %}
       </div>
       {% endif %}
     </div>
@@ -326,6 +335,35 @@
     <a href="{{ deal.affiliate_url }}" class="booking-cta" target="_blank" rel="noopener">
       Ver disponibilidad
     </a>
+
+    {% if deal.tipo == 'vuelo' and deal.source == 'travelpayouts' %}
+    <div class="price-alert-box">
+      <div class="price-alert-title">📉 ¿Todavía caro? Te avisamos si baja</div>
+      <form id="alertForm" style="display:flex;gap:8px;">
+        <input type="email" id="alertEmail" placeholder="tu@email.com" required class="price-alert-input">
+        <button type="submit" class="price-alert-btn">Avisarme</button>
+      </form>
+      <p class="price-alert-msg" id="alertMsg"></p>
+    </div>
+    <script>
+    document.getElementById('alertForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const email = document.getElementById('alertEmail').value;
+      const msg = document.getElementById('alertMsg');
+      const btn = this.querySelector('button');
+      btn.disabled = true; btn.textContent = 'Enviando...';
+      try {
+        const r = await fetch('/alerta-precio', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email, deal_id: {{ deal.id }}})});
+        const data = await r.json();
+        msg.textContent = data.msg;
+        msg.style.color = data.ok ? '#2e7d32' : '#c0392b';
+        if (data.ok) { this.style.display = 'none'; }
+      } catch { msg.textContent = 'Error. Inténtalo de nuevo.'; }
+      btn.disabled = false; btn.textContent = 'Avisarme';
+    });
+    </script>
+    {% endif %}
+
     <!-- DISCLAIMER PRECIO -->
     <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:0.78rem;color:#555;line-height:1.5;">
       ⚠️ <strong>Precio orientativo.</strong> El precio final puede variar según disponibilidad y fechas. Confirma siempre en el sitio del proveedor antes de reservar.

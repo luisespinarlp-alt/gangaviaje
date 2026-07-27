@@ -11,6 +11,7 @@ import bot
 import config
 import database
 import resend_newsletter
+from scrapers import travelpayouts
 
 app = Flask(__name__)
 app.secret_key = config.FLASK_SECRET_KEY
@@ -262,9 +263,31 @@ def oferta(deal_id: int):
     deal = database.get_deal(deal_id)
     if not deal:
         abort(404)
+    database.increment_views(deal_id)
+    deal["views"] = (deal.get("views") or 0) + 1
     related = database.get_deals(category=deal.get("category", "europa"), limit=4)
     related = [d for d in related if d["id"] != deal_id][:3]
     return render_template("deal.html", deal=deal, destinos=config.DESTINOS, related=related)
+
+
+@app.route("/alerta-precio", methods=["POST"])
+def alerta_precio():
+    data = request.json or {}
+    email = (data.get("email") or "").strip().lower()
+    deal_id = data.get("deal_id")
+    if not email or "@" not in email or "." not in email:
+        return jsonify({"ok": False, "msg": "Email no válido"}), 400
+    if not deal_id:
+        return jsonify({"ok": False, "msg": "Oferta no válida"}), 400
+    deal = database.get_deal(int(deal_id))
+    if not deal or deal.get("tipo") != "vuelo" or deal.get("source") != "travelpayouts":
+        return jsonify({"ok": False, "msg": "Alertas solo disponibles para vuelos con precio en vivo"}), 400
+    origin, destination = travelpayouts.parse_flight_route(deal)
+    if not origin or not destination:
+        return jsonify({"ok": False, "msg": "No se pudo identificar la ruta"}), 400
+    database.add_price_alert(email, origin, destination, deal["title"], deal["sale_price"], deal["id"])
+    resend_newsletter.add_contact(email)
+    return jsonify({"ok": True, "msg": "¡Listo! Te avisamos por email si baja el precio."})
 
 
 @app.route("/blog")

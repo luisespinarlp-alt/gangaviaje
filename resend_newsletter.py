@@ -157,3 +157,66 @@ def send_weekly() -> dict:
         return {"sent": True, "broadcast_id": resp["id"], "deals": len(deals)}
     log.warning("Newsletter: fallo al crear/enviar el broadcast")
     return {"sent": False, "reason": "resend error"}
+
+
+def _send_email(to: str, subject: str, html: str) -> bool:
+    resp = _req("POST", "/emails", {
+        "from": config.RESEND_FROM,
+        "to": [to],
+        "subject": subject,
+        "html": html,
+    })
+    return bool(resp and resp.get("id"))
+
+
+def _alert_email_html(alert: dict, new_price: float) -> str:
+    saving = alert["base_price"] - new_price
+    return f"""<!DOCTYPE html>
+<html><body style="margin:0;padding:0;background:#F9F7F3;font-family:-apple-system,Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 0;">
+    <tr><td align="center">
+      <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;background:white;border-radius:16px;overflow:hidden;">
+        <tr><td style="padding:32px 28px;">
+          <span style="font-size:20px;font-weight:800;color:#1C1610;">Ganga<span style="color:#C85A2A;">Viaje</span></span>
+          <h1 style="font-size:22px;color:#1C1610;margin:20px 0 8px;">¡Ha bajado el precio! 📉</h1>
+          <p style="color:#555;font-size:15px;line-height:1.5;">{alert['route_label']}</p>
+          <table role="presentation" width="100%" style="margin:20px 0;background:#FAF0E8;border-radius:12px;padding:16px;">
+            <tr><td style="padding:16px;">
+              <span style="color:#999;font-size:13px;text-decoration:line-through;">Antes: €{alert['base_price']:.0f}</span><br>
+              <span style="color:#C85A2A;font-weight:800;font-size:28px;">€{new_price:.0f}</span>
+              <span style="color:#2e7d32;font-weight:700;font-size:14px;margin-left:8px;">-€{saving:.0f}</span>
+            </td></tr>
+          </table>
+          <a href="{config.BASE_URL}/oferta/{alert.get('deal_id','')}" style="display:inline-block;background:#C85A2A;color:white;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none;">Ver oferta →</a>
+          <p style="color:#aaa;font-size:11px;margin-top:24px;">Te suscribiste a esta alerta en gangaviaje.es. {{{{{{RESEND_UNSUBSCRIBE_URL}}}}}}</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body></html>"""
+
+
+def check_price_alerts() -> dict:
+    """Revisa las alertas de precio activas y avisa por email si el precio actual
+    es menor que el precio al que se suscribió el usuario. Pensado para llamarse
+    desde el ciclo del bot (ya corre cada hora)."""
+    from scrapers import travelpayouts
+
+    if not config.RESEND_API_KEY:
+        return {"checked": 0, "notified": 0}
+
+    alerts = database.get_active_price_alerts()
+    notified = 0
+    for alert in alerts:
+        price = travelpayouts.check_current_price(alert["origin"], alert["destination"])
+        if price is None:
+            continue
+        if price < alert["base_price"]:
+            html = _alert_email_html(alert, price)
+            if _send_email(alert["email"], f"📉 Bajó el precio: {alert['route_label']}", html):
+                database.mark_alert_notified(alert["id"])
+                notified += 1
+                log.info(f"Alerta de precio enviada a {alert['email']}: {alert['base_price']}€ → {price}€")
+
+    log.info(f"Alertas de precio: {len(alerts)} revisadas, {notified} avisadas")
+    return {"checked": len(alerts), "notified": notified}

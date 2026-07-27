@@ -43,6 +43,25 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_deals_active
         ON deals (active, created_at DESC)
     """)
+    cur.execute("ALTER TABLE deals ADD COLUMN IF NOT EXISTS views INTEGER DEFAULT 0")
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS price_alerts (
+            id            SERIAL PRIMARY KEY,
+            email         TEXT    NOT NULL,
+            origin        TEXT    NOT NULL,
+            destination   TEXT    NOT NULL,
+            route_label   TEXT    NOT NULL,
+            base_price    REAL    NOT NULL,
+            deal_id       INTEGER,
+            created_at    TIMESTAMP DEFAULT NOW(),
+            notified_at   TIMESTAMP,
+            active        INTEGER DEFAULT 1
+        )
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS idx_price_alerts_active
+        ON price_alerts (active, origin, destination)
+    """)
     cur.execute("""
         CREATE TABLE IF NOT EXISTS posts (
             id          SERIAL PRIMARY KEY,
@@ -216,6 +235,49 @@ def get_deals_grouped(category: str = None, per_tipo_limit: int = 40) -> list:
         if tipo in rows_by_tipo:
             grouped.append((tipo, rows_by_tipo[tipo]))
     return grouped
+
+
+def increment_views(deal_id: int) -> None:
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("UPDATE deals SET views = views + 1 WHERE id = %s", (deal_id,))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def add_price_alert(email: str, origin: str, destination: str, route_label: str, base_price: float, deal_id: int | None) -> int:
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        INSERT INTO price_alerts (email, origin, destination, route_label, base_price, deal_id)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        RETURNING id
+    """, (email, origin, destination, route_label, base_price, deal_id))
+    alert_id = cur.fetchone()[0]
+    conn.commit()
+    cur.close()
+    conn.close()
+    return alert_id
+
+
+def get_active_price_alerts() -> list:
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM price_alerts WHERE active = 1")
+    rows = [dict(r) for r in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return rows
+
+
+def mark_alert_notified(alert_id: int) -> None:
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("UPDATE price_alerts SET notified_at = NOW(), active = 0 WHERE id = %s", (alert_id,))
+    conn.commit()
+    cur.close()
+    conn.close()
 
 
 def get_deal(deal_id: int) -> dict | None:

@@ -90,6 +90,25 @@ def _affiliate_url(origin: str, destination: str, depart_date: str = "") -> str:
     return f"https://www.aviasales.com/search?{urllib.parse.urlencode(params)}"
 
 
+def check_current_price(origin: str, destination: str) -> float | None:
+    """Consulta el precio más barato actual para una ruta. Para el chequeo de alertas."""
+    if not config.TRAVELPAYOUTS_TOKEN:
+        return None
+    flight = _fetch_cheapest(origin, destination)
+    return round(flight["price"], 2) if flight else None
+
+
+def parse_flight_route(deal: dict) -> tuple[str, str] | tuple[None, None]:
+    """Extrae (origin_iata, destination_iata) de la affiliate_url de un deal de
+    travelpayouts — más fiable que parsear el título porque son los mismos
+    códigos que usa _affiliate_url() para construir el enlace."""
+    url = deal.get("affiliate_url", "")
+    qs = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+    origin = (qs.get("origin_iata") or [None])[0]
+    destination = (qs.get("destination_iata") or [None])[0]
+    return origin, destination
+
+
 def _demo_deals() -> list[dict]:
     demo = [
         ("MAD", "PAR", "París",     89.0,  "europa"),
