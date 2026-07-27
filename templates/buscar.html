@@ -141,9 +141,29 @@
   {% elif q %}
   <p class="results-info">
     <strong>{{ total }} resultado{% if total != 1 %}s{% endif %}</strong> para "<strong>{{ q }}</strong>"
-    {% if results.deals %} — {{ results.deals|length }} oferta{% if results.deals|length != 1 %}s{% endif %}{% endif %}
-    {% if results.posts %} · {{ results.posts|length }} artículo{% if results.posts|length != 1 %}s{% endif %}{% endif %}
+    {% if results.posts %} — {{ results.posts|length }} artículo{% if results.posts|length != 1 %}s{% endif %}{% endif %}
+    {% if results.deals %} · {{ results.deals|length }} oferta{% if results.deals|length != 1 %}s{% endif %}{% endif %}
   </p>
+
+  {% if results.posts %}
+  <h2 class="section-title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    Guías de viaje
+  </h2>
+  <div class="posts-list">
+    {% for post in results.posts %}
+    <a href="/blog/{{ post.slug }}" class="post-result">
+      {% if post.image_url %}<img src="{{ post.image_url }}" alt="{{ post.title }}" class="post-result-img" loading="lazy">{% endif %}
+      <div class="post-result-body">
+        <div class="post-result-cat">{{ post.category }}</div>
+        <div class="post-result-title">{{ post.title }}</div>
+        <div class="post-result-excerpt">{{ post.excerpt }}</div>
+      </div>
+      <span class="post-result-arrow">→</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
 
   {% if results.deals %}
   <h2 class="section-title">
@@ -168,26 +188,6 @@
         </div>
         <span class="card-cta">Ver oferta →</span>
       </div>
-    </a>
-    {% endfor %}
-  </div>
-  {% endif %}
-
-  {% if results.posts %}
-  <h2 class="section-title">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-    Guías de viaje
-  </h2>
-  <div class="posts-list">
-    {% for post in results.posts %}
-    <a href="/blog/{{ post.slug }}" class="post-result">
-      {% if post.image_url %}<img src="{{ post.image_url }}" alt="{{ post.title }}" class="post-result-img" loading="lazy">{% endif %}
-      <div class="post-result-body">
-        <div class="post-result-cat">{{ post.category }}</div>
-        <div class="post-result-title">{{ post.title }}</div>
-        <div class="post-result-excerpt">{{ post.excerpt }}</div>
-      </div>
-      <span class="post-result-arrow">→</span>
     </a>
     {% endfor %}
   </div>
