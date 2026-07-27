@@ -222,10 +222,11 @@ def run_once():
 
     # 4. Publicar en Pinterest los deals nuevos (máx 3 por ciclo)
     if config.PINTEREST_ACCESS_TOKEN:
-        pending_pins = database.get_unpublished_deals()
+        pending_pins = database.get_unpublished_deals_pinterest()
         pinned = 0
         for deal in pending_pins[:3]:
             if pinterest_publisher.publish_pin(deal):
+                database.mark_published_pinterest(deal["id"])
                 pinned += 1
                 time.sleep(3)
         log.info(f"Pinterest: {pinned} pins publicados")

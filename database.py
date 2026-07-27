@@ -44,6 +44,7 @@ def init_db():
         ON deals (active, created_at DESC)
     """)
     cur.execute("ALTER TABLE deals ADD COLUMN IF NOT EXISTS views INTEGER DEFAULT 0")
+    cur.execute("ALTER TABLE deals ADD COLUMN IF NOT EXISTS published_pinterest INTEGER DEFAULT 0")
     cur.execute("""
         CREATE TABLE IF NOT EXISTS price_alerts (
             id            SERIAL PRIMARY KEY,
@@ -339,6 +340,28 @@ def mark_published_telegram(deal_id: int):
     conn = get_conn()
     cur = conn.cursor()
     cur.execute("UPDATE deals SET published_telegram = 1 WHERE id = %s", (deal_id,))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def get_unpublished_deals_pinterest() -> list:
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute(
+        "SELECT * FROM deals WHERE published_pinterest = 0 AND active = 1 "
+        "ORDER BY discount_pct DESC"
+    )
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+def mark_published_pinterest(deal_id: int):
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("UPDATE deals SET published_pinterest = 1 WHERE id = %s", (deal_id,))
     conn.commit()
     cur.close()
     conn.close()
