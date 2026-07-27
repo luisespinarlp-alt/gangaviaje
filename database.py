@@ -358,6 +358,24 @@ def get_unpublished_deals_pinterest() -> list:
     return [dict(r) for r in rows]
 
 
+def get_guide_slug(location: str) -> str | None:
+    """Busca una guía de blog para una ciudad/ubicación de deal. La mayoría de
+    títulos empiezan por el nombre de la ciudad ("Roma: qué ver...", "París en
+    3 días...") así que basta con el prefijo, sin exigir ":" justo después."""
+    if not location:
+        return None
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT slug FROM posts WHERE title ILIKE %s ORDER BY LENGTH(title) ASC LIMIT 1",
+        (f"{location}%",)
+    )
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+    return row[0] if row else None
+
+
 def mark_published_pinterest(deal_id: int):
     conn = get_conn()
     cur = conn.cursor()

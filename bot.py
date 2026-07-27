@@ -114,15 +114,19 @@ def publish_deal(deal: dict) -> bool:
         label = "Excepcional" if deal["rating"] >= 9 else "Muy bueno" if deal["rating"] >= 8 else "Bueno"
         lines.append(f"⭐ {deal['rating']:.1f}/10 · {label}")
 
+    guide_slug = database.get_guide_slug(deal.get("location", ""))
+    if guide_slug:
+        lines.append(f"\n📖 <b>¿Primera vez en {deal['location']}?</b> Tenemos una guía completa gratis.")
+
     lines.append(f"\n🔗 {src}  |  ⏰ <i>Oferta limitada</i>")
     text = "\n".join(lines)
 
-    buttons = json.dumps({
-        "inline_keyboard": [
-            [{"text": f"🎫 Ver oferta completa", "url": deal_url}],
-            [{"text": f"➡️ Reservar en {src}", "url": deal["affiliate_url"]}],
-        ]
-    })
+    keyboard = []
+    if guide_slug:
+        keyboard.append([{"text": f"📖 Guía completa de {deal['location']}", "url": f"{config.BASE_URL}/blog/{guide_slug}"}])
+    keyboard.append([{"text": f"🎫 Ver oferta completa", "url": deal_url}])
+    keyboard.append([{"text": f"➡️ Reservar en {src}", "url": deal["affiliate_url"]}])
+    buttons = json.dumps({"inline_keyboard": keyboard})
 
     payload = {
         "chat_id":      config.TELEGRAM_CHANNEL_ID,
