@@ -85,6 +85,17 @@ _HOTELES = [
         "image_url":      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?fm=jpg&q=80&w=800&auto=format&fit=crop",
         "category":       "playa",
     },
+    {
+        "link_id":        "17236135",
+        "title":          "Iberostar Waves Club Palmeraie — Marrakech",
+        "description":    "Hotel Iberostar en la Palmeraie de Marrakech, con jardines y piscina, a las afueras de la medina.",
+        "location":       "Marrakech",
+        "original_price": None,
+        "sale_price":     115.0,
+        "discount_pct":   0,
+        "image_url":      "https://images.unsplash.com/photo-1542401886-65d6c61db217?fm=jpg&q=80&w=800&auto=format&fit=crop",
+        "category":       "internacional",
+    },
 ]
 
 

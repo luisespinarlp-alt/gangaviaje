@@ -27,7 +27,7 @@ _OFERTAS = [
     {
         "link_id":        "17327726",
         "title":          "Últimos días: Ofertas de Verano de Iberia",
-        "description":    "Campaña de ofertas de verano con vuelos para julio y agosto. Promoción activa hasta el 30 de julio de 2026.",
+        "description":    "Campaña de ofertas de verano con vuelos para julio y agosto. Promoción activa hasta el 31 de julio de 2026.",
         "location":       "España y Europa",
         "original_price": 55.0,
         "sale_price":     39.0,
