@@ -6,3 +6,4 @@ venv/
 bot.log
 web.log
 scripts/ga_token.json
+scripts/gsc_token.json
