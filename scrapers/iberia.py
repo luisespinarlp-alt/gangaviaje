@@ -25,17 +25,6 @@ def _cj_url(link_id: str, sid: str = None) -> str:
 
 _OFERTAS = [
     {
-        "link_id":        "17327726",
-        "title":          "Últimos días: Ofertas de Verano de Iberia",
-        "description":    "Campaña de ofertas de verano con vuelos para julio y agosto. Promoción activa hasta el 31 de julio de 2026.",
-        "location":       "España y Europa",
-        "original_price": 55.0,
-        "sale_price":     39.0,
-        "discount_pct":   29,
-        "image_url":      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?fm=jpg&q=80&w=800&auto=format&fit=crop",
-        "category":       "espana",
-    },
-    {
         "link_id":        "15466012",
         "title":          "Vuelos con Iberia desde España",
         "description":    "Vuelos nacionales e internacionales con la aerolínea de bandera española. Encuentra tu mejor precio.",
