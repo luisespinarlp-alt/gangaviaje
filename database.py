@@ -45,6 +45,7 @@ def init_db():
     """)
     cur.execute("ALTER TABLE deals ADD COLUMN IF NOT EXISTS views INTEGER DEFAULT 0")
     cur.execute("ALTER TABLE deals ADD COLUMN IF NOT EXISTS published_pinterest INTEGER DEFAULT 0")
+    cur.execute("ALTER TABLE deals ADD COLUMN IF NOT EXISTS telegram_published_at TIMESTAMPTZ")
     cur.execute("""
         CREATE TABLE IF NOT EXISTS price_alerts (
             id            SERIAL PRIMARY KEY,
@@ -339,10 +340,37 @@ def get_unpublished_deals() -> list:
 def mark_published_telegram(deal_id: int):
     conn = get_conn()
     cur = conn.cursor()
-    cur.execute("UPDATE deals SET published_telegram = 1 WHERE id = %s", (deal_id,))
+    cur.execute("UPDATE deals SET published_telegram = 1, telegram_published_at = NOW() WHERE id = %s", (deal_id,))
     conn.commit()
     cur.close()
     conn.close()
+
+
+def requeue_stale_telegram_deals(min_days: int = 7, batch: int = 5) -> int:
+    """
+    Reintroduce en la cola de Telegram un lote rotatorio de ofertas de catálogo
+    fijo (todo menos TravelPayouts, que ya genera contenido nuevo por sí solo).
+    Sin esto, una oferta de hotel/actividad/coche se publica una única vez en
+    toda su vida y el canal acaba siendo solo vuelos. Prioriza las que llevan
+    más tiempo sin volver a publicarse.
+    """
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE deals SET published_telegram = 0
+        WHERE id IN (
+            SELECT id FROM deals
+            WHERE active = 1 AND source != 'travelpayouts' AND published_telegram = 1
+              AND (telegram_published_at IS NULL OR telegram_published_at < NOW() - (%s || ' days')::interval)
+            ORDER BY telegram_published_at ASC NULLS FIRST
+            LIMIT %s
+        )
+    """, (min_days, batch))
+    n = cur.rowcount
+    conn.commit()
+    cur.close()
+    conn.close()
+    return n
 
 
 def get_unpublished_deals_pinterest() -> list:

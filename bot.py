@@ -4,6 +4,7 @@ Scrape Booking + Civitatis + GetYourGuide + TravelPayouts, publica en Telegram, 
 Se ejecuta vía Vercel Cron (endpoint /api/cron) en producción, o en bucle local con main().
 """
 
+import datetime
 import json
 import logging
 import os
@@ -214,6 +215,14 @@ def run_once():
 
     # 3. Publicar en Telegram los pendientes
     if config.TELEGRAM_BOT_TOKEN:
+        # Una vez al día, reintroduce un lote rotatorio del catálogo fijo (hoteles,
+        # actividades, coches...) para que el canal no sea solo vuelos de TravelPayouts
+        # -- es la única fuente que genera contenido nuevo por sí sola cada ciclo.
+        if datetime.datetime.now(datetime.timezone.utc).hour == 9:
+            n = database.requeue_stale_telegram_deals(min_days=7, batch=5)
+            if n:
+                log.info(f"Telegram: {n} ofertas del catálogo fijo re-encoladas para variedad")
+
         pending = database.get_unpublished_deals()
         published = 0
         for deal in pending[:10]:  # máx 10 por ciclo
