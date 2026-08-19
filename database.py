@@ -465,7 +465,7 @@ def add_post(post: dict) -> int:
     return post_id
 
 
-def get_posts(limit: int = 30, category: str = None, exclude_category: str = None) -> list:
+def get_posts(limit: int = 30, category: str = None, exclude_category: str | list = None) -> list:
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     conditions, params = [], []
@@ -473,8 +473,12 @@ def get_posts(limit: int = 30, category: str = None, exclude_category: str = Non
         conditions.append("category = %s")
         params.append(category)
     if exclude_category:
-        conditions.append("category != %s")
-        params.append(exclude_category)
+        if isinstance(exclude_category, (list, tuple)):
+            conditions.append("category NOT IN %s")
+            params.append(tuple(exclude_category))
+        else:
+            conditions.append("category != %s")
+            params.append(exclude_category)
     where = ("WHERE " + " AND ".join(conditions)) if conditions else ""
     params.append(limit)
     cur.execute(f"SELECT * FROM posts {where} ORDER BY created_at DESC LIMIT %s", params)

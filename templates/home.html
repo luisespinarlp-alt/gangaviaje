@@ -131,6 +131,18 @@
     .gc-tips li::before { content: "✓"; color: #C85A2A; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
     @media (max-width: 900px) { .gc-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .gc-grid { grid-template-columns: 1fr; } }
+    .vi-section { background: #0F1F1E; border-top: 3px solid #2E9E8F; }
+    .vi-section .section-title { color: white; }
+    .vi-section .section-subtitle { color: rgba(255,255,255,.42); }
+    .vi-section .section-link { color: #2E9E8F; }
+    .vi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .vi-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-left: 4px solid #2E9E8F; border-radius: 16px; padding: 26px 22px 24px; transition: transform .22s ease, background .22s ease; text-decoration: none; color: inherit; display: block; }
+    .vi-card:hover { transform: translateY(-5px); background: rgba(255,255,255,.07); }
+    .vi-num { font-size: .58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; color: #2E9E8F; margin-bottom: 14px; display: block; opacity: .9; }
+    .vi-icon { font-size: 2.2rem; margin-bottom: 14px; }
+    .vi-title { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 12px; line-height: 1.4; }
+    @media (max-width: 900px) { .vi-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .vi-grid { grid-template-columns: 1fr; } }
 
     /* ── OFERTAS ── */
     .ofertas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
@@ -324,6 +336,33 @@
   </div>
 </div>
 
+<!-- ── VIAJES INSÓLITOS ── -->
+{% if insolitos %}
+<div class="section vi-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <span class="section-eyebrow" style="color:#2E9E8F;">¿Sabías que...?</span>
+        <h2 class="section-title">Viajes <span style="color:#2E9E8F;">Insólitos</span></h2>
+        <p class="section-subtitle">Los datos de viaje más sorprendentes del mundo, verificados y sin inventar nada</p>
+      </div>
+      <a href="/insolitos" class="section-link">Ver todos →</a>
+    </div>
+    <div class="vi-grid">
+      {% for post in insolitos %}
+      <a href="/blog/{{ post.slug }}" class="vi-card">
+        <span class="vi-num">🌍 Insólito</span>
+        <div class="vi-icon">🌍</div>
+        <div class="vi-title">{{ post.title }}</div>
+        {% if post.excerpt %}<p style="font-size:.83rem;color:rgba(255,255,255,.48);line-height:1.55;margin-bottom:0;">{{ post.excerpt }}</p>{% endif %}
+        <span style="font-size:.78rem;font-weight:700;color:#2E9E8F;margin-top:14px;display:block;letter-spacing:.3px;">Descubrir →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
 <!-- ── OFERTAS DESTACADAS ── -->
 {% if featured_deals %}
 <div class="section" style="background:#F9F7F3;padding-top:48px;">
@@ -396,6 +435,7 @@
       <div class="footer-col">
         <h4>GangaViaje</h4>
         <a href="/consejos">GangaConsejos</a>
+        <a href="/insolitos">Viajes Insólitos</a>
         <a href="/ofertas/hoteles">Ofertas activas</a>
         <a href="/sobre-nosotros">Sobre nosotros</a>
         <a href="/privacidad">Privacidad</a>

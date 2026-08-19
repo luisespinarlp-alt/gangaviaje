@@ -69,17 +69,19 @@ _FEATURED_DESTINATIONS = [
 def index():
     cached = _cache_get("homepage_v2")
     if cached:
-        guides, consejos, featured_deals, stats = cached
+        guides, consejos, insolitos, featured_deals, stats = cached
     else:
-        guides = database.get_posts(limit=6, exclude_category="consejos")
+        guides = database.get_posts(limit=6, exclude_category=["consejos", "insolitos"])
         consejos = database.get_posts(limit=6, category="consejos")
+        insolitos = database.get_posts(limit=3, category="insolitos")
         featured_deals = database.get_deals(limit=4)
         stats = database.get_stats()
-        _cache_set("homepage_v2", (guides, consejos, featured_deals, stats))
+        _cache_set("homepage_v2", (guides, consejos, insolitos, featured_deals, stats))
     return render_template(
         "home.html",
         guides=guides,
         consejos=consejos,
+        insolitos=insolitos,
         featured_deals=featured_deals,
         stats=stats,
         featured_destinations=_FEATURED_DESTINATIONS,
@@ -304,7 +306,7 @@ def guias():
         posts = database.get_posts(limit=100, category=cat)
         page_title = _titles[cat]
     else:
-        posts = database.get_posts(limit=100, exclude_category="consejos")
+        posts = database.get_posts(limit=100, exclude_category=["consejos", "insolitos"])
         page_title = "Guías de viaje"
     return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS,
                            page_title=page_title, page_desc="Guías detalladas para cada destino",
@@ -316,6 +318,13 @@ def consejos():
     posts = database.get_posts(limit=100, category="consejos")
     return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS,
                            page_title="GangaConsejos", page_desc="Trucos y consejos para viajar gastando menos")
+
+
+@app.route("/insolitos")
+def insolitos():
+    posts = database.get_posts(limit=100, category="insolitos")
+    return render_template("blog_list.html", posts=posts, destinos=config.DESTINOS,
+                           page_title="Viajes Insólitos", page_desc="Los datos de viaje más sorprendentes del mundo, verificados y sin inventar nada")
 
 
 _CITY_MAP = {
@@ -479,6 +488,7 @@ def sitemap():
     urls.append(f"<url><loc>{base}/blog</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>")
     urls.append(f"<url><loc>{base}/guias</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
     urls.append(f"<url><loc>{base}/consejos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
+    urls.append(f"<url><loc>{base}/insolitos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
     for key in config.DESTINOS:
         urls.append(f"<url><loc>{base}/destino/{key}</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>")
     # Páginas de ofertas por tipo

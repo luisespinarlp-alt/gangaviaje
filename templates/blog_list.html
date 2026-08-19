@@ -159,7 +159,7 @@
   {% if posts %}
 
   {# FEATURED — primer post en grande #}
-  {% set cat_label = {"espana": "🇪🇸 España", "europa": "🏛️ Europa", "internacional": "✈️ Internacional", "consejos": "💡 GangaConsejos"} %}
+  {% set cat_label = {"espana": "🇪🇸 España", "europa": "🏛️ Europa", "internacional": "✈️ Internacional", "consejos": "💡 GangaConsejos", "insolitos": "🌍 Viajes Insólitos"} %}
   {% set featured = posts[0] %}
   <a href="/blog/{{ featured.slug }}" class="featured-post" data-cat="{{ featured.category }}">
     <div class="featured-img">
@@ -230,6 +230,7 @@
       <div class="footer-col">
         <h4>GangaViaje</h4>
         <a href="/consejos">GangaConsejos</a>
+        <a href="/insolitos">Viajes Insólitos</a>
         <a href="/ofertas/hoteles">Ofertas activas</a>
         <a href="/sobre-nosotros">Sobre nosotros</a>
         <a href="/privacidad">Privacidad</a>
