@@ -265,6 +265,9 @@ def oferta(deal_id: int):
     deal = database.get_deal(deal_id)
     if not deal:
         abort(404)
+    if not deal.get("active"):
+        deals = database.get_deals(limit=6)
+        return render_template("404.html", deals=deals), 410
     database.increment_views(deal_id)
     deal["views"] = (deal.get("views") or 0) + 1
     related = database.get_deals(category=deal.get("category", "europa"), limit=4)
