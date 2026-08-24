@@ -330,6 +330,20 @@ def insolitos():
                            page_title="Viajes Insólitos", page_desc="Los datos de viaje más sorprendentes del mundo, verificados y sin inventar nada")
 
 
+@app.route("/revista")
+def revista_index():
+    issues = database.get_magazine_issues(limit=24)
+    return render_template("revista_index.html", issues=issues)
+
+
+@app.route("/revista/<slug>")
+def revista_numero(slug):
+    issue = database.get_magazine_issue_by_slug(slug)
+    if not issue:
+        abort(404)
+    return render_template("revista_numero.html", issue=issue)
+
+
 @app.route("/guia-a-medida")
 def guia_a_medida():
     destinos_conocidos = sorted(set(name for name, _ in _CITY_MAP.values()))
@@ -583,6 +597,10 @@ def sitemap():
     urls.append(f"<url><loc>{base}/consejos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
     urls.append(f"<url><loc>{base}/insolitos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
     urls.append(f"<url><loc>{base}/guia-a-medida</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>")
+    urls.append(f"<url><loc>{base}/revista</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>")
+    for issue in database.get_magazine_issues(limit=60):
+        lastmod = issue["published_at"].strftime("%Y-%m-%d") if issue.get("published_at") else today
+        urls.append(f"<url><loc>{base}/revista/{issue['slug']}</loc><lastmod>{lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>")
     for key in config.DESTINOS:
         urls.append(f"<url><loc>{base}/destino/{key}</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>")
     # Páginas de ofertas por tipo

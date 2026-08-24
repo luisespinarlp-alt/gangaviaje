@@ -100,6 +100,23 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_guide_requests_status
         ON guide_requests (status, created_at DESC)
     """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS magazine_issues (
+            id                SERIAL PRIMARY KEY,
+            slug              TEXT    NOT NULL UNIQUE,
+            issue_label       TEXT    NOT NULL,
+            headline          TEXT    NOT NULL,
+            subheadline       TEXT    DEFAULT '',
+            cover_image_url   TEXT    NOT NULL,
+            intro             TEXT    DEFAULT '',
+            sections          JSONB   NOT NULL DEFAULT '[]',
+            published_at      TIMESTAMP DEFAULT NOW()
+        )
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS idx_magazine_issues_published
+        ON magazine_issues (published_at DESC)
+    """)
     conn.commit()
     cur.close()
     conn.close()
@@ -512,6 +529,52 @@ def get_post_by_slug(slug: str) -> dict | None:
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cur.execute("SELECT * FROM posts WHERE slug = %s", (slug,))
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+    return dict(row) if row else None
+
+
+def add_magazine_issue(issue: dict) -> int:
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        INSERT INTO magazine_issues (slug, issue_label, headline, subheadline, cover_image_url, intro, sections)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        ON CONFLICT (slug) DO UPDATE SET
+            issue_label = EXCLUDED.issue_label,
+            headline = EXCLUDED.headline,
+            subheadline = EXCLUDED.subheadline,
+            cover_image_url = EXCLUDED.cover_image_url,
+            intro = EXCLUDED.intro,
+            sections = EXCLUDED.sections
+        RETURNING id
+    """, (
+        issue["slug"], issue["issue_label"], issue["headline"],
+        issue.get("subheadline", ""), issue["cover_image_url"], issue.get("intro", ""),
+        psycopg2.extras.Json(issue["sections"]),
+    ))
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row[0] if row else None
+
+
+def get_magazine_issues(limit: int = 24) -> list:
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM magazine_issues ORDER BY published_at DESC LIMIT %s", (limit,))
+    rows = [dict(r) for r in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return rows
+
+
+def get_magazine_issue_by_slug(slug: str) -> dict | None:
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM magazine_issues WHERE slug = %s", (slug,))
     row = cur.fetchone()
     cur.close()
     conn.close()
