@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Revista GangaViaje — {{ issue.issue_label }}</title>
+<style>
+  /* Fuentes en local (no via Google Fonts en el momento de imprimir): cargar
+     varias familias a la vez desde Google Fonts rompe el motor de impresión
+     de Chrome headless (genera una fuente Type3 vacía y el texto se ve como
+     "cajas" rotas) -- con archivos .ttf ya descargados no pasa. */
+  @font-face { font-family: 'Raleway'; font-weight: 500; src: url('file:///Users/cex/gangaviaje/static/fonts/Raleway-500.ttf'); }
+  @font-face { font-family: 'Raleway'; font-weight: 700; src: url('file:///Users/cex/gangaviaje/static/fonts/Raleway-700.ttf'); }
+  @font-face { font-family: 'Raleway'; font-weight: 800; src: url('file:///Users/cex/gangaviaje/static/fonts/Raleway-800.ttf'); }
+  @font-face { font-family: 'Raleway'; font-weight: 900; src: url('file:///Users/cex/gangaviaje/static/fonts/Raleway-900.ttf'); }
+  @font-face { font-family: 'Playfair Display'; font-weight: 700; src: url('file:///Users/cex/gangaviaje/static/fonts/PlayfairDisplay-700.ttf'); }
+  @font-face { font-family: 'Playfair Display'; font-weight: 800; src: url('file:///Users/cex/gangaviaje/static/fonts/PlayfairDisplay-800.ttf'); }
+  @font-face { font-family: 'Playfair Display'; font-weight: 900; src: url('file:///Users/cex/gangaviaje/static/fonts/PlayfairDisplay-900.ttf'); }
+  @font-face { font-family: 'Playfair Display'; font-weight: 700; font-style: italic; src: url('file:///Users/cex/gangaviaje/static/fonts/PlayfairDisplay-700italic.ttf'); }
+  @font-face { font-family: 'Lora'; font-weight: 400; src: url('file:///Users/cex/gangaviaje/static/fonts/Lora-400.ttf'); }
+  @font-face { font-family: 'Lora'; font-weight: 700; src: url('file:///Users/cex/gangaviaje/static/fonts/Lora-700.ttf'); }
+
+  @page { size: 4in 7in; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Lora', Georgia, serif; color: #2a2620; line-height: 1.6; font-size: 12px; orphans: 3; widows: 3; }
+
+  /* páginas de formato fijo: portada, sumario, cierre */
+  .pg { width: 4in; min-height: 7in; padding: 0.34in 0.32in; page-break-after: always; page-break-inside: avoid; position: relative; }
+  .pg:last-child { page-break-after: auto; }
+
+  /* Portada — foto a sangre completa, texto superpuesto directamente (estilo revista de kiosco) */
+  .pg-cover { padding: 0; overflow: hidden; }
+  .pg-cover-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .pg-cover-scrim-top { position: absolute; top: 0; left: 0; right: 0; height: 1.5in; background: linear-gradient(to bottom, rgba(6,5,3,.82) 0%, rgba(6,5,3,0) 100%); }
+  .pg-cover-scrim-left { position: absolute; top: 0; bottom: 0; left: 0; width: 2.5in; background: linear-gradient(to right, rgba(6,5,3,.62) 0%, rgba(6,5,3,0) 100%); }
+  .pg-cover-scrim-bottom { position: absolute; bottom: 0; left: 0; right: 0; height: 2.6in; background: linear-gradient(to top, rgba(6,5,3,.92) 0%, rgba(6,5,3,0) 100%); }
+  .pg-cover-content { position: relative; z-index: 2; height: 7in; display: flex; flex-direction: column; padding: 0.24in 0.26in; }
+
+  .pg-cover .masthead-row { display: flex; align-items: flex-start; justify-content: space-between; }
+  .pg-cover .wordmark { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 40px; letter-spacing: -.5px; line-height: .95; color: #F9F7F3; text-shadow: 0 2px 14px rgba(0,0,0,.4); }
+  .pg-cover .wordmark span { color: #E8A23A; }
+  .pg-cover .kicker { font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: rgba(249,247,243,.8); margin-top: 3px; }
+  .pg-cover .issue { font-family: 'Raleway', sans-serif; font-size: 7.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(249,247,243,.75); text-align: right; line-height: 1.5; }
+
+  .pg-cover .coverlines { margin-top: 20px; display: flex; flex-direction: column; gap: 13px; max-width: 1.75in; }
+  .pg-cover .coverlines .kw { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 15px; color: #E8A23A; text-transform: uppercase; letter-spacing: .3px; line-height: 1.05; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+  .pg-cover .coverlines .ds { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 9px; color: #F9F7F3; text-transform: uppercase; line-height: 1.25; margin-top: 2px; }
+
+  .pg-cover .main-story { margin-top: auto; }
+  .pg-cover .main-story .eyebrow { font-family: 'Raleway', sans-serif; font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #E8A23A; margin-bottom: 4px; }
+  .pg-cover .main-story .headline { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 33px; text-transform: uppercase; letter-spacing: -.5px; line-height: .96; color: #F9F7F3; text-shadow: 0 2px 16px rgba(0,0,0,.5); }
+  .pg-cover .main-story .sub { font-family: 'Raleway', sans-serif; font-size: 10.5px; font-weight: 600; color: rgba(249,247,243,.92); margin-top: 8px; line-height: 1.45; }
+
+  /* Sumario — con miniatura real por entrada, para ver de un vistazo el contenido */
+  .pg-toc .label { font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; color: #C85A2A; }
+  .pg-toc h1 { font-family: 'Playfair Display', serif; font-size: 21px; margin: 5px 0 10px; color: #1C1610; }
+  .pg-toc .intro { font-size: 10.5px; color: #4a4438; line-height: 1.62; margin-bottom: 14px; }
+  .pg-toc ol { list-style: none; }
+  .pg-toc li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #ece7dc; }
+  .pg-toc .thumb { width: 42px; height: 42px; border-radius: 8px; background-size: cover; background-position: center; flex-shrink: 0; }
+  .pg-toc .n { font-family: 'Playfair Display', serif; font-weight: 800; color: #C85A2A; font-size: 12px; flex-shrink: 0; width: 16px; }
+  .pg-toc .t { font-family: 'Raleway', sans-serif; font-size: 9.5px; }
+  .pg-toc .t .lbl { display: block; font-size: 7.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; color: #C85A2A; margin-bottom: 1px; }
+  .pg-toc .t .ti { font-weight: 700; color: #1C1610; line-height: 1.25; }
+
+  /* ── Cada sección fluye libremente por tantas páginas físicas como necesite:
+       nada de bloques de altura fija ni saltos artificiales que dejen huecos ── */
+  .sart { width: 4in; padding: 0.34in 0.32in 0.1in; break-before: page; }
+
+  /* Mini-portada de sección: mismo lenguaje visual que la portada principal */
+  .sec-cover { padding: 0; break-before: page; }
+  .sec-cover-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  /* Dos capas simples (no un degradado multi-parada) -- mas fiables al renderizar texto encima */
+  /* Imagen PNG ya renderizada con el degradado (en vez de linear-gradient CSS):
+     varios visores de PDF (Preview, etc.) renderizan los degradados CSS como
+     bandas/rectángulos con bordes duros -- una imagen con alpha real no tiene
+     ese problema en ningún visor. */
+  .sec-cover-content { position: relative; z-index: 2; height: 6.85in; display: flex; flex-direction: column; padding: 0.28in 0.3in; }
+  /* Barra plana arriba (sin degradado) solo para la etiqueta -- color solido, sin capas que se solapen */
+  .sec-cover .top-row { display: flex; align-items: center; justify-content: space-between; background: rgba(6,5,3,.65); margin: -0.28in -0.3in 0; padding: 0.22in 0.3in 14px; }
+  .sec-cover .eyebrow { font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #E8A23A; display: flex; align-items: center; gap: 6px; }
+  .sec-cover .eyebrow .icon { font-size: 14px; }
+  .sec-cover .num { font-family: 'Raleway', sans-serif; font-size: 13px; font-weight: 800; color: rgba(249,247,243,.7); }
+  /* Una única caja solida (sin degradado) para todo el bloque de titulo */
+  .sec-cover .textbox { margin-top: auto; background: rgba(6,5,3,.78); border-radius: 14px; padding: 20px 22px 22px; }
+  .sec-cover .stitle { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 30px; text-transform: uppercase; letter-spacing: -.5px; line-height: .98; color: #F9F7F3; }
+  .sec-cover .sexcerpt { font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 500; color: rgba(249,247,243,.88); margin-top: 10px; line-height: 1.5; }
+  .sec-cover .scta { display: inline-block; margin-top: 14px; font-family: 'Raleway', sans-serif; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #1C1610; background: #E8A23A; padding: 8px 16px; border-radius: 20px; }
+
+  .pull-quote { margin: 6px 0 16px; padding: 4px 0 4px 16px; border-left: 3px solid #C85A2A; }
+  .pull-quote p { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; font-size: 16px; line-height: 1.35; color: #1C1610; text-align: left; }
+  .fig { margin: 4px 0 16px; page-break-inside: avoid; }
+  .fig .fimg { width: 100%; height: 1.9in; border-radius: 10px; background-size: cover; background-position: center; }
+  .fig figcaption { font-family: 'Raleway', sans-serif; font-size: 8.5px; color: #8a8071; margin-top: 6px; line-height: 1.4; }
+
+  /* Cuerpo del artículo — tipografía serif de lectura, justificada, con letra capital */
+  .art { text-align: justify; hyphens: auto; -webkit-hyphens: auto; }
+  .art > p:first-of-type::first-letter { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 42px; float: left; line-height: .78; margin: 3px 6px 0 0; color: #C85A2A; }
+  .art h2 { font-family: 'Playfair Display', serif; font-size: 15.5px; font-weight: 800; color: #1C1610; margin: 18px 0 8px; page-break-after: avoid; page-break-inside: avoid; }
+  .art h2::before { content: ""; display: block; width: 22px; height: 2px; background: #C85A2A; margin-bottom: 8px; }
+  .art p { font-size: 11.5px; color: #3a3530; line-height: 1.78; margin-bottom: 10px; page-break-inside: avoid; }
+  .art ul, .art ol { margin: 0 0 10px 16px; text-align: left; }
+  .art li { font-size: 11.5px; color: #3a3530; line-height: 1.65; margin-bottom: 6px; page-break-inside: avoid; }
+  /* Cajas destacadas del contenido original (ej. "en cifras") -- se recolorean
+     al esquema de la revista en vez del teal/naranja de la web, y nunca se
+     parten al pasar de página */
+  .art div[style*="border-left"] { page-break-inside: avoid !important; background: #F4F1EA !important; border-left-color: #C85A2A !important; }
+  .art div[style*="border-left"] h2 { font-size: 13px !important; color: #C85A2A !important; margin-top: 0 !important; }
+  .art div[style*="border-left"] ul { text-align: left; }
+  .art div[style*="border-left"] li { page-break-inside: avoid; }
+  .art strong { color: #1C1610; }
+  .art a { color: #C85A2A; }
+  .art h3 { font-family: 'Raleway', sans-serif; font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #1C1610; margin: 12px 0 6px; page-break-after: avoid; }
+
+  /* Cierre */
+  .pg-end { background: #F9F7F3; color: #1C1610; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .pg-end .wm { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 26px; margin-bottom: 10px; color: #1C1610; }
+  .pg-end .wm span { color: #C85A2A; font-style: italic; }
+  .pg-end p { font-family: 'Raleway', sans-serif; font-size: 11px; color: #63594c; max-width: 2.6in; line-height: 1.6; margin-bottom: 16px; }
+  .pg-end .url { font-family: 'Raleway', sans-serif; font-size: 10px; font-weight: 800; color: #C85A2A; letter-spacing: .5px; }
+</style>
+</head>
+<body>
+
+<!-- PORTADA: foto a sangre completa, texto superpuesto (estilo revista de kiosco) -->
+<div class="pg pg-cover">
+  <div class="pg-cover-bg" style="background-image:url('{{ issue.cover_image_url }}');"></div>
+  <div class="pg-cover-scrim-top"></div>
+  <div class="pg-cover-scrim-left"></div>
+  <div class="pg-cover-scrim-bottom"></div>
+  <div class="pg-cover-content">
+    <div class="masthead-row">
+      <div>
+        <div class="wordmark">Ganga<span>Viaje</span></div>
+        <div class="kicker">Revista mensual de viajes</div>
+      </div>
+      <div class="issue">N.º 1<br>{{ issue.issue_label|upper }}<br>gangaviaje.es</div>
+    </div>
+
+    <div class="coverlines">
+      {% for s in issue.sections[1:] %}
+      <div>
+        <div class="kw">{{ s.label|upper }}</div>
+        <div class="ds">{{ s.title }}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="main-story">
+      <div class="eyebrow">{{ issue.sections[0].label }}</div>
+      <div class="headline">{{ issue.headline.split(':')[0] }}</div>
+      <div class="sub">{{ issue.subheadline }}</div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMARIO -->
+<div class="pg pg-toc">
+  <div class="label">Editorial</div>
+  <h1>En este número</h1>
+  <p class="intro">{{ issue.intro }}</p>
+  <ol>
+    {% for s in issue.sections %}
+    <li>
+      <div class="thumb" style="background-image:url('{{ s.image_url }}');"></div>
+      <span class="n">{{ "%02d"|format(loop.index) }}</span>
+      <span class="t"><span class="lbl">{{ s.label }}</span><span class="ti">{{ s.title }}</span></span>
+    </li>
+    {% endfor %}
+  </ol>
+</div>
+
+<!-- SECCIONES: cada una abre con una mini-portada (mismo lenguaje visual que la portada), luego el artículo fluye libremente -->
+{% for s in issue.sections %}
+<div class="pg sec-cover">
+  <div class="sec-cover-bg" style="background-image:url('{{ s.image_url }}');"></div>
+  <div class="sec-cover-content">
+    <div class="top-row">
+      <div class="eyebrow">{% if s.icon %}<span class="icon">{{ s.icon }}</span>{% endif %} {{ s.label }}</div>
+      <div class="num">{{ "%02d"|format(loop.index) }} / {{ "%02d"|format(issue.sections|length) }}</div>
+    </div>
+    <div class="textbox">
+      <div class="stitle">{{ s.title }}</div>
+      <div class="sexcerpt">{{ s.excerpt }}</div>
+      {% if not (s.pull_quote or s.second_image_url or s.full_content) and s.cta %}
+      <div class="scta">{{ s.cta }} →</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% if s.pull_quote or s.second_image_url or s.full_content %}
+<div class="sart">
+  <div class="art">
+    <p>{{ s.excerpt }}</p>
+    {% if s.pull_quote %}<div class="pull-quote"><p>“{{ s.pull_quote }}”</p></div>{% endif %}
+    {% if s.second_image_url %}
+    <figure class="fig">
+      <div class="fimg" style="background-image:url('{{ s.second_image_url }}');"></div>
+      {% if s.second_image_caption %}<figcaption>{{ s.second_image_caption }}</figcaption>{% endif %}
+    </figure>
+    {% endif %}
+    {% if s.full_content %}{{ s.full_content|safe }}{% endif %}
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+<!-- CIERRE -->
+<div class="pg pg-end">
+  <div class="wm">Ganga<span>Viaje</span></div>
+  <p>Gracias por leer este número. Cada mes preparamos una nueva selección de destinos, consejos y curiosidades de viaje.</p>
+  <div class="url">gangaviaje.es/revista</div>
+</div>
+
+</body>
+</html>
