@@ -28,7 +28,7 @@
 </style>
 </head>
 <body>
-  <h1>Solicitudes de Guía a Medida</h1>
+  <h1>Solicitudes de Guía a Medida <a href="/guia-a-medida/admin/logout" style="font-size:.7rem;color:#999;font-weight:400;">Cerrar sesión</a></h1>
   <p class="sub">{{ requests|length }} solicitudes{% if status_filter %} ({{ status_filter }}){% endif %}</p>
   <div class="filters">
     <a href="?key={{ request.args.get('key') }}" class="{{ 'active' if not status_filter else '' }}">Todas</a>
@@ -68,7 +68,8 @@
 <script>
 async function markStatus(id, status) {
   const key = new URLSearchParams(location.search).get('key');
-  await fetch('/guia-a-medida/admin/marcar?key=' + encodeURIComponent(key), {
+  const url = '/guia-a-medida/admin/marcar' + (key ? '?key=' + encodeURIComponent(key) : '');
+  await fetch(url, {
     method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     body: 'id=' + id + '&status=' + status,

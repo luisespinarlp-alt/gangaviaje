@@ -39,6 +39,9 @@ DATABASE_URL = os.getenv("DATABASE_URL", "")
 # Cron (Vercel Cron Job -> /api/cron)
 CRON_SECRET = os.getenv("CRON_SECRET", "")
 
+# Panel de "Guía a Medida" (/guia-a-medida/admin)
+GUIDE_ADMIN_PASSWORD = os.getenv("GUIDE_ADMIN_PASSWORD", "")
+
 # Pinterest
 PINTEREST_ACCESS_TOKEN = os.getenv("PINTEREST_ACCESS_TOKEN", "")
 PINTEREST_BOARD_IDS = {

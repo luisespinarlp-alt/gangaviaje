@@ -5,7 +5,7 @@ GangaViaje — Web Flask de ofertas de viajes
 from datetime import datetime
 import re
 import time as _time
-from flask import Flask, render_template, abort, Response, request, jsonify
+from flask import Flask, render_template, abort, Response, request, jsonify, session, redirect, url_for
 
 import bot
 import config
@@ -376,10 +376,34 @@ def guia_a_medida_solicitar():
     return jsonify({"ok": True, "msg": "¡Recibido! Te enviaremos tu guía personalizada a este email en un plazo de 48 horas."})
 
 
+def _guide_admin_authed() -> bool:
+    if request.args.get("key") and config.CRON_SECRET and request.args.get("key") == config.CRON_SECRET:
+        return True
+    return session.get("guide_admin") is True
+
+
+@app.route("/guia-a-medida/admin/login", methods=["GET", "POST"])
+def guia_a_medida_admin_login():
+    error = None
+    if request.method == "POST":
+        password = request.form.get("password", "")
+        if config.GUIDE_ADMIN_PASSWORD and password == config.GUIDE_ADMIN_PASSWORD:
+            session["guide_admin"] = True
+            return redirect(url_for("guia_a_medida_admin"))
+        error = "Contraseña incorrecta"
+    return render_template("guia_a_medida_admin_login.html", error=error)
+
+
+@app.route("/guia-a-medida/admin/logout")
+def guia_a_medida_admin_logout():
+    session.pop("guide_admin", None)
+    return redirect(url_for("guia_a_medida_admin_login"))
+
+
 @app.route("/guia-a-medida/admin")
 def guia_a_medida_admin():
-    if not config.CRON_SECRET or request.args.get("key") != config.CRON_SECRET:
-        abort(404)
+    if not _guide_admin_authed():
+        return redirect(url_for("guia_a_medida_admin_login"))
     status_filter = request.args.get("status") or None
     requests_list = database.get_guide_requests(status=status_filter, limit=200)
     return render_template("guia_a_medida_admin.html", requests=requests_list, status_filter=status_filter)
@@ -387,7 +411,7 @@ def guia_a_medida_admin():
 
 @app.route("/guia-a-medida/admin/marcar", methods=["POST"])
 def guia_a_medida_admin_marcar():
-    if not config.CRON_SECRET or request.args.get("key") != config.CRON_SECRET:
+    if not _guide_admin_authed():
         abort(404)
     req_id = request.form.get("id")
     new_status = request.form.get("status")
