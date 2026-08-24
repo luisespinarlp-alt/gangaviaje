@@ -72,7 +72,7 @@
   {% if issues %}
   <div class="ri-grid">
     {% for issue in issues %}
-    <a href="/revista/{{ issue.slug }}" class="ri-card">
+    <a href="/static/pdf/revista-{{ issue.slug }}.pdf" target="_blank" rel="noopener" class="ri-card">
       <div class="ri-card-img" style="background-image:url('{{ issue.cover_image_url }}');">
         <div class="ri-card-img-overlay"></div>
         <div class="ri-card-badge">
