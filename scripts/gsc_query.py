@@ -10,16 +10,24 @@ import sys
 import datetime
 
 import requests
+from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
 
 import config
 
 TOKEN_PATH = os.path.join(os.path.dirname(__file__), "gsc_token.json")
-SITE_URL = "https://gangaviaje.es/"
+SITE_URL = "sc-domain:gangaviaje.es"
 
 
 def _headers():
     with open(TOKEN_PATH) as f:
         tok = json.load(f)
+    creds = Credentials.from_authorized_user_info(tok, scopes=tok.get("scopes"))
+    creds.refresh(Request())
+    tok["token"] = creds.token
+    tok["expiry"] = creds.expiry.isoformat() + "Z" if creds.expiry else None
+    with open(TOKEN_PATH, "w") as f:
+        json.dump(tok, f, indent=2)
     return {"Authorization": f"Bearer {tok['token']}", "Content-Type": "application/json"}
 
 
