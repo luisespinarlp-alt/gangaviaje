@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guía a Medida — tu itinerario de viaje personalizado y gratis — GangaViaje</title>
-  <meta name="description" content="Dinos tu destino y tus fechas y te preparamos gratis una guía de viaje día a día. Si ya tienes reserva, súbela y te avisamos si detectamos algún fallo. Sin coste, en menos de 48 horas.">
+  <meta name="description" content="Dinos tu destino y tus fechas y te preparamos gratis una guía de viaje día a día, con recomendaciones y ofertas reales. Sin coste, en menos de 48 horas.">
   <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
   <link rel="canonical" href="https://www.gangaviaje.es/guia-a-medida">
   <meta property="og:type"        content="website">
@@ -96,7 +96,7 @@
   <div class="gm-hero-inner">
     <div class="gm-eyebrow">🌍 Nuevo · Gratis</div>
     <h1>Dinos a dónde vas, y te hacemos <span>la guía</span></h1>
-    <p>Elige destino y fechas y te preparamos una guía de viaje día a día. Si ya tienes reserva, puedes subirla para que la guía la incluya y avisar si algo no cuadra.</p>
+    <p>Elige destino y fechas y te preparamos una guía de viaje día a día, con recomendaciones y ofertas reales para tu viaje.</p>
   </div>
 </div>
 
@@ -110,7 +110,7 @@
     <div class="gm-step">
       <div class="gm-step-num">2</div>
       <h3>La preparamos</h3>
-      <p>¿Ya tienes reserva? Súbela y la integramos, avisando si algo no cuadra.</p>
+      <p>Preparamos tu itinerario día a día, con recomendaciones y ofertas reales para tu destino.</p>
     </div>
     <div class="gm-step">
       <div class="gm-step-num">3</div>
@@ -123,7 +123,7 @@
     <h2>Qué lleva tu guía</h2>
     <ul>
       <li>Itinerario día a día pensado para tus fechas</li>
-      <li>Si subes tu reserva: la integramos y avisamos de posibles fallos</li>
+      <li>Ofertas reales de vuelos/hoteles para tu destino y fechas</li>
       <li>Recomendaciones reales para tu destino</li>
       <li>Consejos prácticos: clima, moneda, propinas, seguridad</li>
       <li>Sin inventar datos — si no lo sabemos, no lo ponemos</li>
@@ -161,31 +161,6 @@
       <div class="gm-field">
         <label for="gmEmail">Email *</label>
         <input type="email" id="gmEmail" name="email" placeholder="tucorreo@ejemplo.com" required>
-      </div>
-
-      <label class="gm-toggle">
-        <input type="checkbox" id="gmHasReservation">
-        <span class="gm-toggle-text">Ya tengo reserva y quiero incluirla
-          <small>Opcional — la guía la integra y avisa de posibles fallos</small>
-        </span>
-      </label>
-
-      <div class="gm-reservation-panel" id="gmReservationPanel">
-        <div class="gm-reservation-inner">
-          <div class="gm-privacy-note">🔒 Solo usamos tu reserva para preparar la guía. Borramos ese texto a los 30 días y no lo compartimos con nadie. Si aparecen datos de pago, puedes taparlos antes de subirla — no los necesitamos.</div>
-          <div class="gm-field">
-            <label>Reserva (PDF)</label>
-            <div class="gm-file-drop" id="gmDropZone">
-              <span id="gmDropLabel">📎 Pulsa para subir el PDF de tu reserva</span>
-              <span class="fname" id="gmFileName"></span>
-            </div>
-            <input type="file" id="gmFile" name="reservation_file" accept="application/pdf" style="display:none;">
-          </div>
-          <div class="gm-or">o pega el texto</div>
-          <div class="gm-field">
-            <textarea id="gmText" name="reservation_text" placeholder="Pega aquí el texto de tu confirmación de reserva..."></textarea>
-          </div>
-        </div>
       </div>
 
       <button type="submit" class="gm-submit" id="gmSubmitBtn">Quiero mi guía gratis →</button>
@@ -235,25 +210,6 @@
 </footer>
 
 <script>
-const hasReservationCb = document.getElementById('gmHasReservation');
-const reservationPanel = document.getElementById('gmReservationPanel');
-hasReservationCb.addEventListener('change', () => {
-  reservationPanel.classList.toggle('open', hasReservationCb.checked);
-});
-
-const dropZone = document.getElementById('gmDropZone');
-const fileInput = document.getElementById('gmFile');
-const fileNameEl = document.getElementById('gmFileName');
-const dropLabel = document.getElementById('gmDropLabel');
-
-dropZone.addEventListener('click', () => fileInput.click());
-fileInput.addEventListener('change', () => {
-  if (fileInput.files.length) {
-    fileNameEl.textContent = '✓ ' + fileInput.files[0].name;
-    dropLabel.textContent = '📎 Cambiar archivo';
-  }
-});
-
 document.getElementById('gmForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = document.getElementById('gmSubmitBtn');
@@ -284,10 +240,6 @@ document.getElementById('gmForm').addEventListener('submit', async (e) => {
   formData.append('destination', destination);
   formData.append('date_start', dateStart);
   formData.append('date_end', dateEnd);
-  if (hasReservationCb.checked) {
-    formData.append('reservation_text', document.getElementById('gmText').value.trim());
-    if (fileInput.files.length) formData.append('reservation_file', fileInput.files[0]);
-  }
 
   try {
     const r = await fetch('/guia-a-medida/solicitar', { method: 'POST', body: formData });
@@ -296,9 +248,6 @@ document.getElementById('gmForm').addEventListener('submit', async (e) => {
     msg.className = d.ok ? 'gm-msg ok' : 'gm-msg err';
     if (d.ok) {
       document.getElementById('gmForm').reset();
-      fileNameEl.textContent = '';
-      dropLabel.textContent = '📎 Pulsa para subir el PDF de tu reserva';
-      reservationPanel.classList.remove('open');
       btn.textContent = '✓ ¡Enviado!';
     } else {
       btn.disabled = false;
