@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía a Medida — tu itinerario de viaje personalizado y gratis — GangaViaje</title>
+  <meta name="description" content="Dinos tu destino y tus fechas y te preparamos gratis una guía de viaje día a día. Si ya tienes reserva, súbela y te avisamos si detectamos algún fallo. Sin coste, en menos de 48 horas.">
+  <link rel="icon" type="image/png" href="/static/img/logo_icon.png">
+  <link rel="canonical" href="https://www.gangaviaje.es/guia-a-medida">
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Guía a Medida — GangaViaje">
+  <meta property="og:description" content="Dinos destino y fechas y te preparamos gratis una guía de viaje personalizada, día a día.">
+  <meta property="og:url"         content="https://www.gangaviaje.es/guia-a-medida">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&display=swap"></noscript>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05YGXD7GX7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-05YGXD7GX7");
+  </script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Raleway', -apple-system, sans-serif; background: #F9F7F3; color: #333; line-height: 1.6; }
+
+    .gm-hero { background: linear-gradient(135deg, #0F1F1E 0%, #16302D 100%); padding: 64px 24px 56px; text-align: center; border-bottom: 3px solid #2E9E8F; }
+    .gm-hero-inner { max-width: 720px; margin: 0 auto; }
+    .gm-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(46,158,143,.18); border: 1px solid rgba(46,158,143,.5); color: white; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; padding: 6px 16px; border-radius: 20px; margin-bottom: 22px; }
+    .gm-hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.6rem; font-weight: 800; color: white; line-height: 1.15; margin-bottom: 16px; letter-spacing: -.5px; }
+    .gm-hero h1 span { color: #2E9E8F; }
+    .gm-hero p { font-size: 1.05rem; color: rgba(255,255,255,.78); max-width: 560px; margin: 0 auto; }
+    @media (max-width: 600px) { .gm-hero h1 { font-size: 1.85rem; } }
+
+    .gm-section { padding: 56px 24px; max-width: 900px; margin: 0 auto; }
+
+    .gm-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 8px; }
+    .gm-step { background: white; border-radius: 16px; padding: 28px 22px; box-shadow: 0 2px 10px rgba(0,0,0,.06); text-align: center; }
+    .gm-step-num { width: 36px; height: 36px; border-radius: 50%; background: #2E9E8F; color: white; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: .95rem; }
+    .gm-step h3 { font-size: 1rem; font-weight: 800; margin-bottom: 8px; color: #1C1610; }
+    .gm-step p { font-size: .85rem; color: #777; }
+    @media (max-width: 700px) { .gm-steps { grid-template-columns: 1fr; } }
+
+    .gm-includes { background: white; border-radius: 18px; padding: 36px; margin-top: 40px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+    .gm-includes h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; margin-bottom: 20px; color: #1C1610; }
+    .gm-includes ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .gm-includes li { font-size: .9rem; color: #444; display: flex; align-items: flex-start; gap: 10px; }
+    .gm-includes li::before { content: "✓"; color: #2E9E8F; font-weight: 800; flex-shrink: 0; }
+    @media (max-width: 600px) { .gm-includes ul { grid-template-columns: 1fr; } }
+
+    .gm-form-wrap { background: #0F1F1E; padding: 56px 24px; margin-top: 8px; }
+    .gm-form { max-width: 560px; margin: 0 auto; background: white; border-radius: 20px; padding: 36px; box-shadow: 0 8px 32px rgba(0,0,0,.25); }
+    .gm-form h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; margin-bottom: 6px; color: #1C1610; }
+    .gm-form > p.gm-form-sub { font-size: .88rem; color: #888; margin-bottom: 24px; }
+    .gm-field { margin-bottom: 18px; }
+    .gm-field label { display: block; font-size: .82rem; font-weight: 700; color: #444; margin-bottom: 6px; }
+    .gm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .gm-field input[type=text], .gm-field input[type=email], .gm-field input[type=date], .gm-field textarea {
+      width: 100%; padding: 12px 14px; border: 1.5px solid #e0e4ea; border-radius: 10px;
+      font-family: inherit; font-size: .9rem; color: #333; outline: none; transition: border-color .15s;
+    }
+    .gm-field input:focus, .gm-field textarea:focus { border-color: #2E9E8F; }
+    .gm-field textarea { resize: vertical; min-height: 90px; }
+    .gm-field-hint { font-size: .76rem; color: #999; margin-top: 5px; }
+
+    .gm-toggle { display: flex; align-items: center; gap: 10px; background: #f4faf9; border: 1.5px solid #d4ece8; border-radius: 12px; padding: 14px 16px; cursor: pointer; margin: 24px 0 4px; user-select: none; }
+    .gm-toggle input { width: 18px; height: 18px; accent-color: #2E9E8F; }
+    .gm-toggle-text { font-size: .87rem; font-weight: 700; color: #1C1610; }
+    .gm-toggle-text small { display: block; font-weight: 500; color: #777; font-size: .78rem; margin-top: 2px; }
+
+    .gm-reservation-panel { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .gm-reservation-panel.open { max-height: 600px; }
+    .gm-reservation-inner { padding-top: 18px; }
+    .gm-privacy-note { background: #fff8ec; border-left: 3px solid #e8a83a; border-radius: 6px; padding: 10px 14px; font-size: .78rem; color: #7a5b1e; margin-bottom: 16px; line-height: 1.5; }
+    .gm-or { text-align: center; font-size: .78rem; color: #aaa; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 14px 0; }
+    .gm-file-drop { border: 2px dashed #d8dde4; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: border-color .15s, background .15s; }
+    .gm-file-drop:hover { border-color: #2E9E8F; background: #f8fffe; }
+    .gm-file-drop span.fname { display: block; margin-top: 6px; font-size: .82rem; color: #2E9E8F; font-weight: 700; }
+
+    .gm-submit { width: 100%; background: #2E9E8F; color: white; border: none; padding: 15px; border-radius: 10px; font-family: inherit; font-size: .95rem; font-weight: 800; cursor: pointer; margin-top: 8px; transition: background .15s; }
+    .gm-submit:hover { background: #248073; }
+    .gm-submit:disabled { opacity: .6; cursor: default; }
+    .gm-msg { margin-top: 14px; font-size: .85rem; text-align: center; min-height: 1.2em; }
+    .gm-msg.ok { color: #2E9E8F; font-weight: 700; }
+    .gm-msg.err { color: #c0392b; font-weight: 700; }
+    .gm-privacy { font-size: .72rem; color: #aaa; text-align: center; margin-top: 14px; }
+  </style>
+</head>
+<body>
+
+{% include '_nav.html' %}
+
+<div class="gm-hero">
+  <div class="gm-hero-inner">
+    <div class="gm-eyebrow">🌍 Nuevo · Gratis</div>
+    <h1>Dinos a dónde vas, y te hacemos <span>la guía</span></h1>
+    <p>Elige destino y fechas y te preparamos una guía de viaje día a día. Si ya tienes reserva, puedes subirla para que la guía la incluya y avisar si algo no cuadra.</p>
+  </div>
+</div>
+
+<div class="gm-section">
+  <div class="gm-steps">
+    <div class="gm-step">
+      <div class="gm-step-num">1</div>
+      <h3>Destino y fechas</h3>
+      <p>Solo eso — no hace falta que tengas nada reservado todavía.</p>
+    </div>
+    <div class="gm-step">
+      <div class="gm-step-num">2</div>
+      <h3>La preparamos</h3>
+      <p>¿Ya tienes reserva? Súbela y la integramos, avisando si algo no cuadra.</p>
+    </div>
+    <div class="gm-step">
+      <div class="gm-step-num">3</div>
+      <h3>La recibes por email</h3>
+      <p>En menos de 48 horas, tu guía día a día lista para el viaje.</p>
+    </div>
+  </div>
+
+  <div class="gm-includes">
+    <h2>Qué lleva tu guía</h2>
+    <ul>
+      <li>Itinerario día a día pensado para tus fechas</li>
+      <li>Si subes tu reserva: la integramos y avisamos de posibles fallos</li>
+      <li>Recomendaciones reales para tu destino</li>
+      <li>Consejos prácticos: clima, moneda, propinas, seguridad</li>
+      <li>Sin inventar datos — si no lo sabemos, no lo ponemos</li>
+      <li>100% gratis, sin compromiso</li>
+    </ul>
+  </div>
+</div>
+
+<div class="gm-form-wrap">
+  <div class="gm-form">
+    <h2>Solicita tu guía</h2>
+    <p class="gm-form-sub">Rellena esto y te escribimos en cuanto esté lista.</p>
+    <form id="gmForm">
+      <div class="gm-field">
+        <label for="gmDestination">¿A dónde viajas? *</label>
+        <input type="text" id="gmDestination" name="destination" list="gmDestinos" placeholder="Ej. Ámsterdam" required>
+        <datalist id="gmDestinos">
+          {% for d in destinos_conocidos %}<option value="{{ d }}">{% endfor %}
+        </datalist>
+      </div>
+      <div class="gm-row">
+        <div class="gm-field">
+          <label for="gmDateStart">Fecha de ida *</label>
+          <input type="date" id="gmDateStart" name="date_start" required>
+        </div>
+        <div class="gm-field">
+          <label for="gmDateEnd">Fecha de vuelta *</label>
+          <input type="date" id="gmDateEnd" name="date_end" required>
+        </div>
+      </div>
+      <div class="gm-field">
+        <label for="gmName">Tu nombre</label>
+        <input type="text" id="gmName" name="name" placeholder="Luis">
+      </div>
+      <div class="gm-field">
+        <label for="gmEmail">Email *</label>
+        <input type="email" id="gmEmail" name="email" placeholder="tucorreo@ejemplo.com" required>
+      </div>
+
+      <label class="gm-toggle">
+        <input type="checkbox" id="gmHasReservation">
+        <span class="gm-toggle-text">Ya tengo reserva y quiero incluirla
+          <small>Opcional — la guía la integra y avisa de posibles fallos</small>
+        </span>
+      </label>
+
+      <div class="gm-reservation-panel" id="gmReservationPanel">
+        <div class="gm-reservation-inner">
+          <div class="gm-privacy-note">🔒 Solo usamos tu reserva para preparar la guía. Borramos ese texto a los 30 días y no lo compartimos con nadie. Si aparecen datos de pago, puedes taparlos antes de subirla — no los necesitamos.</div>
+          <div class="gm-field">
+            <label>Reserva (PDF)</label>
+            <div class="gm-file-drop" id="gmDropZone">
+              <span id="gmDropLabel">📎 Pulsa para subir el PDF de tu reserva</span>
+              <span class="fname" id="gmFileName"></span>
+            </div>
+            <input type="file" id="gmFile" name="reservation_file" accept="application/pdf" style="display:none;">
+          </div>
+          <div class="gm-or">o pega el texto</div>
+          <div class="gm-field">
+            <textarea id="gmText" name="reservation_text" placeholder="Pega aquí el texto de tu confirmación de reserva..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="gm-submit" id="gmSubmitBtn">Quiero mi guía gratis →</button>
+      <div class="gm-msg" id="gmMsg"></div>
+      <p class="gm-privacy">Solo usamos tu email para enviarte la guía y, si quieres, nuestra newsletter de chollos. <a href="/privacidad" style="color:#2E9E8F;">Privacidad</a></p>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="name">Ganga<span>Viaje</span>.es</div>
+        <p>Guías de viaje detalladas y GangaConsejos para ayudarte a viajar mejor y gastar menos. Sin prisa, sin trampas.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Guías destacadas</h4>
+        <a href="/blog/que-ver-en-bali-guia-completa">Bali</a>
+        <a href="/blog/maldivas-guia-viaje-economico">Maldivas</a>
+        <a href="/blog/paris-tres-dias-itinerario">París</a>
+        <a href="/blog/que-ver-en-nueva-york-guia-completa">Nueva York</a>
+        <a href="/blog/que-ver-en-islandia-guia-completa">Islandia</a>
+        <a href="/guias">Ver todas →</a>
+      </div>
+      <div class="footer-col">
+        <h4>GangaViaje</h4>
+        <a href="/consejos">GangaConsejos</a>
+        <a href="/insolitos">Viajes Insólitos</a>
+        <a href="/guia-a-medida">Guía a Medida</a>
+        <a href="/ofertas/hoteles">Ofertas activas</a>
+        <a href="/sobre-nosotros">Sobre nosotros</a>
+        <a href="/privacidad">Privacidad</a>
+      </div>
+      <div class="footer-col">
+        <h4>Síguenos</h4>
+        <a href="https://t.me/gangaviaje" target="_blank" rel="noopener">📱 Telegram</a>
+        <a href="https://instagram.com/gangaviaje.es" target="_blank" rel="noopener">📸 Instagram</a>
+        <a href="https://tiktok.com/@gangaviaje" target="_blank" rel="noopener">🎵 TikTok</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 GangaViaje.es — Las mejores guías de viaje y GangaConsejos para viajeros.</p>
+      <p style="font-size:.72rem;">GangaViaje participa en programas de afiliación. <a href="/privacidad">Privacidad</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hasReservationCb = document.getElementById('gmHasReservation');
+const reservationPanel = document.getElementById('gmReservationPanel');
+hasReservationCb.addEventListener('change', () => {
+  reservationPanel.classList.toggle('open', hasReservationCb.checked);
+});
+
+const dropZone = document.getElementById('gmDropZone');
+const fileInput = document.getElementById('gmFile');
+const fileNameEl = document.getElementById('gmFileName');
+const dropLabel = document.getElementById('gmDropLabel');
+
+dropZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length) {
+    fileNameEl.textContent = '✓ ' + fileInput.files[0].name;
+    dropLabel.textContent = '📎 Cambiar archivo';
+  }
+});
+
+document.getElementById('gmForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('gmSubmitBtn');
+  const msg = document.getElementById('gmMsg');
+  const email = document.getElementById('gmEmail').value.trim();
+  const destination = document.getElementById('gmDestination').value.trim();
+  const dateStart = document.getElementById('gmDateStart').value;
+  const dateEnd = document.getElementById('gmDateEnd').value;
+
+  if (!email || !destination || !dateStart || !dateEnd) {
+    msg.textContent = 'Completa destino, fechas y email.';
+    msg.className = 'gm-msg err';
+    return;
+  }
+  if (dateEnd < dateStart) {
+    msg.textContent = 'La fecha de vuelta no puede ser antes que la de ida.';
+    msg.className = 'gm-msg err';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  msg.textContent = '';
+
+  const formData = new FormData();
+  formData.append('name', document.getElementById('gmName').value.trim());
+  formData.append('email', email);
+  formData.append('destination', destination);
+  formData.append('date_start', dateStart);
+  formData.append('date_end', dateEnd);
+  if (hasReservationCb.checked) {
+    formData.append('reservation_text', document.getElementById('gmText').value.trim());
+    if (fileInput.files.length) formData.append('reservation_file', fileInput.files[0]);
+  }
+
+  try {
+    const r = await fetch('/guia-a-medida/solicitar', { method: 'POST', body: formData });
+    const d = await r.json();
+    msg.textContent = d.msg;
+    msg.className = d.ok ? 'gm-msg ok' : 'gm-msg err';
+    if (d.ok) {
+      document.getElementById('gmForm').reset();
+      fileNameEl.textContent = '';
+      dropLabel.textContent = '📎 Pulsa para subir el PDF de tu reserva';
+      reservationPanel.classList.remove('open');
+      btn.textContent = '✓ ¡Enviado!';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Quiero mi guía gratis →';
+    }
+  } catch {
+    msg.textContent = 'Error de conexión. Inténtalo de nuevo.';
+    msg.className = 'gm-msg err';
+    btn.disabled = false;
+    btn.textContent = 'Quiero mi guía gratis →';
+  }
+});
+</script>
+</body>
+</html>

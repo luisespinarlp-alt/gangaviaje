@@ -330,6 +330,72 @@ def insolitos():
                            page_title="Viajes Insólitos", page_desc="Los datos de viaje más sorprendentes del mundo, verificados y sin inventar nada")
 
 
+@app.route("/guia-a-medida")
+def guia_a_medida():
+    destinos_conocidos = sorted(set(name for name, _ in _CITY_MAP.values()))
+    return render_template("guia_a_medida.html", destinos_conocidos=destinos_conocidos)
+
+
+@app.route("/guia-a-medida/solicitar", methods=["POST"])
+def guia_a_medida_solicitar():
+    name = (request.form.get("name") or "").strip()
+    email = (request.form.get("email") or "").strip().lower()
+    destination = (request.form.get("destination") or "").strip()
+    date_start = (request.form.get("date_start") or "").strip()
+    date_end = (request.form.get("date_end") or "").strip()
+    pasted_text = (request.form.get("reservation_text") or "").strip()
+
+    if not email or "@" not in email or "." not in email:
+        return jsonify({"ok": False, "msg": "Email no válido"}), 400
+    if not destination:
+        return jsonify({"ok": False, "msg": "Dinos a dónde viajas"}), 400
+    if not date_start or not date_end:
+        return jsonify({"ok": False, "msg": "Dinos las fechas de tu viaje"}), 400
+
+    reservation_text = pasted_text
+    source_filename = ""
+    uploaded = request.files.get("reservation_file")
+    if uploaded and uploaded.filename:
+        source_filename = uploaded.filename
+        if uploaded.filename.lower().endswith(".pdf"):
+            try:
+                from pypdf import PdfReader
+                reader = PdfReader(uploaded.stream)
+                pdf_text = "\n".join((page.extract_text() or "") for page in reader.pages)
+                reservation_text = (reservation_text + "\n\n" + pdf_text).strip()
+            except Exception:
+                return jsonify({"ok": False, "msg": "No hemos podido leer ese PDF. Puedes enviar la guía igualmente sin él."}), 400
+        else:
+            return jsonify({"ok": False, "msg": "Solo aceptamos archivos PDF por ahora."}), 400
+
+    database.add_guide_request(name, email, destination, date_start, date_end, reservation_text, source_filename)
+    try:
+        resend_newsletter.add_contact(email)
+    except Exception:
+        pass
+    return jsonify({"ok": True, "msg": "¡Recibido! Te enviaremos tu guía personalizada a este email en un plazo de 48 horas."})
+
+
+@app.route("/guia-a-medida/admin")
+def guia_a_medida_admin():
+    if not config.CRON_SECRET or request.args.get("key") != config.CRON_SECRET:
+        abort(404)
+    status_filter = request.args.get("status") or None
+    requests_list = database.get_guide_requests(status=status_filter, limit=200)
+    return render_template("guia_a_medida_admin.html", requests=requests_list, status_filter=status_filter)
+
+
+@app.route("/guia-a-medida/admin/marcar", methods=["POST"])
+def guia_a_medida_admin_marcar():
+    if not config.CRON_SECRET or request.args.get("key") != config.CRON_SECRET:
+        abort(404)
+    req_id = request.form.get("id")
+    new_status = request.form.get("status")
+    if req_id and new_status in ("pendiente", "enviada"):
+        database.set_guide_request_status(int(req_id), new_status)
+    return ("", 204)
+
+
 _CITY_MAP = {
     "roma": ("Roma", "roma"), "paris": ("París", "paris"),
     "barcelona": ("Barcelona", "barcelona"), "madrid": ("Madrid", "madrid"),
@@ -492,6 +558,7 @@ def sitemap():
     urls.append(f"<url><loc>{base}/guias</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
     urls.append(f"<url><loc>{base}/consejos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
     urls.append(f"<url><loc>{base}/insolitos</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>")
+    urls.append(f"<url><loc>{base}/guia-a-medida</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>")
     for key in config.DESTINOS:
         urls.append(f"<url><loc>{base}/destino/{key}</loc><changefreq>hourly</changefreq><priority>0.8</priority></url>")
     # Páginas de ofertas por tipo

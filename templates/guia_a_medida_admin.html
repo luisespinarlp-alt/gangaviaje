@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitudes — Guía a Medida</title>
+<meta name="robots" content="noindex">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, sans-serif; background: #F9F7F3; color: #222; margin: 0; padding: 24px; }
+  h1 { font-size: 1.3rem; margin-bottom: 4px; }
+  .sub { color: #888; font-size: .85rem; margin-bottom: 20px; }
+  .filters { margin-bottom: 18px; }
+  .filters a { display: inline-block; margin-right: 8px; padding: 6px 14px; border-radius: 20px; background: white; border: 1px solid #ddd; color: #444; text-decoration: none; font-size: .82rem; }
+  .filters a.active { background: #2E9E8F; color: white; border-color: #2E9E8F; }
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  th, td { text-align: left; padding: 10px 12px; font-size: .82rem; border-bottom: 1px solid #eee; vertical-align: top; }
+  th { background: #f3f3f0; font-size: .72rem; text-transform: uppercase; letter-spacing: .5px; color: #888; }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: .72rem; font-weight: 700; }
+  .badge.pendiente { background: #fff0e0; color: #a8641e; }
+  .badge.enviada { background: #e0f5f0; color: #1a7a68; }
+  .reserva-yes { color: #2E9E8F; font-weight: 700; }
+  .reserva-no { color: #ccc; }
+  .txt-toggle { cursor: pointer; color: #2E9E8F; font-size: .78rem; text-decoration: underline; }
+  .reserva-full { display: none; white-space: pre-wrap; font-family: monospace; font-size: .72rem; background: #fafafa; padding: 8px; border-radius: 6px; margin-top: 6px; max-height: 200px; overflow-y: auto; }
+  button.mark { background: #2E9E8F; color: white; border: none; padding: 5px 10px; border-radius: 6px; font-size: .75rem; cursor: pointer; }
+  button.mark:hover { background: #248073; }
+</style>
+</head>
+<body>
+  <h1>Solicitudes de Guía a Medida</h1>
+  <p class="sub">{{ requests|length }} solicitudes{% if status_filter %} ({{ status_filter }}){% endif %}</p>
+  <div class="filters">
+    <a href="?key={{ request.args.get('key') }}" class="{{ 'active' if not status_filter else '' }}">Todas</a>
+    <a href="?key={{ request.args.get('key') }}&status=pendiente" class="{{ 'active' if status_filter == 'pendiente' else '' }}">Pendientes</a>
+    <a href="?key={{ request.args.get('key') }}&status=enviada" class="{{ 'active' if status_filter == 'enviada' else '' }}">Enviadas</a>
+  </div>
+  <table>
+    <tr>
+      <th>Fecha</th><th>Estado</th><th>Nombre</th><th>Email</th><th>Destino</th><th>Fechas viaje</th><th>Reserva</th><th></th>
+    </tr>
+    {% for r in requests %}
+    <tr>
+      <td>{{ r.created_at.strftime('%d/%m %H:%M') }}</td>
+      <td><span class="badge {{ r.status }}">{{ r.status }}</span></td>
+      <td>{{ r.name or '—' }}</td>
+      <td>{{ r.email }}</td>
+      <td>{{ r.destination }}</td>
+      <td>{{ r.date_start }} → {{ r.date_end }}</td>
+      <td>
+        {% if r.reservation_text %}
+          <span class="reserva-yes">Sí ({{ r.source_filename or 'texto' }})</span>
+          <div><span class="txt-toggle" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block';">ver</span>
+          <div class="reserva-full">{{ r.reservation_text }}</div></div>
+        {% else %}<span class="reserva-no">no</span>{% endif %}
+      </td>
+      <td>
+        {% if r.status == 'pendiente' %}
+          <button class="mark" onclick="markStatus({{ r.id }}, 'enviada')">Marcar enviada</button>
+        {% else %}
+          <button class="mark" onclick="markStatus({{ r.id }}, 'pendiente')">Reabrir</button>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+<script>
+async function markStatus(id, status) {
+  const key = new URLSearchParams(location.search).get('key');
+  await fetch('/guia-a-medida/admin/marcar?key=' + encodeURIComponent(key), {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: 'id=' + id + '&status=' + status,
+  });
+  location.reload();
+}
+</script>
+</body>
+</html>

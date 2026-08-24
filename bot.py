@@ -156,6 +156,13 @@ def run_once():
     # 1. Expirar deals viejos
     database.deactivate_old_deals(config.DEAL_EXPIRY_HOURS)
 
+    # 1b. Borrar el texto de reservas de "Guía a Medida" pasados 30 días (datos
+    # sensibles de clientes: nombres de acompañantes, localizador...) — una vez al día.
+    if datetime.datetime.now(datetime.timezone.utc).hour == 4:
+        n = database.cleanup_old_reservation_texts(days=30)
+        if n:
+            log.info(f"Guía a Medida: {n} textos de reserva antiguos borrados por privacidad")
+
     # 2. Scrape fuentes — solo las que generan comisión real (afiliado confirmado)
     sources = [(travelpayouts, "TravelPayouts")]
     if config.TRAVELPAYOUTS_TOKEN and config.TRAVELPAYOUTS_TRS:

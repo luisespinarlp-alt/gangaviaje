@@ -80,6 +80,26 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_posts_created
         ON posts (created_at DESC)
     """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS guide_requests (
+            id                  SERIAL PRIMARY KEY,
+            name                TEXT    DEFAULT '',
+            email               TEXT    NOT NULL,
+            destination         TEXT    DEFAULT '',
+            date_start          DATE,
+            date_end            DATE,
+            has_reservation     INTEGER DEFAULT 0,
+            reservation_text    TEXT    DEFAULT '',
+            source_filename     TEXT    DEFAULT '',
+            status              TEXT    DEFAULT 'pendiente',
+            created_at          TIMESTAMP DEFAULT NOW(),
+            fulfilled_at        TIMESTAMP
+        )
+    """)
+    cur.execute("""
+        CREATE INDEX IF NOT EXISTS idx_guide_requests_status
+        ON guide_requests (status, created_at DESC)
+    """)
     conn.commit()
     cur.close()
     conn.close()
@@ -496,3 +516,64 @@ def get_post_by_slug(slug: str) -> dict | None:
     cur.close()
     conn.close()
     return dict(row) if row else None
+
+
+def add_guide_request(name: str, email: str, destination: str, date_start: str, date_end: str,
+                       reservation_text: str = "", source_filename: str = "") -> int:
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        INSERT INTO guide_requests
+            (name, email, destination, date_start, date_end, has_reservation, reservation_text, source_filename)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        RETURNING id
+    """, (name, email, destination, date_start or None, date_end or None,
+          1 if reservation_text else 0, reservation_text, source_filename))
+    request_id = cur.fetchone()[0]
+    conn.commit()
+    cur.close()
+    conn.close()
+    return request_id
+
+
+def get_guide_requests(status: str = None, limit: int = 100) -> list:
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    if status:
+        cur.execute("SELECT * FROM guide_requests WHERE status = %s ORDER BY created_at DESC LIMIT %s", (status, limit))
+    else:
+        cur.execute("SELECT * FROM guide_requests ORDER BY created_at DESC LIMIT %s", (limit,))
+    rows = [dict(r) for r in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return rows
+
+
+def cleanup_old_reservation_texts(days: int = 30) -> int:
+    """Borra el texto de la reserva (datos potencialmente sensibles) pasados N días,
+    conservando el resto de la solicitud (destino, fechas, estado) para estadísticas."""
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute("""
+        UPDATE guide_requests
+        SET reservation_text = '', source_filename = ''
+        WHERE reservation_text != ''
+          AND created_at < NOW() - (%s || ' days')::INTERVAL
+    """, (days,))
+    deleted = cur.rowcount
+    conn.commit()
+    cur.close()
+    conn.close()
+    return deleted
+
+
+def set_guide_request_status(request_id: int, status: str):
+    conn = get_conn()
+    cur = conn.cursor()
+    if status == "enviada":
+        cur.execute("UPDATE guide_requests SET status = %s, fulfilled_at = NOW() WHERE id = %s", (status, request_id))
+    else:
+        cur.execute("UPDATE guide_requests SET status = %s, fulfilled_at = NULL WHERE id = %s", (status, request_id))
+    conn.commit()
+    cur.close()
+    conn.close()
