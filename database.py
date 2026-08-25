@@ -100,6 +100,9 @@ def init_db():
         CREATE INDEX IF NOT EXISTS idx_guide_requests_status
         ON guide_requests (status, created_at DESC)
     """)
+    cur.execute("ALTER TABLE guide_requests ADD COLUMN IF NOT EXISTS rating INTEGER")
+    cur.execute("ALTER TABLE guide_requests ADD COLUMN IF NOT EXISTS rating_comment TEXT DEFAULT ''")
+    cur.execute("ALTER TABLE guide_requests ADD COLUMN IF NOT EXISTS rated_at TIMESTAMP")
     cur.execute("""
         CREATE TABLE IF NOT EXISTS magazine_issues (
             id                SERIAL PRIMARY KEY,
@@ -640,3 +643,45 @@ def set_guide_request_status(request_id: int, status: str):
     conn.commit()
     cur.close()
     conn.close()
+
+
+def get_guide_request(request_id: int) -> dict | None:
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("SELECT * FROM guide_requests WHERE id = %s", (request_id,))
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+    return dict(row) if row else None
+
+
+def set_guide_request_rating(request_id: int, rating: int, comment: str):
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE guide_requests SET rating = %s, rating_comment = %s, rated_at = NOW() WHERE id = %s",
+        (rating, comment, request_id),
+    )
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def get_guide_testimonials(min_rating: int = 4, limit: int = 12) -> list:
+    """Valoraciones reales con comentario, para mostrar como testimonios en la landing."""
+    conn = get_conn()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute(
+        """
+        SELECT name, destination, rating, rating_comment, rated_at
+        FROM guide_requests
+        WHERE rating >= %s AND rating_comment != ''
+        ORDER BY rated_at DESC
+        LIMIT %s
+        """,
+        (min_rating, limit),
+    )
+    rows = [dict(r) for r in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return rows

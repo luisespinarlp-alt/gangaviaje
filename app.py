@@ -347,7 +347,8 @@ def revista_numero(slug):
 @app.route("/guia-a-medida")
 def guia_a_medida():
     destinos_conocidos = sorted(set(name for name, _ in _CITY_MAP.values()))
-    return render_template("guia_a_medida.html", destinos_conocidos=destinos_conocidos)
+    testimonials = database.get_guide_testimonials()
+    return render_template("guia_a_medida.html", destinos_conocidos=destinos_conocidos, testimonials=testimonials)
 
 
 @app.route("/guia-a-medida/solicitar", methods=["POST"])
@@ -432,6 +433,28 @@ def guia_a_medida_admin_marcar():
     if req_id and new_status in ("pendiente", "enviada"):
         database.set_guide_request_status(int(req_id), new_status)
     return ("", 204)
+
+
+@app.route("/guia-a-medida/valorar/<int:req_id>", methods=["GET", "POST"])
+def guia_a_medida_valorar(req_id):
+    req = database.get_guide_request(req_id)
+    if not req:
+        abort(404)
+
+    if request.method == "POST":
+        try:
+            rating = int(request.form.get("rating", 0))
+        except ValueError:
+            rating = 0
+        if rating < 1 or rating > 5:
+            return render_template("guia_a_medida_valorar.html", req=req, error="Elige una puntuación de 1 a 5 estrellas.")
+        comment = (request.form.get("comment") or "").strip()[:600]
+        database.set_guide_request_rating(req_id, rating, comment)
+        req["rating"] = rating
+        req["rating_comment"] = comment
+        return render_template("guia_a_medida_valorar.html", req=req, done=True)
+
+    return render_template("guia_a_medida_valorar.html", req=req)
 
 
 _CITY_MAP = {

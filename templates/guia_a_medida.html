@@ -73,6 +73,15 @@
     .gm-example-more { text-align: center; font-size: .78rem; color: #aaa; font-style: italic; padding: 4px 0 26px; }
     @media (max-width: 600px) { .gm-example-body { padding: 24px 20px 8px; } }
 
+    .gm-testimonials { max-width: 900px; margin: 0 auto; padding: 0 24px 40px; }
+    .gm-testimonials h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.4rem; color: #1C1610; margin-bottom: 22px; text-align: center; }
+    .gm-t-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+    .gm-t-card { background: white; border-radius: 14px; padding: 22px 24px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+    .gm-t-stars { color: #E8A23A; font-size: .95rem; letter-spacing: 2px; margin-bottom: 10px; }
+    .gm-t-text { font-size: .88rem; color: #444; line-height: 1.6; margin-bottom: 12px; }
+    .gm-t-name { font-size: .78rem; font-weight: 800; color: #1C1610; }
+    .gm-t-name span { font-weight: 500; color: #999; }
+
     .gm-form-wrap { background: #0F1F1E; padding: 56px 24px; margin-top: 8px; }
     .gm-form { max-width: 560px; margin: 0 auto; background: white; border-radius: 20px; padding: 36px; box-shadow: 0 8px 32px rgba(0,0,0,.25); }
     .gm-form h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; margin-bottom: 6px; color: #1C1610; }
@@ -188,6 +197,21 @@
     </div>
   </div>
 </div>
+
+{% if testimonials %}
+<div class="gm-testimonials gm-reveal">
+  <h2>Lo que dicen quienes ya han recibido su guía</h2>
+  <div class="gm-t-grid">
+    {% for t in testimonials %}
+    <div class="gm-t-card">
+      <div class="gm-t-stars">{{ "★" * t.rating }}{{ "☆" * (5 - t.rating) }}</div>
+      <div class="gm-t-text">&ldquo;{{ t.rating_comment }}&rdquo;</div>
+      <div class="gm-t-name">{{ t.name or "Viajero GangaViaje" }}<span> — {{ t.destination.split(' ')[0] if t.destination else '' }}</span></div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
 
 <div class="gm-form-wrap">
   <div class="gm-form gm-reveal">

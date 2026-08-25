@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valora tu guía — GangaViaje</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="/static/img/logo_icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;700;800;900&family=Playfair+Display:wght@700;800&display=swap">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Raleway', -apple-system, sans-serif; background: #0F1F1E; color: #222; margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .box { background: #F9F7F3; border-radius: 20px; padding: 40px 34px; max-width: 420px; width: 100%; box-shadow: 0 8px 36px rgba(0,0,0,.35); text-align: center; }
+  .wm { font-family: 'Playfair Display', serif; font-weight: 800; font-size: 1.3rem; color: #1C1610; margin-bottom: 4px; }
+  .wm span { color: #C85A2A; font-style: italic; }
+  h1 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #1C1610; margin: 18px 0 8px; line-height: 1.3; }
+  .sub { font-size: .88rem; color: #786f60; margin-bottom: 26px; line-height: 1.55; }
+
+  .stars { display: flex; justify-content: center; gap: 8px; margin-bottom: 22px; direction: rtl; }
+  .stars input { display: none; }
+  .stars label { font-size: 2.4rem; line-height: 1; cursor: pointer; color: #ddd5c4; transition: color .15s; }
+  .stars input:checked ~ label,
+  .stars label:hover,
+  .stars label:hover ~ label { color: #E8A23A; }
+
+  textarea { width: 100%; padding: 13px 14px; border: 1.5px solid #e0dccf; border-radius: 10px; font-family: inherit; font-size: .9rem; color: #333; outline: none; resize: vertical; min-height: 90px; margin-bottom: 18px; background: white; }
+  textarea:focus { border-color: #C85A2A; }
+
+  button { width: 100%; background: #C85A2A; color: white; border: none; padding: 15px; border-radius: 10px; font-family: inherit; font-size: .95rem; font-weight: 800; cursor: pointer; transition: background .15s; }
+  button:hover { background: #a94a20; }
+
+  .error { color: #c0392b; font-size: .82rem; margin-bottom: 14px; font-weight: 700; }
+  .privacy { font-size: .72rem; color: #aaa; margin-top: 16px; }
+
+  .done-icon { font-size: 2.6rem; margin-bottom: 10px; }
+  .done-stars { font-size: 1.5rem; color: #E8A23A; margin-bottom: 4px; letter-spacing: 3px; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="wm">Ganga<span>Viaje</span></div>
+
+    {% if done %}
+      <div class="done-icon">🙏</div>
+      <h1>¡Gracias{% if req.name %}, {{ req.name }}{% endif %}!</h1>
+      <div class="done-stars">{{ "★" * req.rating }}{{ "☆" * (5 - req.rating) }}</div>
+      <p class="sub">Tu valoración nos ayuda muchísimo a seguir mejorando las guías. ¡Que disfrutes el viaje!</p>
+    {% else %}
+      <h1>¿Qué te ha parecido tu guía{% if req.destination %} de {{ req.destination.split(' ')[0] }}{% endif %}?</h1>
+      <p class="sub">Un momento, {{ req.name or 'gracias por viajar con nosotros' }} — tu opinión nos ayuda a seguir mejorando.</p>
+
+      {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+      <form method="POST">
+        <div class="stars">
+          <input type="radio" name="rating" id="s5" value="5"><label for="s5">★</label>
+          <input type="radio" name="rating" id="s4" value="4"><label for="s4">★</label>
+          <input type="radio" name="rating" id="s3" value="3"><label for="s3">★</label>
+          <input type="radio" name="rating" id="s2" value="2"><label for="s2">★</label>
+          <input type="radio" name="rating" id="s1" value="1"><label for="s1">★</label>
+        </div>
+        <textarea name="comment" placeholder="Cuéntanos qué tal (opcional) — ¿usaste la ruta? ¿algo que mejorarías?"></textarea>
+        <button type="submit">Enviar valoración</button>
+      </form>
+      <p class="privacy">Podemos mostrar tu valoración (con tu nombre de pila) como ejemplo en la web. Nunca compartimos tu email.</p>
+    {% endif %}
+  </div>
+</body>
+</html>
