@@ -505,6 +505,30 @@ def add_post(post: dict) -> int:
     return post_id
 
 
+def update_post(slug: str, title: str = None, excerpt: str = None, content: str = None):
+    conn = get_conn()
+    cur = conn.cursor()
+    sets, params = [], []
+    if title is not None:
+        sets.append("title = %s")
+        params.append(title)
+    if excerpt is not None:
+        sets.append("excerpt = %s")
+        params.append(excerpt)
+    if content is not None:
+        sets.append("content = %s")
+        params.append(content)
+    if not sets:
+        cur.close()
+        conn.close()
+        return
+    params.append(slug)
+    cur.execute(f"UPDATE posts SET {', '.join(sets)} WHERE slug = %s", params)
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
 def get_posts(limit: int = 30, category: str = None, exclude_category: str | list = None) -> list:
     conn = get_conn()
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
