@@ -150,13 +150,20 @@ def send_weekly() -> dict:
         "from": config.RESEND_FROM,
         "subject": f"🔥 {len(deals)} chollos de viaje seleccionados esta semana",
         "html": html,
-        "send": True,
     })
-    if resp and resp.get("id"):
-        log.info(f"Newsletter: broadcast enviado {resp['id']} con {len(deals)} ofertas")
-        return {"sent": True, "broadcast_id": resp["id"], "deals": len(deals)}
-    log.warning("Newsletter: fallo al crear/enviar el broadcast")
-    return {"sent": False, "reason": "resend error"}
+    if not (resp and resp.get("id")):
+        log.warning("Newsletter: fallo al crear el broadcast")
+        return {"sent": False, "reason": "resend error"}
+
+    # POST /broadcasts no envía por sí solo (la API de Resend ignora "send" en
+    # la creación) — hace falta esta segunda llamada explícita al endpoint /send.
+    send_resp = _req("POST", f"/broadcasts/{resp['id']}/send", {})
+    if send_resp is None:
+        log.warning(f"Newsletter: broadcast {resp['id']} creado pero falló el envío")
+        return {"sent": False, "reason": "resend send error", "broadcast_id": resp["id"]}
+
+    log.info(f"Newsletter: broadcast enviado {resp['id']} con {len(deals)} ofertas")
+    return {"sent": True, "broadcast_id": resp["id"], "deals": len(deals)}
 
 
 def _send_email(to: str, subject: str, html: str) -> bool:
